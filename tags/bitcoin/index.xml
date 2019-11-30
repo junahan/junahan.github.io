@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bitcoin on Junahan - Blog</title>
+    <link>/tags/bitcoin/</link>
+    <description>Recent content in Bitcoin on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 24 Mar 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/bitcoin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>比特币闪电网络介绍</title>
+      <link>/post/bitcoin-lightning-network-introduction/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/bitcoin-lightning-network-introduction/</guid>
+      <description>1摘要 比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用</description>
+    </item>
+    
+  </channel>
+</rss>

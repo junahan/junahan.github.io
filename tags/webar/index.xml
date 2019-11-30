@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WebAR on Junahan - Blog</title>
+    <link>/tags/webar/</link>
+    <description>Recent content in WebAR on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Aug 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/webar/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web AR 101</title>
+      <link>/post/web-ar-s101/</link>
+      <pubDate>Sun, 12 Aug 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/web-ar-s101/</guid>
+      <description>1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推</description>
+    </item>
+    
+  </channel>
+</rss>

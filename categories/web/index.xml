@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Junahan - Blog</title>
+    <link>/categories/web/</link>
+    <description>Recent content in Web on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Mar 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>OKR - 阅读笔记</title>
+      <link>/post/okr/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/okr/</guid>
+      <description>1摘要 本文是一篇读书笔记，综合阅读《这就是 OKR》一书以及 OKR 初学者指南后的一些总结。 2什么是 OKR OKR (目标和关键结果) 是一个由公司、团队和个人协</description>
+    </item>
+    
+  </channel>
+</rss>

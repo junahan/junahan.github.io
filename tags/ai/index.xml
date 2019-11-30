@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on Junahan - Blog</title>
+    <link>/tags/ai/</link>
+    <description>Recent content in AI on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 May 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AI 学习阅读列表</title>
+      <link>/post/ai-reading-list/</link>
+      <pubDate>Tue, 01 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/ai-reading-list/</guid>
+      <description>1简介 本文根据作者学习 AI (特别是深度神经网络) 的一些经验，介绍 AI 学习的阅读列表，主要包括书籍、有关机器学习和深度学习的课程、论文、工具和框架</description>
+    </item>
+    
+  </channel>
+</rss>

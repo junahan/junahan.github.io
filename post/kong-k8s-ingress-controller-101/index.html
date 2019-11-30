@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Kong Kubernetes Ingress Controller 入门 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2" /><meta name="keywords" content="minikube, helm, kubernetes" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/kong-k8s-ingress-controller-101/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Kong Kubernetes Ingress Controller 入门" />
+<meta property="og:description" content="1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/kong-k8s-ingress-controller-101/" />
+<meta property="article:published_time" content="2019-06-02T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-06-09T16:35:20+08:00" />
+<meta itemprop="name" content="Kong Kubernetes Ingress Controller 入门">
+<meta itemprop="description" content="1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2">
+<meta itemprop="datePublished" content="2019-06-02T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-09T16:35:20&#43;08:00" />
+<meta itemprop="wordCount" content="1416">
+
+
+
+<meta itemprop="keywords" content="Minikube,helm," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kong Kubernetes Ingress Controller 入门"/>
+<meta name="twitter:description" content="1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Kong Kubernetes Ingress Controller 入门</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-02 </span>
+        <div class="post-category">
+            <a href="/categories/kubernetes/"> kubernetes </a>
+            </div>
+          <span class="more-meta"> 约 1416 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#摘要">1 摘要</a></li>
+    <li><a href="#部署-kong">2 部署 Kong</a>
+      <ul>
+        <li><a href="#环境准备">2.1 环境准备</a></li>
+        <li><a href="#安装-kong">2.2 安装 Kong</a></li>
+        <li><a href="#设置环境变量">2.3 设置环境变量</a></li>
+        <li><a href="#验证">2.4 验证</a></li>
+        <li><a href="#清理">2.5 清理</a></li>
+      </ul>
+    </li>
+    <li><a href="#部署-hello-应用">3 部署 Hello 应用</a>
+      <ul>
+        <li><a href="#创建一个-hello-应用的-deployment">3.1 创建一个 Hello 应用的 deployment</a></li>
+        <li><a href="#披露-web-服务">3.2 披露 web 服务</a></li>
+        <li><a href="#检验服务已经被创建">3.3 检验服务已经被创建</a></li>
+        <li><a href="#通过-nodeport-访问-hello-服务">3.4 通过 NodePort 访问 Hello 服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建-ingress-资源">4 创建 Ingress 资源</a>
+      <ul>
+        <li><a href="#创建-example-ingress-dot-yaml-内容如下">4.1 创建 example-ingress.yaml, 内容如下：</a></li>
+        <li><a href="#创建-ingress-资源">4.2 创建 Ingress 资源：</a></li>
+        <li><a href="#验证-ip-地址分配">4.3 验证 IP 地址分配：</a></li>
+        <li><a href="#检验-ingress-controller-定向流量">4.4 检验 Ingress Controller 定向流量：</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建第二个-deployment">5 创建第二个 Deployment</a>
+      <ul>
+        <li><a href="#创建-v2-deployment">5.1 创建 v2 Deployment:</a></li>
+        <li><a href="#expose-第二个-deployment">5.2 Expose 第二个 Deployment:</a></li>
+      </ul>
+    </li>
+    <li><a href="#修改-ingress">6 修改 Ingress</a>
+      <ul>
+        <li><a href="#修改-example-ingress-dot-yaml-并添加如下几行">6.1 修改 example-ingress.yaml 并添加如下几行：</a></li>
+        <li><a href="#应用改变">6.2 应用改变</a></li>
+      </ul>
+    </li>
+    <li><a href="#测试-ingress">7 测试 Ingress</a>
+      <ul>
+        <li><a href="#访问第一个版本的-hello-应用">7.1 访问第一个版本的 Hello 应用：</a></li>
+        <li><a href="#访问第二个版本的-hello-应用">7.2 访问第二个版本的 Hello 应用：</a></li>
+      </ul>
+    </li>
+    <li><a href="#不同命名空间-ingress">8 不同命名空间 Ingress</a>
+      <ul>
+        <li><a href="#创建-test-命名空间">8.1 创建 test 命名空间</a></li>
+        <li><a href="#创建-echo-服务于-test-命名空间">8.2 创建 Echo 服务于 test 命名空间</a></li>
+        <li><a href="#披露-echo-服务">8.3 披露 Echo 服务</a></li>
+        <li><a href="#创建-echo-ingress-dot-yaml-内容如下">8.4 创建 echo-ingress.yaml, 内容如下：</a></li>
+        <li><a href="#创建-ingress-资源">8.5 创建 Ingress 资源：</a></li>
+        <li><a href="#验证-ip-地址分配">8.6 验证 IP 地址分配：</a></li>
+        <li><a href="#访问-echo-服务">8.7 访问 Echo 服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文献">9 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-06-09T16:35:20" title="June 9, 2019">June 9, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+<p>本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。</p>
+<h2 id="部署-kong"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 部署 Kong</h2>
+<h3 id="环境准备"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 环境准备</h3>
+<ul>
+<li>已经安装并配置 Kubernetes 集群，可以是 Minikube 环境;</li>
+<li>已经安装 <a href="https://httpie.org/">HTTPie</a> 或者 curl 工具;</li>
+</ul>
+<h3 id="安装-kong"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 安装 Kong</h3>
+<pre><code class="language-nil" data-lang="nil">curl https://raw.githubusercontent.com/Kong/kubernetes-ingress-controller/master/deploy/manifests/dummy-application.yaml \
+  | kubectl create -f -
+</code></pre><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">namespace <span class="s2">&#34;kong&#34;</span> created
+customresourcedefinition <span class="s2">&#34;kongplugins.configuration.konghq.com&#34;</span> created
+customresourcedefinition <span class="s2">&#34;kongconsumers.configuration.konghq.com&#34;</span> created
+customresourcedefinition <span class="s2">&#34;kongcredentials.configuration.konghq.com&#34;</span> created
+service <span class="s2">&#34;postgres&#34;</span> created
+statefulset <span class="s2">&#34;postgres&#34;</span> created
+serviceaccount <span class="s2">&#34;kong-serviceaccount&#34;</span> created
+clusterrole <span class="s2">&#34;kong-ingress-clusterrole&#34;</span> created
+role <span class="s2">&#34;kong-ingress-role&#34;</span> created
+rolebinding <span class="s2">&#34;kong-ingress-role-nisa-binding&#34;</span> created
+clusterrolebinding <span class="s2">&#34;kong-ingress-clusterrole-nisa-binding&#34;</span> created
+service <span class="s2">&#34;kong-ingress-controller&#34;</span> created
+deployment <span class="s2">&#34;kong-ingress-controller&#34;</span> created
+service <span class="s2">&#34;kong-proxy&#34;</span> created
+deployment <span class="s2">&#34;kong&#34;</span> created
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：安装需要等待一段时间才能够完成。要查看安装状况，可以运行 <code>kubectl get pods -n kong</code> 命令查看 Pod 的启动情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">NAME                                       READY   STATUS      RESTARTS   AGE
+kong-55fc577899-7277l                      1/1     Running     <span class="m">0</span>          13h
+kong-ingress-controller-79965c5cf6-tsvj5   2/2     Running     <span class="m">1</span>          13h
+kong-migrations-hdz6p                      0/1     Completed   <span class="m">0</span>          13h
+postgres-0                                 1/1     Running     <span class="m">0</span>          13h
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="设置环境变量"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> 设置环境变量</h3>
+<p>运行如下命令设置环境变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">KONG_ADMIN_PORT</span><span class="o">=</span><span class="k">$(</span>minikube service -n kong kong-ingress-controller --url --format <span class="s2">&#34;{{ .Port }}&#34;</span><span class="k">)</span>
+<span class="nb">export</span> <span class="nv">KONG_ADMIN_IP</span><span class="o">=</span><span class="k">$(</span>minikube service   -n kong kong-ingress-controller --url --format <span class="s2">&#34;{{ .IP }}&#34;</span><span class="k">)</span>
+
+<span class="nb">export</span> <span class="nv">PROXY_IP</span><span class="o">=</span><span class="k">$(</span>minikube   service -n kong kong-proxy --url --format <span class="s2">&#34;{{ .IP }}&#34;</span> <span class="p">|</span> head -1<span class="k">)</span>
+<span class="nb">export</span> <span class="nv">HTTP_PORT</span><span class="o">=</span><span class="k">$(</span>minikube  service -n kong kong-proxy --url --format <span class="s2">&#34;{{ .Port }}&#34;</span> <span class="p">|</span> head -1<span class="k">)</span>
+<span class="nb">export</span> <span class="nv">HTTPS_PORT</span><span class="o">=</span><span class="k">$(</span>minikube service -n kong kong-proxy --url --format <span class="s2">&#34;{{ .Port }}&#34;</span> <span class="p">|</span> tail -1<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>PROXY_IP - 是 Kong Proxy 的访问 IP</li>
+<li>HTTP_PORT - 是 Kong Proxy HTTP 端口</li>
+<li>HTTPS_PORT - 是 Kong Proxy HTTPS 端口</li>
+</ul>
+<h3 id="验证"><!-- raw HTML omitted -->2.4<!-- raw HTML omitted --> 验证</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http <span class="si">${</span><span class="nv">PROXY_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">HTTP_PORT</span><span class="si">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">HTTP/1.1 <span class="m">404</span> Not Found
+Connection: keep-alive
+Content-Length: <span class="m">48</span>
+Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+Date: Thu, <span class="m">06</span> Jun <span class="m">2019</span> 01:10:24 GMT
+Server: kong/1.1.2
+
+<span class="o">{</span>
+    <span class="s2">&#34;message&#34;</span>: <span class="s2">&#34;no Route matched with those values&#34;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="清理"><!-- raw HTML omitted -->2.5<!-- raw HTML omitted --> 清理</h3>
+<p>如不再需要 Kong，可以运行如下命令清理 Kong 相关资源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl delete crd KongPlugin
+kubectl delete crd KongConsumer
+kubectl delete crd KongCredential
+kubectl delete crd KongIngress
+kubectl delete ing foo-bar
+Kubectl delete ing secure-foo-bar
+kubectl delete secret tls-secret
+kubectl delete namespace kong
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="部署-hello-应用"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 部署 Hello 应用</h2>
+<h3 id="创建一个-hello-应用的-deployment"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 创建一个 Hello 应用的 deployment</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run web --image<span class="o">=</span>gcr.azk8s.cn/google-samples/hello-app:1.0 --port<span class="o">=</span><span class="m">8080</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出如下：</p>
+<pre><code class="language-console" data-lang="console">deployment.apps/web created
+</code></pre><blockquote>
+<p>注意：这里使用 gcr.azk8s.cn proxy 以顺利的下载 gcr.io 仓库包。</p>
+</blockquote>
+<h3 id="披露-web-服务"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 披露 web 服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl expose deployment web --target-port<span class="o">=</span><span class="m">8080</span> --type<span class="o">=</span>NodePort
+</code></pre></td></tr></table>
+</div>
+</div><p>输出如下：</p>
+<pre><code class="language-console" data-lang="console">service/web exposed
+</code></pre><h3 id="检验服务已经被创建"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 检验服务已经被创建</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get service web
+</code></pre></td></tr></table>
+</div>
+</div><p>输出如下：</p>
+<pre><code class="language-console" data-lang="console">NAME   TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+web    NodePort   10.107.200.229   &lt;none&gt;        8080:31597/TCP   18s
+</code></pre><h3 id="通过-nodeport-访问-hello-服务"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 通过 NodePort 访问 Hello 服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">minikube service web --url
+</code></pre></td></tr></table>
+</div>
+</div><p>输出如下：</p>
+<pre><code class="language-console" data-lang="console">http://192.168.99.113:31579
+</code></pre><p>运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http 192.168.99.113:31597
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">HTTP/1.1 <span class="m">200</span> OK
+Content-Length: <span class="m">60</span>
+Content-Type: text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+Date: Fri, <span class="m">07</span> Jun <span class="m">2019</span> 09:09:19 GMT
+
+Hello, world!
+Version: 1.0.0
+Hostname: web-77f97c6cc7-ztsln
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建-ingress-资源"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 创建 Ingress 资源</h2>
+<p>如下文件是一个 Ingress 资源定义 - 通过 hello-world 发送流量到 Hello Service。</p>
+<h3 id="创建-example-ingress-dot-yaml-内容如下"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 创建 <code>example-ingress.yaml</code>, 内容如下：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>example-ingress<span class="w">
+</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">
+</span><span class="w">    </span>ingress.kubernetes.io/rewrite-target<span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w"> </span>rules<span class="p">:</span><span class="w">
+</span><span class="w"> </span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>hello-world<span class="w">
+</span><span class="w">   </span>http<span class="p">:</span><span class="w">
+</span><span class="w">     </span>paths<span class="p">:</span><span class="w">
+</span><span class="w">     </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/v1/<span class="w">
+</span><span class="w">       </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">         </span>serviceName<span class="p">:</span><span class="w"> </span>web<span class="w">
+</span><span class="w">         </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建-ingress-资源"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 创建 Ingress 资源：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl apply -f example-ingress.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">ingress.extensions/example-ingress created
+</code></pre><h3 id="验证-ip-地址分配"><!-- raw HTML omitted -->4.3<!-- raw HTML omitted --> 验证 IP 地址分配：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get ingress
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">NAME              HOSTS              ADDRESS     PORTS   AGE
+example-ingress   hello-world        10.0.2.15   80      23m
+</code></pre><h3 id="检验-ingress-controller-定向流量"><!-- raw HTML omitted -->4.4<!-- raw HTML omitted --> 检验 Ingress Controller 定向流量：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http <span class="si">${</span><span class="nv">PROXY_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">HTTP_PORT</span><span class="si">}</span>/v1 Host:hello-world
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>PROXY_IP - Kong Proxy IP 地址</li>
+<li>HTTP_PORT - Kong Proxy HTTP 端口</li>
+</ul>
+<p>输出：</p>
+<pre><code class="language-console" data-lang="console">HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 60
+Content-Type: text/plain; charset=utf-8
+Date: Sun, 02 Jun 2019 14:25:23 GMT
+Proxy-Connection: keep-alive
+Via: kong/1.1.2
+X-Kong-Proxy-Latency: 0
+X-Kong-Upstream-Latency: 0
+
+Hello, world!
+Version: 1.0.0
+Hostname: web-77f97c6cc7-ztsln
+</code></pre><h2 id="创建第二个-deployment"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 创建第二个 Deployment</h2>
+<h3 id="创建-v2-deployment"><!-- raw HTML omitted -->5.1<!-- raw HTML omitted --> 创建 v2 Deployment:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run web2 --image<span class="o">=</span>gcr.azk8s.cn/google-samples/hello-app:2.0 --port<span class="o">=</span><span class="m">8080</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">deployment.apps/web2 created
+</code></pre><h3 id="expose-第二个-deployment"><!-- raw HTML omitted -->5.2<!-- raw HTML omitted --> Expose 第二个 Deployment:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl expose deployment web2 --target-port<span class="o">=</span><span class="m">8080</span> --type<span class="o">=</span>NodePort
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">service/web2 exposed
+</code></pre><h2 id="修改-ingress"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 修改 Ingress</h2>
+<h3 id="修改-example-ingress-dot-yaml-并添加如下几行"><!-- raw HTML omitted -->6.1<!-- raw HTML omitted --> 修改 <code>example-ingress.yaml</code> 并添加如下几行：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/v2/<span class="w">
+</span><span class="w">  </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">    </span>serviceName<span class="p">:</span><span class="w"> </span>web2<span class="w">
+</span><span class="w">    </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="应用改变"><!-- raw HTML omitted -->6.2<!-- raw HTML omitted --> 应用改变</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl apply -f example-ingress.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">ingress.extensions/example-ingress configured
+</code></pre><h2 id="测试-ingress"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 测试 Ingress</h2>
+<h3 id="访问第一个版本的-hello-应用"><!-- raw HTML omitted -->7.1<!-- raw HTML omitted --> 访问第一个版本的 Hello 应用：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http <span class="si">${</span><span class="nv">PROXY_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">HTTP_PORT</span><span class="si">}</span>/v1 Host:hello-world.info
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 60
+Content-Type: text/plain; charset=utf-8
+Date: Sun, 02 Jun 2019 14:56:22 GMT
+Proxy-Connection: keep-alive
+Via: kong/1.1.2
+X-Kong-Proxy-Latency: 10
+X-Kong-Upstream-Latency: 1
+
+Hello, world!
+Version: 1.0.0
+Hostname: web-77f97c6cc7-ztsln
+</code></pre><h3 id="访问第二个版本的-hello-应用"><!-- raw HTML omitted -->7.2<!-- raw HTML omitted --> 访问第二个版本的 Hello 应用：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http <span class="si">${</span><span class="nv">PROXY_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">HTTP_PORT</span><span class="si">}</span>/v2 Host:hello-world.info
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 60
+Content-Type: text/plain; charset=utf-8
+Date: Sun, 02 Jun 2019 15:05:57 GMT
+Proxy-Connection: keep-alive
+Via: kong/1.1.2
+X-Kong-Proxy-Latency: 12
+X-Kong-Upstream-Latency: 0
+
+Hello, world!
+Version: 2.0.0
+Hostname: web2-bffcbf764-fdxqh
+</code></pre><h2 id="不同命名空间-ingress"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 不同命名空间 Ingress</h2>
+<h3 id="创建-test-命名空间"><!-- raw HTML omitted -->8.1<!-- raw HTML omitted --> 创建 <code>test</code> 命名空间</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl create namespace <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">namespace/test created
+</code></pre><h3 id="创建-echo-服务于-test-命名空间"><!-- raw HTML omitted -->8.2<!-- raw HTML omitted --> 创建 Echo 服务于 <code>test</code> 命名空间</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl run <span class="nb">echo</span> --image<span class="o">=</span>jmalloc/echo-server --port<span class="o">=</span><span class="m">8080</span> --namespace <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">deployment.apps/echo created
+</code></pre><h3 id="披露-echo-服务"><!-- raw HTML omitted -->8.3<!-- raw HTML omitted --> 披露 Echo 服务</h3>
+<p>通过 Node Port 披露 Echo 服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl expose deployment <span class="nb">echo</span> --target-port<span class="o">=</span><span class="m">8080</span> --type<span class="o">=</span>NodePort -n <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">service/echo exposed
+</code></pre><p>查看 Echo 服务 URL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">minikube service <span class="nb">echo</span> --url -n <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http://192.168.99.113:31833
+</code></pre></td></tr></table>
+</div>
+</div><p>通过 Node Port 访问 Echo 服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http 192.168.99.113:31833
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">HTTP/1.1 <span class="m">200</span> OK
+Content-Length: <span class="m">176</span>
+Content-Type: text/plain
+Date: Fri, <span class="m">07</span> Jun <span class="m">2019</span> 09:21:57 GMT
+
+Request served by echo-77bc6b5f49-ktcjz
+
+HTTP/1.1 GET /
+
+Host: 192.168.99.113:31833
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+User-Agent: HTTPie/1.0.2
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建-echo-ingress-dot-yaml-内容如下"><!-- raw HTML omitted -->8.4<!-- raw HTML omitted --> 创建 <code>echo-ingress.yaml</code>, 内容如下：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">apiVersion<span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span>kind<span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>echo-ingress<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>test<span class="w">
+</span><span class="w">  </span>annotations<span class="p">:</span><span class="w">
+</span><span class="w">    </span>ingress.kubernetes.io/rewrite-target<span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w"> </span>rules<span class="p">:</span><span class="w">
+</span><span class="w"> </span>-<span class="w"> </span>host<span class="p">:</span><span class="w"> </span>echo.test<span class="w">
+</span><span class="w">   </span>http<span class="p">:</span><span class="w">
+</span><span class="w">     </span>paths<span class="p">:</span><span class="w">
+</span><span class="w">     </span>-<span class="w"> </span>path<span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">       </span>backend<span class="p">:</span><span class="w">
+</span><span class="w">         </span>serviceName<span class="p">:</span><span class="w"> </span>echo<span class="w">
+</span><span class="w">         </span>servicePort<span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建-ingress-资源"><!-- raw HTML omitted -->8.5<!-- raw HTML omitted --> 创建 Ingress 资源：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl apply -f echo-ingress.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<pre><code class="language-console" data-lang="console">ingress.extensions/echo-ingress created
+</code></pre><h3 id="验证-ip-地址分配"><!-- raw HTML omitted -->8.6<!-- raw HTML omitted --> 验证 IP 地址分配：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get ingress -n <span class="nb">test</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">NAME           HOSTS       ADDRESS     PORTS   AGE
+echo-ingress   echo.test   10.0.2.15   <span class="m">80</span>      11m
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="访问-echo-服务"><!-- raw HTML omitted -->8.7<!-- raw HTML omitted --> 访问 Echo 服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">http <span class="si">${</span><span class="nv">PROXY_IP</span><span class="si">}</span>:<span class="si">${</span><span class="nv">HTTP_PORT</span><span class="si">}</span>/ Host:echo.test
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">HTTP/1.1 <span class="m">200</span> OK
+Connection: keep-alive
+Content-Length: <span class="m">290</span>
+Content-Type: text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8
+Date: Fri, <span class="m">07</span> Jun <span class="m">2019</span> 09:23:57 GMT
+Via: kong/1.1.2
+X-Kong-Proxy-Latency: <span class="m">0</span>
+X-Kong-Upstream-Latency: <span class="m">1</span>
+
+Request served by echo-77bc6b5f49-ktcjz
+
+HTTP/1.1 GET /
+
+Host: echo.test
+X-Forwarded-Proto: http
+X-Forwarded-Host: echo.test
+X-Forwarded-Port: <span class="m">8000</span>
+X-Real-Ip: 172.17.0.1
+Connection: keep-alive
+X-Forwarded-For: 172.17.0.1
+User-Agent: HTTPie/1.0.2
+Accept-Encoding: gzip, deflate
+Accept: */*
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考文献"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li>Kong kubernetes ingress controller, <a href="https://github.com/Kong/kubernetes-ingress-controller">https://github.com/Kong/kubernetes-ingress-controller</a>.</li>
+<li>Kong Ingress on Minikube, <a href="https://github.com/Kong/kubernetes-ingress-controller/blob/master/docs/deployment/minikube.md">https://github.com/Kong/kubernetes-ingress-controller/blob/master/docs/deployment/minikube.md</a></li>
+<li>Kong 与 Kubernetes 集成（Ingress), <a href="https://www.jianshu.com/p/520570bc171c">https://www.jianshu.com/p/520570bc171c</a></li>
+<li>Set up Ingress on Minikube with the NGINX Ingress Controller, <a href="https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/">https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/</a></li>
+<li>Asure gcr proxy, <a href="http://mirror.azk8s.cn/help/gcr-proxy-cache.html">http://mirror.azk8s.cn/help/gcr-proxy-cache.html</a></li>
+<li>HTTPie, <a href="https://httpie.org/">https://httpie.org/</a></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-06-09
+        <a href="/commit/2a2ed8e5134f216921e5a94ae78d5ea7c456a9e2" title="Many changes.">(2a2ed8e)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/minikube/">Minikube</a>
+          <a href="/tags/helm/">helm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/how-the-economic-machine-works/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">经济机器是如何运作的？ - 笔记大纲</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/minikube-helm-101/">
+            <span class="next-text nav-default">Minikube &#43; Helm 搭建本地 k8s 环境</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

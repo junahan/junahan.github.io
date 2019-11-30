@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>emacs on Junahan - Blog</title>
+    <link>/tags/emacs/</link>
+    <description>Recent content in emacs on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用 Emacs Mu4e 作为邮件客户端</title>
+      <link>/post/emacs-mu4e/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-mu4e/</guid>
+      <description>1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em</description>
+    </item>
+    
+    <item>
+      <title>学习 Emacs Org - 工具和配置</title>
+      <link>/post/learning-emacs-org-tools-and-conf/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/learning-emacs-org-tools-and-conf/</guid>
+      <description>本文是学习使用 ORG 系列中的第一篇，该系列是在学习过程中逐步整理而成，仍然在不断更新之中。在本文中，我们将介绍 Emacs org 模块的一些基本功能，一些学习心</description>
+    </item>
+    
+    <item>
+      <title>Emacs SQL Mode 介绍</title>
+      <link>/post/emacs-sql/</link>
+      <pubDate>Sat, 26 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-sql/</guid>
+      <description>1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给</description>
+    </item>
+    
+  </channel>
+</rss>

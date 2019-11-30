@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Emacs SQL Mode 介绍 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/emacs-sql/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Emacs SQL Mode 介绍" />
+<meta property="og:description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/emacs-sql/" />
+<meta property="article:published_time" content="2019-10-26T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-11-10T12:53:54+08:00" />
+<meta itemprop="name" content="Emacs SQL Mode 介绍">
+<meta itemprop="description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给">
+<meta itemprop="datePublished" content="2019-10-26T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-10T12:53:54&#43;08:00" />
+<meta itemprop="wordCount" content="830">
+
+
+
+<meta itemprop="keywords" content="emacs,sql," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Emacs SQL Mode 介绍"/>
+<meta name="twitter:description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Emacs SQL Mode 介绍</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-26 </span>
+        <div class="post-category">
+            <a href="/categories/emacs/"> Emacs </a>
+            </div>
+          <span class="more-meta"> 约 830 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#摘要">1 摘要</a></li>
+    <li><a href="#sqli-mode">2 SQLi Mode</a>
+      <ul>
+        <li><a href="#配置">2.1 配置</a></li>
+        <li><a href="#基本使用">2.2 基本使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#org-sql">3 Org SQL</a>
+      <ul>
+        <li><a href="#sql-代码块示例">3.1 SQL 代码块示例</a></li>
+        <li><a href="#通过-header-参数提供链接信息">3.2 通过 Header 参数提供链接信息</a></li>
+        <li><a href="#通过-properties-提供链接信息">3.3 通过 PROPERTIES 提供链接信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文献">4 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+<p>工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给数据库服务器执行并得到结果。本文汇总 Emacs SQL 的相关配置和基本使用。</p>
+<h2 id="sqli-mode"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> SQLi Mode</h2>
+<p>SQLi mode 是一个交互式 SQL 模块 - 是对 SQL 数据库客户端的封装。该模块内置于 Emacs 发行版中，可以和很多 SQL 客户端一起工作。</p>
+<ul>
+<li>psql by PostgreSQL</li>
+<li>mysql by MySQL</li>
+<li>sqlite or sqlite3 for SQLite</li>
+<li>solsql by Solid</li>
+<li>SQL*Plus by Oracle</li>
+<li>dbaccess by Informix</li>
+<li>isql by SyBase</li>
+<li>sql by Ingres</li>
+<li>osql by MS SQL Server</li>
+<li>isql by Interbase</li>
+<li>db2 by DB2 (IBM)</li>
+<li>inl by RELEX</li>
+</ul>
+<h3 id="配置"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 配置</h3>
+<p>建议使用大牛 <a href="https://github.com/purcell/emacs.d/blob/master/lisp/init-sql.el">purcell 的 SQL 配置</a> (我就是这么做的)。</p>
+<h3 id="基本使用"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 基本使用</h3>
+<h4 id="链接数据库"><!-- raw HTML omitted -->2.2.1<!-- raw HTML omitted --> 链接数据库</h4>
+<p>以 MySQL 为例。</p>
+<ul>
+<li>执行 <code>M-x sql-mysql</code> 命令进入交互式提示，根据提示输入相应的用户、密码、数据库等信息，以建立到数据库的链接。</li>
+<li>可以执行 <code>M-x sql-save-connection</code> 保存链接信息（默认保存至 custom.el)。</li>
+</ul>
+<h4 id="关联-sqli-buffer"><!-- raw HTML omitted -->2.2.2<!-- raw HTML omitted --> 关联 SQLi Buffer</h4>
+<ul>
+<li>在当前 <code>.sql</code> 文件中（SQL mode)，通过 <code>M-x sql-set-product</code> 命令指定当前缓冲区使用何种 SQL 方言。默认使用 <code>SQL(ANSI)</code> 。</li>
+<li>通过运行 <code>M-x sql-set-sqli-buffer</code> 选择要关联的 SQLi buffer，随后可以将任意 SQL 脚本送至该 SQLi buffer 执行。</li>
+</ul>
+<h4 id="执行-sql"><!-- raw HTML omitted -->2.2.3<!-- raw HTML omitted --> 执行 SQL</h4>
+<p>在 <code>.sql</code> 文件中，使用如下快捷键发送 SQL 至 SQLi buffer 以执行 SQL。</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-c C-c</td>
+<td>sql-send-paragraph</td>
+<td>发送段落 (前后空行为一个段落)</td>
+</tr>
+<tr>
+<td>C-c C-r</td>
+<td>sql-send-region</td>
+<td>发送选择区域</td>
+</tr>
+<tr>
+<td>C-c C-b</td>
+<td>sql-send-buffer</td>
+<td>发送整个 buffer</td>
+</tr>
+<tr>
+<td>C-c C-s</td>
+<td>sql-send-string</td>
+<td>发送字符串</td>
+</tr>
+</tbody>
+</table>
+<h4 id="调整-sqli-buffer-显示"><!-- raw HTML omitted -->2.2.4<!-- raw HTML omitted --> 调整 SQLi Buffer 显示</h4>
+<p>SQLi buffer 默认显示会导致很多列的显示折行，可以运行 <code>M-x toggle-truncate-lines</code> 调整显示模式。</p>
+<h2 id="org-sql"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> Org SQL</h2>
+<p>Emacs org 支持 SQL 代码块。通过命令 <code>C-c C-c</code> 即可执行 SQL 代码块并显示相应的结果。</p>
+<h3 id="sql-代码块示例"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> SQL 代码块示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">#+BEGIN_SRC sql :engine mysql :dbhost localhost :dbuser root :database test :export both
+SELECT 1;
+#+END_SRC
+
+#+RESULTS:
+| 1 |
+|---|
+| 1 |
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="通过-header-参数提供链接信息"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 通过 Header 参数提供链接信息</h3>
+<p>通过定义 header 参数提供数据库链接信息，该方法仅适用于特定的 SQL 代码块。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">#+header: :engine mysql
+#+header: :dbhost localhost
+#+header: :dbuser root
+#+header: :database test
+#+BEGIN_SRC sql
+SELECT 1;
+#+END_SRC
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="通过-properties-提供链接信息"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 通过 PROPERTIES 提供链接信息</h3>
+<p>该方法可以在一个 Org 标题 <code>:PROPERTIES:</code> 内加入 header 参数提供链接信息，该方法可以在该 Org 标题下共享链接信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">\** 设置 MySQL 数据链接
+  :PROPERTIES:
+  :header-args: :engine mysql :dbhost localhost :dbuser root :database test
+  :exports:  both
+  :END:
+#+BEGIN_SRC sql
+SELECT 1;
+#+END_SRC
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li><a href="https://www.emacswiki.org/emacs/SqlMode">Sql Mode</a> - specialized comint.el for SQL interpreters。</li>
+<li>大牛 <a href="https://github.com/purcell/emacs.d/blob/master/lisp/init-sql.el">purcell 的 SQL 配置</a> 。</li>
+<li><a href="https://repo.or.cz/w/emacs.git/blob/HEAD:/lisp/progmodes/sql.el">sql.el</a> - sql-mode 代码库。</li>
+<li><a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sql.html">SQL Source Code Blocks in Org Mode</a>,</li>
+<li><a href="https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client">Setup Emacs as an SQL Database client - Part 1</a>, by <a href="https://truongtx.me/categories.html#emacs-ref">Emacs</a>, 2014.</li>
+<li><a href="http://www.howardism.org/Technical/Emacs/literate-database.html">Literate Database Work</a>, by <a href="http://www.howardism.org/Technical/Emacs/literate-database.html">Howardisms</a>, 2015.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-10
+        <a href="/commit/dfccfb8c8124be9929bb98954d2e385d92101205" title="many changes.">(dfccfb8)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/emacs/">emacs</a>
+          <a href="/tags/sql/">sql</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/learning-emacs-org-tools-and-conf/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">学习 Emacs Org - 工具和配置</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/how-the-economic-machine-works/">
+            <span class="next-text nav-default">经济机器是如何运作的？ - 笔记大纲</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

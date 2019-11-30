@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GPG on Junahan - Blog</title>
+    <link>/tags/gpg/</link>
+    <description>Recent content in GPG on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Jun 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何发布项目包至 Maven 中心仓库</title>
+      <link>/post/release-package-to-maven-centre-repository-101/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/release-package-to-maven-centre-repository-101/</guid>
+      <description>1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本</description>
+    </item>
+    
+  </channel>
+</rss>

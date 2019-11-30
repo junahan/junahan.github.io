@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Junahan - Blog</title>
+    <link>/</link>
+    <description>Recent content on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>这里是 Junhan 的个人网站 - 关注分布式计算和 AI 技术。 联系我</description>
+    </item>
+    
+    <item>
+      <title>使用 Emacs Mu4e 作为邮件客户端</title>
+      <link>/post/emacs-mu4e/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-mu4e/</guid>
+      <description>1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em</description>
+    </item>
+    
+    <item>
+      <title>学习 Emacs Org - 工具和配置</title>
+      <link>/post/learning-emacs-org-tools-and-conf/</link>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/learning-emacs-org-tools-and-conf/</guid>
+      <description>本文是学习使用 ORG 系列中的第一篇，该系列是在学习过程中逐步整理而成，仍然在不断更新之中。在本文中，我们将介绍 Emacs org 模块的一些基本功能，一些学习心</description>
+    </item>
+    
+    <item>
+      <title>Emacs SQL Mode 介绍</title>
+      <link>/post/emacs-sql/</link>
+      <pubDate>Sat, 26 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-sql/</guid>
+      <description>1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给</description>
+    </item>
+    
+    <item>
+      <title>经济机器是如何运作的？ - 笔记大纲</title>
+      <link>/post/how-the-economic-machine-works/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/how-the-economic-machine-works/</guid>
+      <description>1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图</description>
+    </item>
+    
+    <item>
+      <title>Kong Kubernetes Ingress Controller 入门</title>
+      <link>/post/kong-k8s-ingress-controller-101/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/kong-k8s-ingress-controller-101/</guid>
+      <description>1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2</description>
+    </item>
+    
+    <item>
+      <title>Minikube &#43; Helm 搭建本地 k8s 环境</title>
+      <link>/post/minikube-helm-101/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/minikube-helm-101/</guid>
+      <description>1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
+    </item>
+    
+    <item>
+      <title>阅读清单 - 2019</title>
+      <link>/post/reading-list/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/reading-list/</guid>
+      <description>这里是我个人的阅读清单，自 2018 年开始逐年更新。 12019 阅读清单 (未完待续) 《高效能人士的七个习惯》(The Seven Habits of Highly Effective People) - [美]史蒂芬·柯维（Step</description>
+    </item>
+    
+    <item>
+      <title>OKR - 阅读笔记</title>
+      <link>/post/okr/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/okr/</guid>
+      <description>1摘要 本文是一篇读书笔记，综合阅读《这就是 OKR》一书以及 OKR 初学者指南后的一些总结。 2什么是 OKR OKR (目标和关键结果) 是一个由公司、团队和个人协</description>
+    </item>
+    
+    <item>
+      <title>流媒体服务器 101</title>
+      <link>/post/streaming-server-101/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/streaming-server-101/</guid>
+      <description>1摘要 针对流媒体播放服务器和客户端做的一个调查汇总。 2H5 player vedio.js - Video.js is a web video player built from the ground up for an HTML5 world. It supports HTML5 and Flash video, as well as YouTube and Vimeo (through plugins). It supports video playback on desktops and mobile devices. This project</description>
+    </item>
+    
+    <item>
+      <title>Web AR 101</title>
+      <link>/post/web-ar-s101/</link>
+      <pubDate>Sun, 12 Aug 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/web-ar-s101/</guid>
+      <description>1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推</description>
+    </item>
+    
+    <item>
+      <title>Fabric CA 用户手册</title>
+      <link>/post/fabric-ca-user-guide-cn/</link>
+      <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-ca-user-guide-cn/</guid>
+      <description>1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
+    </item>
+    
+    <item>
+      <title>Fabric 入门</title>
+      <link>/post/fabric-geting-start/</link>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-geting-start/</guid>
+      <description>1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具</description>
+    </item>
+    
+    <item>
+      <title>Envoy 通用数据平面 API</title>
+      <link>/post/envoy-the-universal-data-plane-api-cn/</link>
+      <pubDate>Fri, 06 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/envoy-the-universal-data-plane-api-cn/</guid>
+      <description>原文 - The universal data plane API, by mattklein123. 译文 - by Jonahan. 就像我之前说的那样，在如此短的时间内围绕 Envoy 的兴奋以及其采用速度令人既惊叹又谦卑。我常常问自己：是那个方面因素导</description>
+    </item>
+    
+    <item>
+      <title>如何发布项目包至 Maven 中心仓库</title>
+      <link>/post/release-package-to-maven-centre-repository-101/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/release-package-to-maven-centre-repository-101/</guid>
+      <description>1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本</description>
+    </item>
+    
+    <item>
+      <title>Solidity 开发工具组合 - In Mac</title>
+      <link>/post/solidity-dev-env/</link>
+      <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/solidity-dev-env/</guid>
+      <description>1摘要 本文根据作者搭建 Solidity 开发环境的经验，做了一些基本梳理，并推荐了逐步进阶的工具套件组合。 提醒：本文提到的相关环境仅在 Mac OS - Darwin Kernel Version 17.5.0 上搭建和</description>
+    </item>
+    
+    <item>
+      <title>AI 学习阅读列表</title>
+      <link>/post/ai-reading-list/</link>
+      <pubDate>Tue, 01 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/ai-reading-list/</guid>
+      <description>1简介 本文根据作者学习 AI (特别是深度神经网络) 的一些经验，介绍 AI 学习的阅读列表，主要包括书籍、有关机器学习和深度学习的课程、论文、工具和框架</description>
+    </item>
+    
+    <item>
+      <title>比特币闪电网络介绍</title>
+      <link>/post/bitcoin-lightning-network-introduction/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/bitcoin-lightning-network-introduction/</guid>
+      <description>1摘要 比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighting</title>
+      <link>/post/syntax-highlighting/</link>
+      <pubDate>Mon, 01 Jan 2018 16:01:23 +0800</pubDate>
+      
+      <guid>/post/syntax-highlighting/</guid>
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloWorld&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Hello, World!&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

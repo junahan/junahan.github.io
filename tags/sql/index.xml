@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sql on Junahan - Blog</title>
+    <link>/tags/sql/</link>
+    <description>Recent content in sql on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 26 Oct 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Emacs SQL Mode 介绍</title>
+      <link>/post/emacs-sql/</link>
+      <pubDate>Sat, 26 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-sql/</guid>
+      <description>1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给</description>
+    </item>
+    
+  </channel>
+</rss>

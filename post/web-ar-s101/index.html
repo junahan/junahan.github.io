@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Web AR 101 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" /><meta name="keywords" content="web, ar" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/web-ar-s101/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Web AR 101" />
+<meta property="og:description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/web-ar-s101/" />
+<meta property="article:published_time" content="2018-08-12T00:00:00+08:00" />
+<meta property="article:modified_time" content="2018-08-26T12:30:04+08:00" />
+<meta itemprop="name" content="Web AR 101">
+<meta itemprop="description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推">
+<meta itemprop="datePublished" content="2018-08-12T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-26T12:30:04&#43;08:00" />
+<meta itemprop="wordCount" content="667">
+
+
+
+<meta itemprop="keywords" content="WebAR," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Web AR 101"/>
+<meta name="twitter:description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Web AR 101</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-12 </span>
+        <div class="post-category">
+            <a href="/categories/ar/"> AR </a>
+            </div>
+          <span class="more-meta"> 约 667 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#摘要">1 摘要</a></li>
+    <li><a href="#技术框架">2 技术框架</a>
+      <ul>
+        <li><a href="#webaronarkit-和-webaronarcore">2.1 WebARonARKit 和 WebARonARCore</a></li>
+        <li><a href="#three-dot-ar-dot-js">2.2 Three.ar.js</a></li>
+        <li><a href="#ar-dot-js">2.3 AR.js</a></li>
+      </ul>
+    </li>
+    <li><a href="#推荐阅读">3 推荐阅读</a></li>
+    <li><a href="#参考文献">4 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2018-08-26T12:30:04" title="August 26, 2018">August 26, 2018</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+<p>通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推动项技术的发展。相关标准和 AR 框架的介绍，请参阅由 <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">GeekPlux</a> 撰写的文章 - <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">Web 前端中的增强现实 (AR) 开发技术</a>。</p>
+<h2 id="技术框架"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 技术框架</h2>
+<h3 id="webaronarkit-和-webaronarcore"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> WebARonARKit 和 WebARonARCore</h3>
+<ul>
+<li><a href="https://github.com/google-ar/WebARonARKit">WebARonARKit</a> - 是一个实验性的 iOS 应用，用于开发者使用 web 技术创建 AR 应用实验。</li>
+<li><a href="https://github.com/google-ar/WebARonARCore">WebARonARCore</a> - 是一个实验性的 Android 应用, 用于开发者使用 web 技术创建 AR 应用实验。</li>
+</ul>
+<h3 id="three-dot-ar-dot-js"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> Three.ar.js</h3>
+<p><a href="https://github.com/google-ar/three.ar.js">Thee.ar.js</a> 是一个 <a href="https://threejs.org/">three.js</a> 库的辅助类库，其运行于 <a href="https://github.com/google-ar/WebARonARKit">WebARonARKit</a> 和 <a href="https://github.com/google-ar/WebARonARCore">WebARonARCore</a>，用于构建 Web AR 应用。</p>
+<h3 id="ar-dot-js"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> AR.js</h3>
+<p><a href="https://jeromeetienne.github.io/AR.js/">AR.js</a> 是一个 Web AR 框架，作者 <a href="https://twitter.com/jerome%5Fetienne">Jerome Etienne</a>。该框架特点：</p>
+<ul>
+<li>快速：可以高效的运行在智能手机上 (60 fps) ；</li>
+<li>基于 Web：完全基于 Web，无需安装。 纯 javascrip 实现，基于 three.js + jsartoolkit5；</li>
+<li>开源：完全开源且免费；</li>
+<li>标准：工作于任何支持 <a href="http://caniuse.com/#feat=webgl">webgl</a> 和 <a href="http://caniuse.com/#feat=stream">webrtc</a> 的智能手机；</li>
+</ul>
+<h2 id="推荐阅读"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 推荐阅读</h2>
+<ol>
+<li><a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">Web 前端中的增强现实 (AR) 开发技术</a> by <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">GeekpPlux</a> - 该文详细的介绍了 Web AR 相关标准 (W3C <a href="https://www.w3.org/community/webvr/">WebVR  Group</a>) 和两个重要框架 (<a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> 和 <a href="https://github.com/jeromeetienne/AR.js">ar.js</a>) 的进展。</li>
+<li><a href="https://medium.com/arjs/webvr-for-augmented-reality-f1e69a505902">WebAR for Augmented Reality</a> by <a href="https://medium.com/@jerome%5Fetienne">Jerome Etienne</a> - 该文介绍了为什么 WebVR 相关标准和技术也适用于 WebAR 并倡导融合标准和框架。</li>
+<li><a href="http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml">Web 前端也能做的 AR 互动</a> by <a href="http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml">Tgideas</a> - 该文结合一个实际的项目介绍了在浏览器上实现 AR 互动的经验和遇到的问题。</li>
+</ol>
+<h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li>WebVR，<a href="https://webvr.info/">https://webvr.info/</a>.</li>
+<li>W3 WebVR 工作组, <a href="https://www.w3.org/community/immersive-web/">https://www.w3.org/community/immersive-web/</a>.</li>
+<li>Web 前端中的增强现实（AR）开发技术，<a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html</a>.</li>
+<li>WebVR for Argmented Reality, <a href="https://medium.com/arjs/webvr-for-augmented-reality-f1e69a505902">https://medium.com/arjs/webvr-for-augmented-reality-f1e69a505902</a>.</li>
+<li>WebVR API extendsion for smartphone AR, <a href="https://github.com/google-ar/three.ar.js/blob/master/webvr%5Far%5Fextension.md">https://github.com/google-ar/three.ar.js/blob/master/webvr%5Far%5Fextension.md</a>.</li>
+<li>AR.js - Augmented Reality for the Web, <a href="https://jeromeetienne.github.io/AR.js/">https://jeromeetienne.github.io/AR.js/</a>.</li>
+<li>WebRTC, <a href="https://webrtc.org">https://webrtc.org</a>.</li>
+<li>Web 前端也能做的 AR 互动, <a href="http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml">http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml</a>.</li>
+<li>WebARonARKit, <a href="https://github.com/google-ar/WebARonARKit">https://github.com/google-ar/WebARonARKit</a>.</li>
+<li>WebARonARCore, <a href="https://github.com/google-ar/WebARonARCore">https://github.com/google-ar/WebARonARCore</a>.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-08-26
+        <a href="/commit/6c341f0c525f0ecbd7bac5ced0f14d20de1bee1a" title="update Fabtic CA document and add webAR document.">(6c341f0)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/webar/">WebAR</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/streaming-server-101/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">流媒体服务器 101</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/fabric-ca-user-guide-cn/">
+            <span class="next-text nav-default">Fabric CA 用户手册</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

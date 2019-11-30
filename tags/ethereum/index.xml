@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ethereum on Junahan - Blog</title>
+    <link>/tags/ethereum/</link>
+    <description>Recent content in Ethereum on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 04 May 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/ethereum/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Solidity 开发工具组合 - In Mac</title>
+      <link>/post/solidity-dev-env/</link>
+      <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/solidity-dev-env/</guid>
+      <description>1摘要 本文根据作者搭建 Solidity 开发环境的经验，做了一些基本梳理，并推荐了逐步进阶的工具套件组合。 提醒：本文提到的相关环境仅在 Mac OS - Darwin Kernel Version 17.5.0 上搭建和</description>
+    </item>
+    
+  </channel>
+</rss>

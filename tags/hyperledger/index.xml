@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyperledger on Junahan - Blog</title>
+    <link>/tags/hyperledger/</link>
+    <description>Recent content in Hyperledger on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 16 Jul 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/hyperledger/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fabric 入门</title>
+      <link>/post/fabric-geting-start/</link>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-geting-start/</guid>
+      <description>1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具</description>
+    </item>
+    
+  </channel>
+</rss>

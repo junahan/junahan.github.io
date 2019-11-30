@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Emacs Mu4e 作为邮件客户端 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/emacs-mu4e/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 Emacs Mu4e 作为邮件客户端" />
+<meta property="og:description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/emacs-mu4e/" />
+<meta property="article:published_time" content="2019-11-10T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-11-10T12:53:54+08:00" />
+<meta itemprop="name" content="使用 Emacs Mu4e 作为邮件客户端">
+<meta itemprop="description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em">
+<meta itemprop="datePublished" content="2019-11-10T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-10T12:53:54&#43;08:00" />
+<meta itemprop="wordCount" content="2854">
+
+
+
+<meta itemprop="keywords" content="emacs,email,mu4e," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Emacs Mu4e 作为邮件客户端"/>
+<meta name="twitter:description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Emacs Mu4e 作为邮件客户端</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-10 </span>
+        <div class="post-category">
+            <a href="/categories/emacs/"> emacs </a>
+            </div>
+          <span class="more-meta"> 约 2854 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#email-处理哲学">1 Email 处理哲学</a></li>
+    <li><a href="#安装--for-mac">2 安装 (for Mac)</a></li>
+    <li><a href="#获取和索引-maildir">3 获取和索引 Maildir</a></li>
+    <li><a href="#配置和运行-mu4e">4 配置和运行 Mu4e</a>
+      <ul>
+        <li><a href="#简单-mu4e-配置">4.1 简单 mu4e 配置</a></li>
+        <li><a href="#运行-mu4e">4.2 运行 mu4e</a></li>
+      </ul>
+    </li>
+    <li><a href="#view-间的基本关系和快捷键">5 View 间的基本关系和快捷键</a></li>
+    <li><a href="#定制-mu4e-main-view">6 定制 mu4e-main-view</a>
+      <ul>
+        <li><a href="#配置-bookmarks">6.1 配置 bookmarks</a></li>
+        <li><a href="#显示-maildirs-概览">6.2 显示 Maildirs 概览</a></li>
+      </ul>
+    </li>
+    <li><a href="#为邮件创建待办事项">7 为邮件创建待办事项</a></li>
+    <li><a href="#使用-mu4e-context">8 使用 mu4e context</a></li>
+    <li><a href="#完整的配置">9 完整的配置</a></li>
+    <li><a href="#参考文献">10 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="email-处理哲学"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> Email 处理哲学</h2>
+<p>在使用 Emacs <a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">Mu/Mu4e</a> 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Email，我会打上标记 (Flag) 以便于随后处理。也就是是说，我将带有标记的 Email 作为一个另外一个待办事项处理 (我使用 Emacs Org-mode 管理待办事项)。我希望能够把将待处理的 Email 整合进我的待办事项列表。很幸运的是，别人已经这样做了，我找到了 <a href="http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/">MASTER YOUR INBOX WITH MU4E AND ORG-MODE</a> 这篇文章。这彻底改变了我处理 Email 的哲学。本文就是以该文章为基础，结合我日常处理 Email 的方法总结而成。</p>
+<p>促使我改变的要点是：</p>
+<blockquote>
+<p><strong>邮箱不是待办事项列表 (your inbox is not a todo list)</strong></p>
+</blockquote>
+<p>我的邮件处理方式:</p>
+<ul>
+<li>使用 <a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">Mu/Mu4e</a> 强大的邮件搜索能力，形成以邮件搜索（s + /) 为核心的模式。不用再费心的使用规则和不同的文件夹分类和管理邮件。</li>
+<li>通过组合 Mu4e 和 Org-mode，轻松的将待处理邮件创建为一个待办事项。</li>
+</ul>
+<p>我的邮件处理工作流：</p>
+<ul>
+<li>检查邮件列表，Mu/Mu4e 提供强大的搜索能力，能够完全通过搜索处理邮件检查任务。</li>
+<li>如果当前的邮件是垃圾邮件，标记为垃圾邮件 (<code>d|mu4e-headers-mark-for-trash</code>)</li>
+<li>如果确定不会再访问该邮件，阅读并标记删除 (<code>D|mu4e-headers-mark-for-delete</code>)</li>
+<li>如果是可能还会查看的邮件，阅读并标记为归档 (<code>r|mu4e-headers-mark-for-refile</code>)</li>
+<li>有时间且能够在几分钟内快速处理的邮件，回复并标记为归档 (<code>R|mu4e-compose-reply</code>)</li>
+<li>如果需要时间处理和回复的邮件，添加到待办事项列表 (通过 <code>C-c c t</code> 命令)</li>
+</ul>
+<h2 id="安装--for-mac"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 安装 (for Mac)</h2>
+<ul>
+<li>运行 <code>brew install offlineimap</code> 安装 <a href="http://www.offlineimap.org/">offlineimap</a>。</li>
+<li>运行 <code>brew install mu</code> 安装  <a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">Mu/Mu4e</a>。</li>
+</ul>
+<h2 id="获取和索引-maildir"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 获取和索引 Maildir</h2>
+<p>Offlineimap 使用 <code>.offlineimaprc</code> 配置。offlineimap 支持在配置中使用 python 脚本，为了避免在配置文件中直接配置密码，我使用如下 python 脚本 (.offlineimap.py) 以从 macOS keychain 获取密码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="k">def</span> <span class="nf">secure_string_for</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">service</span><span class="p">)</span><span class="p">:</span>
+    <span class="c1"># this relies on the macOS `security` tool</span>
+    <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">security</span><span class="s2">&#34;</span><span class="p">,</span>
+                                    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">find-internet-password</span><span class="s2">&#34;</span><span class="p">,</span>
+                                    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">-a</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">account</span><span class="p">,</span>
+                                    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">-s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span>
+                                    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">-w</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以下是我的 .offlineimaprc 配置:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>general<span class="o">]</span>
+<span class="c1"># 这里是我要配置的账户列表</span>
+<span class="nv">accounts</span> <span class="o">=</span> yanghotmail,yangfoxmail
+
+<span class="c1"># python 脚本用于从 macOS keychain 获取密码</span>
+<span class="nv">pythonfile</span> <span class="o">=</span> ~/.offlineimap.py
+
+<span class="c1"># 该配置防止由于网络导致 offlieimap 挂起</span>
+<span class="nv">socktimeout</span> <span class="o">=</span> <span class="m">60</span>
+
+<span class="o">[</span>Account yanghotmail<span class="o">]</span>
+<span class="nv">localrepository</span> <span class="o">=</span> Local
+<span class="nv">remoterepository</span> <span class="o">=</span> Remote
+<span class="c1"># 配置 utf8foldernames 选项为 True 以支持中文文件夹。</span>
+<span class="nv">utf8foldernames</span> <span class="o">=</span> True
+
+<span class="o">[</span>Repository Local<span class="o">]</span>
+<span class="nb">type</span> <span class="o">=</span> Maildir
+<span class="nv">localfolders</span> <span class="o">=</span> ~/Maildir/yanghotmail
+
+<span class="o">[</span>Repository Remote<span class="o">]</span>
+<span class="nb">type</span> <span class="o">=</span> IMAP
+<span class="nv">remotehost</span> <span class="o">=</span> outlook.office365.com
+<span class="nv">remoteuser</span> <span class="o">=</span> tiedang.yang@hotmail.com
+<span class="c1"># 通过脚本从 macOS kechain 获取密码</span>
+<span class="nv">remotepasseval</span> <span class="o">=</span> secure_string_for<span class="o">(</span><span class="s2">&#34;tiedang.yang@hotmail.com&#34;</span>,<span class="s2">&#34;outlook.office365.com&#34;</span><span class="o">)</span>
+<span class="nv">ssl</span> <span class="o">=</span> yes
+<span class="nv">maxconnections</span> <span class="o">=</span> <span class="m">3</span>
+<span class="c1"># 注意配置 sslcertfile (以 Mac 为例) 以避免报告 SSL error。</span>
+<span class="nv">sslcacertfile</span> <span class="o">=</span> /usr/local/etc/openssl/cert.pem
+
+<span class="o">[</span>Account yangfoxmail<span class="o">]</span>
+<span class="nv">localrepository</span> <span class="o">=</span> yangfoxmail-Local
+<span class="nv">remoterepository</span> <span class="o">=</span> yangfoxmail-Remote
+<span class="nv">utf8foldernames</span> <span class="o">=</span> True
+
+<span class="o">[</span>Repository yangfoxmail-Local<span class="o">]</span>
+<span class="nb">type</span> <span class="o">=</span> Maildir
+<span class="nv">localfolders</span> <span class="o">=</span> ~/Maildir/yangfoxmail
+
+<span class="o">[</span>Repository yangfoxmail-Remote<span class="o">]</span>
+<span class="nb">type</span> <span class="o">=</span> IMAP
+<span class="nv">remotehost</span> <span class="o">=</span> imap.qq.com
+<span class="nv">remoteuser</span> <span class="o">=</span> tiedang.yang@foxmail.com
+<span class="nv">remotepasseval</span> <span class="o">=</span> secure_string_for<span class="o">(</span><span class="s2">&#34;tiedang.yang@foxmail.com&#34;</span>, <span class="s2">&#34;imap.qq.com&#34;</span><span class="o">)</span>
+<span class="nv">ssl</span> <span class="o">=</span> yes
+<span class="nv">maxconnections</span> <span class="o">=</span> <span class="m">3</span>
+<span class="c1"># 需要根据系统修改</span>
+<span class="nv">sslcacertfile</span> <span class="o">=</span> /usr/local/etc/openssl/cert.pem
+</code></pre></td></tr></table>
+</div>
+</div><p>运行命令 <code>offlineimap</code> 以同步邮件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ offlineimap
+OfflineIMAP 7.2.4
+  Licensed under the GNU GPL v2 or any later version <span class="o">(</span>with an OpenSSL exception<span class="o">)</span>
+imaplib2 v2.57 <span class="o">(</span>bundled<span class="o">)</span>, Python v2.7.16, OpenSSL 1.1.1d  <span class="m">10</span> Sep <span class="m">2019</span>
+Account sync <span class="o">{</span>USERNAME<span class="o">}</span>@hotmail.com:
+ *** Processing account <span class="o">{</span>USERNAME<span class="o">}</span>@hotmail.com
+Account sync <span class="o">{</span>USERNAME<span class="o">}</span>@hotmail.com:
+ *** Finished account <span class="s1">&#39;{USERNAME}@hotmail.com&#39;</span> in 31:41
+</code></pre></td></tr></table>
+</div>
+</div><p>运行命令 <code>mu</code> 以检查系统是否能够正常工作:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ mu index
+indexing messages under /Users/junahan/Maildir <span class="o">[</span>/Users/junahan/.mu/xapian<span class="o">]</span>
+/ processing mail<span class="p">;</span> processed: 23550<span class="p">;</span> updated/new: 23531, cleaned-up: <span class="m">0</span>
+cleaning up messages <span class="o">[</span>/Users/junahan/.mu/xapian<span class="o">]</span>
+- processing mail<span class="p">;</span> processed: 47105<span class="p">;</span> updated/new: 0, cleaned-up: <span class="m">23543</span>
+elapsed: <span class="m">53</span> second<span class="o">(</span>s<span class="o">)</span>, ~ <span class="m">888</span> msg/s
+<span class="se">\ </span>processing mail<span class="p">;</span> processed: 47105<span class="p">;</span> updated/new: 0, cleaned-up: <span class="m">23543</span>
+elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="o">)</span>, ~ <span class="m">230</span> msg/s
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置和运行-mu4e"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 配置和运行 Mu4e</h2>
+<p>Mu4e 整合 offlineimap 和 mu，允许通过配置 <code>mu4e-update-interval</code> 以在后台定期检查和索引邮件。</p>
+<h3 id="简单-mu4e-配置"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 简单 mu4e 配置</h3>
+<p>mu4e 不能通过 ELPA 安装，但在安装 mu 的过程中， mu4e 模块已经安装在系统中了，在我的系统中，安装位置是 <code>/usr/local/share/emacs/site-lisp/mu/mu4e/</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;; 根据您自己的 mu4e 安装路径替换 load-path</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&#34;</span><span class="s">/usr/local/share/emacs/site-lisp/mu/mu4e</span><span class="s">&#34;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;mu4e</span><span class="p">)</span>
+
+<span class="c1">;; 配置 mu4e 作为 MUA 以及基本的邮件信息配置</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">mail-user-agent</span> <span class="ss">&#39;mu4e-user-agent</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nf">user-full-name</span> <span class="s">&#34;</span><span class="s">USER FULL NAME</span><span class="s">&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">user-mail-address</span> <span class="s">&#34;</span><span class="s">EMAIL ADDRESS</span><span class="s">&#34;</span><span class="p">)</span>
+
+<span class="c1">;; 配置使用 offlieimap 收取邮件</span>
+<span class="p">(</span><span class="nb">setq</span>
+  <span class="nv">mu4e-get-mail-command</span> <span class="s">&#34;</span><span class="s">offlineimap</span><span class="s">&#34;</span>   <span class="c1">;; 使用 offlineimap 获取邮件</span>
+  <span class="nv">mu4e-update-interval</span> <span class="mi">300</span><span class="p">)</span>             <span class="c1">;; 每五分钟检查邮件并更新索引 (配置单位：秒)</span>
+
+<span class="c1">;; 配置默认 smtp 服务以使用 smtpmail mode 发送 Email</span>
+<span class="c1">;; SMTP 服务需要认证，我采用 ~/.authinfo.gpg 的方式提供认证信息。</span>
+<span class="c1">;; 有关 SMTP 认证, 参阅 https://www.emacswiki.org/emacs/SmtpAuth</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">send-mail-function</span> <span class="ss">&#39;smtpmail-send-it</span>
+      <span class="nv">message-send-mail-function</span> <span class="ss">&#39;smtpmail-send-it</span>
+      <span class="nv">smtpmail-smtp-server</span>  <span class="s">&#34;</span><span class="s">smtp.office365.com</span><span class="s">&#34;</span>
+      <span class="nv">smtpmail-smtp-service</span> <span class="mi">587</span>
+      <span class="c1">;; smtpmail-auth-credentials (())</span>
+      <span class="nv">smtpmail-auth-credentials</span> <span class="s">&#34;</span><span class="s">~/.authinfo.gpg</span><span class="s">&#34;</span>
+      <span class="nv">smtpmail-stream-type</span>  <span class="ss">&#39;starttls</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>SMTP 服务需要认证，我采用 ~/.authinfo.gpg 的方式提供认证信息。有关 SMTP  认证的更多信息，请参阅 <a href="https://www.emacswiki.org/emacs/SmtpAuth">SmtpAuth</a>。</p>
+</blockquote>
+<h3 id="运行-mu4e"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 运行 mu4e</h3>
+<p>基于以上最简化配置，就可以在 Emacs 运行命令 <code>M-x mu4e</code> 启动并显示 <code>mu4e-main-view</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">\* mu4e - mu for emacs version 1.2.0 C
+
+  Basics
+
+	* [j]ump to some maildir
+	* enter a [s]earch query
+	* [C]ompose a new message
+
+  Bookmarks
+
+	* [bu] Unread messages
+	* [bt] Today&#39;s messages
+	* [bw] Last 7 days
+	* [bo] Last 1 days
+	* [bm] Last 1 days (org mode)
+	* [bs] sent
+	* [bd] drafts
+	* [bp] Messages with images
+
+  Misc
+
+	* [;]Switch context
+	* [U]pdate email &amp; database
+
+	* [N]ews
+	* [A]bout mu4e
+	* [H]elp
+	* [q]uit
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="view-间的基本关系和快捷键"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> View 间的基本关系和快捷键</h2>
+<p>对于日常使用，只要理解几个关键的 View 以及大约 10 个快捷键即可。几个关键的 View 之间的关系图如下：</p>
+<figure>
+    <img src="/ox-hugo/view-diagram.png"/> 
+</figure>
+
+<p>有了以上的关系图，只需要记住几个基本的快捷键绑定即可：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>回复邮件 (Reply)</td>
+<td>用于在 <code>headers</code> / <code>message</code> view 执行回复邮件动作</td>
+</tr>
+<tr>
+<td>F</td>
+<td>转发邮件 (Forward)</td>
+<td></td>
+</tr>
+<tr>
+<td>C</td>
+<td>写邮件 (Compose)</td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>编辑邮件 (Edit)</td>
+<td></td>
+</tr>
+<tr>
+<td>s</td>
+<td>搜索邮件 (search)</td>
+<td>执行 <code>mu find</code> 命令搜索邮件</td>
+</tr>
+<tr>
+<td>j</td>
+<td>跳转到 maildir (jump-to-maildir)</td>
+<td>在 <code>maildir</code> 之间跳转</td>
+</tr>
+<tr>
+<td>b</td>
+<td>书签搜索 (bookmark-search)</td>
+<td>为经常使用的搜索配置书签，以快速执行邮件搜索动作</td>
+</tr>
+<tr>
+<td>B</td>
+<td>修改书签索引 (edit bookmark-search)</td>
+<td></td>
+</tr>
+<tr>
+<td>.</td>
+<td>切换显示原始消息视图 (raw view (toggle))</td>
+<td></td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出</td>
+<td>可作用于 <code>main</code> / <code>headers</code> / <code>messages</code> / <code>raw</code> 等视图用于退出当前视图</td>
+</tr>
+</tbody>
+</table>
+<h2 id="定制-mu4e-main-view"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 定制 mu4e-main-view</h2>
+<h3 id="配置-bookmarks"><!-- raw HTML omitted -->6.1<!-- raw HTML omitted --> 配置 bookmarks</h3>
+<p>Bookmarks 允许结合 <code>b</code> (先导快捷键) 自定义快捷键以快速搜索 Email。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;; configure the bookmarks.</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-bookmarks</span>
+      <span class="o">&#39;</span><span class="p">(</span> <span class="p">(</span><span class="s">&#34;</span><span class="s">flag:unread AND NOT flag:trashed</span><span class="s">&#34;</span>                    <span class="s">&#34;</span><span class="s">Unread messages</span><span class="s">&#34;</span>                  <span class="sc">?u</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">date:today..now</span><span class="s">&#34;</span>                                     <span class="s">&#34;</span><span class="s">Today&#39;s messages</span><span class="s">&#34;</span>                 <span class="sc">?t</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">date:7d..now</span><span class="s">&#34;</span>                                        <span class="s">&#34;</span><span class="s">Last 7 days</span><span class="s">&#34;</span>                      <span class="sc">?w</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">date:1d..now AND NOT list:emacs-orgmode.gnu.org</span><span class="s">&#34;</span>     <span class="s">&#34;</span><span class="s">Last 1 days</span><span class="s">&#34;</span>                      <span class="sc">?o</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">date:1d..now AND list:emacs-orgmode.gnu.org</span><span class="s">&#34;</span>         <span class="s">&#34;</span><span class="s">Last 1 days (org mode)</span><span class="s">&#34;</span>           <span class="sc">?m</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">maildir:/sent</span><span class="s">&#34;</span>                                       <span class="s">&#34;</span><span class="s">sent</span><span class="s">&#34;</span>                             <span class="sc">?s</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">maildir:/drafts</span><span class="s">&#34;</span>                                     <span class="s">&#34;</span><span class="s">drafts</span><span class="s">&#34;</span>                           <span class="sc">?d</span><span class="p">)</span>
+         <span class="p">(</span><span class="s">&#34;</span><span class="s">mime:image/*</span><span class="s">&#34;</span>                                        <span class="s">&#34;</span><span class="s">Messages with images</span><span class="s">&#34;</span>             <span class="sc">?p</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以上 Bookmarks 定义在 <code>mu4e-main-view</code> 显示如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">Bookmarks
+
+* [bu] Unread messages
+* [bt] Today&#39;s messages
+* [bw] Last 7 days
+* [bo] Last 1 days
+* [bm] Last 1 days (org mode)
+* [bs] sent
+* [bd] drafts
+* [bp] Messages with images
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用 <code>bu</code> 搜索未阅读消息</li>
+<li><code>bt</code> 搜索今天的消息</li>
+<li><code>bw</code> 搜索近一周的消息</li>
+</ul>
+<h3 id="显示-maildirs-概览"><!-- raw HTML omitted -->6.2<!-- raw HTML omitted --> 显示 Maildirs 概览</h3>
+<p>使用 <a href="https://github.com/agpchil/mu4e-maildirs-extension">mu4e-maildirs-extension</a> 在 <code>mu4e-main-view</code> 展示 Maildirs 概览。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;; Show mu4e maildirs summary in mu4e-main-view</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;mu4e-maildirs-extension</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">mu4e-maildirs-extension</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如下是以上配置在 <code>mu4e-main-view</code> 上显示的效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">Maildirs
+
+* [u]pdate index &amp; cache
+
+- drafts (0/0)
+
+- sent (0/0)
+
+- Mail Account001 (161/8818)
+	| Deleted (0/2)
+	| Drafts (0/0)
+	| Inbox (161/8715)
+	| Junk (0/7)
+	| Notes (0/0)
+	| Outbox (0/0)
+	| Sent (0/94)
+
+| trash (0/0)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="为邮件创建待办事项"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 为邮件创建待办事项</h2>
+<p>org-mu4e 整合了 Mu4e 和 org-mode，轻松支持为邮件创建待办事项。可以通过添加如下配置来启用 org-mu4e。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;;store org-mode links to messages</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;org-mu4e</span><span class="p">)</span>
+<span class="c1">;;store link to message if in header view, not to header query</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">org-mu4e-link-query-in-headers-mode</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>并更新您的 org-capture 配置如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="p">(</span><span class="nb">setq</span> <span class="nv">org-capture-templates</span>
+      <span class="o">&#39;</span><span class="p">(</span><span class="p">(</span><span class="s">&#34;</span><span class="s">t</span><span class="s">&#34;</span> <span class="s">&#34;</span><span class="s">todo</span><span class="s">&#34;</span> <span class="nv">entry</span> <span class="p">(</span><span class="nv">file+headline</span> <span class="s">&#34;</span><span class="s">~/todo.org</span><span class="s">&#34;</span> <span class="s">&#34;</span><span class="s">Tasks</span><span class="s">&#34;</span><span class="p">)</span>
+         <span class="s">&#34;</span><span class="s">* TODO [#A] %?</span><span class="s">\n</span><span class="s">SCHEDULED: %(org-insert-time-stamp (org-read-date nil t </span><span class="s">\&#34;</span><span class="s">+0d</span><span class="s">\&#34;</span><span class="s">))</span><span class="s">\n</span><span class="s">%a</span><span class="s">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注意这个配置中 <code>%a</code> 配置的用途是添加一个链接到创建 capture 的来源。</p>
+<p>美妙的是，现在可以在浏览邮件的时候，随时通过 <code>C-c c t</code> 为当前正在浏览的邮件创建一个待办事项，现在，您可以放心的归档邮件，因为您知道可以随时通过代办事项列表的链接打开该邮件。</p>
+<h2 id="使用-mu4e-context"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 使用 mu4e context</h2>
+<p>使用 mu4e context 可以分别为不同的邮件账户配置不同的参数。我使用它来配置多个 SMTP 邮件服务以根据上下文来正确的切换发送邮件服务器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-elisp" data-lang="elisp"><span class="c1">;; 配置默认 smtp 服务以使用 smtpmail mode 发送 Email</span>
+<span class="c1">;; SMTP 服务需要认证，我们采用 ~/.authinfo.gpg 的方式提供认证信息。</span>
+<span class="c1">;; 有关 SMTP 认证, 参阅 https://www.emacswiki.org/emacs/SmtpAuth</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">send-mail-function</span> <span class="ss">&#39;smtpmail-send-it</span>
+      <span class="nv">message-send-mail-function</span> <span class="ss">&#39;smtpmail-send-it</span>
+      <span class="nv">smtpmail-smtp-server</span>  <span class="s">&#34;</span><span class="s">smtp.office365.com</span><span class="s">&#34;</span>
+      <span class="nv">smtpmail-smtp-service</span> <span class="mi">587</span>
+      <span class="c1">;;smtpmail-starttls-credentials &#39;((&#34;smtp.office365.com&#34; 587 nil nil))</span>
+      <span class="nv">smtpmail-starttls-credentials</span> <span class="s">&#34;</span><span class="s">~/.authinfo.gpg</span><span class="s">&#34;</span>
+      <span class="nv">smtpmail-stream-type</span>  <span class="ss">&#39;starttls</span><span class="p">)</span>
+
+<span class="c1">;; 根据 from 邮件头使用正确的账户上下文发送 Email.</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">message-sendmail-envelope-from</span> <span class="ss">&#39;header</span><span class="p">)</span>
+
+<span class="c1">;; 该函数基于当前所在的 maildir 来判定所账户上下文。</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">mu4e-message-maildir-matches</span> <span class="p">(</span><span class="nv">msg</span> <span class="nb">rx</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">when</span> <span class="nb">rx</span>
+    <span class="p">(</span><span class="nb">if</span> <span class="p">(</span><span class="nf">listp</span> <span class="nb">rx</span><span class="p">)</span>
+        <span class="c1">;; If rx is a list, try each one for a match</span>
+        <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">mu4e-message-maildir-matches</span> <span class="nv">msg</span> <span class="p">(</span><span class="nf">car</span> <span class="nb">rx</span><span class="p">)</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">mu4e-message-maildir-matches</span> <span class="nv">msg</span> <span class="p">(</span><span class="nf">cdr</span> <span class="nb">rx</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+      <span class="c1">;; Not a list, check rx</span>
+      <span class="p">(</span><span class="nf">string-match</span> <span class="nb">rx</span> <span class="p">(</span><span class="nv">mu4e-message-field</span> <span class="nv">msg</span> <span class="nb">:maildir</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+
+<span class="c1">;;</span>
+<span class="p">(</span><span class="nb">setq</span> <span class="nv">mu4e-contexts</span>
+      <span class="o">`</span><span class="p">(</span> <span class="o">,</span><span class="p">(</span><span class="nv">make-mu4e-context</span>
+           <span class="nb">:name</span> <span class="s">&#34;</span><span class="s">yanghotmail</span><span class="s">&#34;</span>
+           <span class="nb">:enter-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="p">)</span> <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;</span><span class="s">Switch to the yanghotmail context</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:match-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="nv">msg</span><span class="p">)</span>
+                         <span class="p">(</span><span class="nb">when</span> <span class="nv">msg</span>
+                           <span class="p">(</span><span class="nv">mu4e-message-maildir-matches</span> <span class="nv">msg</span> <span class="s">&#34;</span><span class="s">^/yanghotmail</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:leave-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="p">)</span> <span class="p">(</span><span class="nv">mu4e-clear-caches</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:vars</span> <span class="o">&#39;</span><span class="p">(</span><span class="p">(</span><span class="nv">user-mail-address</span>            <span class="o">.</span> <span class="s">&#34;</span><span class="s">tiedang.yang@hotmail.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nf">user-full-name</span>               <span class="o">.</span> <span class="s">&#34;</span><span class="s">Tiedang Yang</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-default-smtp-server</span> <span class="o">.</span> <span class="s">&#34;</span><span class="s">smtp.office365.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-smtp-server</span>         <span class="o">.</span> <span class="s">&#34;</span><span class="s">smtp.office365.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-smtp-service</span>        <span class="o">.</span> <span class="mi">587</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-stream-type</span>         <span class="o">.</span> <span class="nv">starttls</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">mu4e-compose-signature</span>       <span class="o">.</span>
+                                                 <span class="p">(</span><span class="nf">concat</span>
+                                                  <span class="s">&#34;</span><span class="s">Tiedang Yang</span><span class="s">\n</span><span class="s">&#34;</span>
+                                                  <span class="s">&#34;</span><span class="s">https://www.junahan.com</span><span class="s">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+         <span class="o">,</span><span class="p">(</span><span class="nv">make-mu4e-context</span>
+           <span class="nb">:name</span> <span class="s">&#34;</span><span class="s">fyangfoxmail</span><span class="s">&#34;</span>
+           <span class="nb">:enter-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="p">)</span> <span class="p">(</span><span class="nv">mu4e-message</span> <span class="s">&#34;</span><span class="s">Switch to the cesgroup context</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:match-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="nv">msg</span><span class="p">)</span>
+                         <span class="p">(</span><span class="nb">when</span> <span class="nv">msg</span>
+                           <span class="p">(</span><span class="nv">mu4e-message-maildir-matches</span> <span class="nv">msg</span> <span class="s">&#34;</span><span class="s">^/yangfoxmail</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:leave-func</span> <span class="p">(</span><span class="nb">lambda</span> <span class="p">(</span><span class="p">)</span> <span class="p">(</span><span class="nv">mu4e-clear-caches</span><span class="p">)</span><span class="p">)</span>
+           <span class="nb">:vars</span> <span class="o">&#39;</span><span class="p">(</span><span class="p">(</span><span class="nv">user-mail-address</span>            <span class="o">.</span> <span class="s">&#34;</span><span class="s">tiedang.yang@foxmail.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nf">user-full-name</span>               <span class="o">.</span> <span class="s">&#34;</span><span class="s">Yang Tiedang</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-default-smtp-server</span> <span class="o">.</span> <span class="s">&#34;</span><span class="s">smtp.qq.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-smtp-server</span>         <span class="o">.</span> <span class="s">&#34;</span><span class="s">smtp.qq.com</span><span class="s">&#34;</span><span class="p">)</span>
+                   <span class="c1">;;(smtpmail-auth-credentials    . &#39;((&#34;smtp.qq.com&#34; 587 &#34;tiedang.yang@foxmail.com&#34; nil)))</span>
+                   <span class="p">(</span><span class="nv">smtpmail-smtp-service</span>        <span class="o">.</span> <span class="mi">587</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">smtpmail-stream-type</span>         <span class="o">.</span> <span class="nv">ssl</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nv">mu4e-compose-signature</span>       <span class="o">.</span>
+                                                 <span class="p">(</span><span class="nf">concat</span>
+                                                  <span class="s">&#34;</span><span class="s">Junahan Yang</span><span class="s">\n</span><span class="s">&#34;</span>
+                                                  <span class="s">&#34;</span><span class="s">https://www.junahan.com</span><span class="s">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以上配置允许通过 <code>;(mu4e-context-switch)</code> 来切换上下文。能够在撰写 Email 或者回复 Email 的时候根据正确的根据上下文使用正确的 SMTP 服务器配置。</p>
+<h2 id="完整的配置"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 完整的配置</h2>
+<p>完整的配置，请参阅 <a href="https://github.com/junahan/junahan-emacs/blob/master/emacs.d/lisp/init-mu4e.el">我的 mu4e 配置</a>。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ssupjefvj31ws0u01kx.jpg"
+         alt="Figure 1: 我的 Mu4e" width="80%"/> <figcaption>
+            <p>Figure 1: 我的 Mu4e</p>
+        </figcaption>
+</figure>
+
+<h2 id="参考文献"><!-- raw HTML omitted -->10<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li><a href="https://www.emacswiki.org/emacs/CategoryMail">Category Mail</a>, Emacs Wiki 有关 Mail 的方方面面。</li>
+<li><a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a> (mu-for-emacs) is an e-mail client for GNU Emacs.</li>
+<li><a href="http://www.mew.org/en/">Mew</a> is a mail reader for Emacs.</li>
+<li><a href="https://emacs.stackexchange.com/questions/12927/reading-and-writing-email-with-emacs">Reading and writing email with emacs</a>.</li>
+<li><a href="http://www.offlineimap.org/">offlineimap</a>, software to dispose your mailbox(es) as a local Maildir(s).</li>
+<li><a href="http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/">MASTER YOUR INBOX WITH MU4E AND ORG-MODE</a>, your inbox is not a todo list.</li>
+<li><a href="https://notanumber.io/2016-10-03/better-email-with-mu4e/">Better Email with mu4e</a>, 2016.</li>
+<li><a href="http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/">A COMPLETE GUIDE TO EMAIL IN EMACS USING MU AND MU4E</a>, 2017.</li>
+<li><a href="https://vxlabs.com/2017/02/07/mu4e-0-9-18-e-mailing-with-emacs-now-even-better/">mu4e 0.9.18: E-Mailing with Emacs now even better</a>, 2017.</li>
+<li><a href="https://vxlabs.com/2019/07/03/send-queued-mails-in-background-with-mu4e/">Sending queued mails in the background with mu4e</a>, 2019.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-10
+        <a href="/commit/dfccfb8c8124be9929bb98954d2e385d92101205" title="many changes.">(dfccfb8)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/emacs/">emacs</a>
+          <a href="/tags/email/">email</a>
+          <a href="/tags/mu4e/">mu4e</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/learning-emacs-org-tools-and-conf/">
+            <span class="next-text nav-default">学习 Emacs Org - 工具和配置</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

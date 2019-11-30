@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fabric CA 用户手册 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构" /><meta name="keywords" content="fabric" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/fabric-ca-user-guide-cn/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Fabric CA 用户手册" />
+<meta property="og:description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/fabric-ca-user-guide-cn/" />
+<meta property="article:published_time" content="2018-07-29T00:00:00+08:00" />
+<meta property="article:modified_time" content="2018-08-26T12:30:04+08:00" />
+<meta itemprop="name" content="Fabric CA 用户手册">
+<meta itemprop="description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构">
+<meta itemprop="datePublished" content="2018-07-29T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-26T12:30:04&#43;08:00" />
+<meta itemprop="wordCount" content="10367">
+
+
+
+<meta itemprop="keywords" content="Blockchain,Fabric,CA," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fabric CA 用户手册"/>
+<meta name="twitter:description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Fabric CA 用户手册</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-29 </span>
+        <div class="post-category">
+            <a href="/categories/blockchain/"> Blockchain </a>
+            </div>
+          <span class="more-meta"> 约 10367 字 </span>
+          <span class="more-meta"> 预计阅读 21 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#摘要">1 摘要</a></li>
+    <li><a href="#开始">2 开始</a>
+      <ul>
+        <li><a href="#前提要求">2.1 前提要求</a></li>
+        <li><a href="#安装">2.2 安装</a></li>
+        <li><a href="#启动本地服务器">2.3 启动本地服务器</a></li>
+        <li><a href="#通过-docker-启动服务器">2.4 通过 Docker 启动服务器</a></li>
+        <li><a href="#浏览-fabric-ca-cli">2.5 浏览 Fabric CA CLI</a></li>
+        <li><a href="#配置">2.6 配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#fabric-ca-服务器">3 Fabric CA 服务器</a>
+      <ul>
+        <li><a href="#初始化服务器">3.1 初始化服务器</a></li>
+        <li><a href="#启动服务器">3.2 启动服务器</a></li>
+        <li><a href="#配置数据库">3.3 配置数据库</a></li>
+        <li><a href="#配置-ldap">3.4 配置 LDAP</a></li>
+        <li><a href="#配置集群">3.5 配置集群</a></li>
+        <li><a href="#设置多-cas">3.6 设置多 CAs</a></li>
+        <li><a href="#注册--enrolling--一个中间-ca">3.7 注册 (Enrolling) 一个中间 CA</a></li>
+        <li><a href="#升级-ca-服务器">3.8 升级 CA 服务器</a></li>
+      </ul>
+    </li>
+    <li><a href="#fabric-ca-客户端">4 Fabric CA 客户端</a>
+      <ul>
+        <li><a href="#注册引导身份">4.1 注册引导身份</a></li>
+        <li><a href="#登记--registering--一个新身份">4.2 登记 (Registering) 一个新身份</a></li>
+        <li><a href="#注册--enrolling--对等节点身份">4.3 注册 (enrolling) 对等节点身份</a></li>
+        <li><a href="#从另外一个-ca-服务器获得一个-ca-证书链">4.4 从另外一个 CA 服务器获得一个 CA 证书链</a></li>
+        <li><a href="#为用户获取一个-idemix--identity-mixer--证书">TODO 4.5 为用户获取一个 Idemix (Identity Mixer) 证书</a></li>
+      </ul>
+    </li>
+    <li><a href="#获得-idemix-cri--证书吊销信息">TODO 5 获得 Idemix CRI (证书吊销信息)</a></li>
+    <li><a href="#hsm">TODO 6 HSM</a></li>
+    <li><a href="#文件格式">TODO 7 文件格式</a>
+      <ul>
+        <li><a href="#fabric-ca-服务器配置文件格式">7.1 Fabric CA 服务器配置文件格式</a></li>
+        <li><a href="#fabric-ca-客户端配置文件格式">7.2 Fabric CA 客户端配置文件格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#解决问题">TODO 8 解决问题</a></li>
+    <li><a href="#参考文献">9 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2018-08-26T12:30:04" title="August 26, 2018">August 26, 2018</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+<p>Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能：</p>
+<ul>
+<li>身份注册或者链接至 LDAP 作为用户注册中心</li>
+<li>颁发注册证书 (ECerts)</li>
+<li>证书的续期和吊销</li>
+</ul>
+<p>Fabric CA 由服务器和客户端组件构成。</p>
+<p>下图展示了 Fabric CA 在 Fabric 网络中的架构。</p>
+<figure>
+    <img src="https://ws2.sinaimg.cn/large/006tKfTcgy1ftu9xgzej0j30sv0k8di1.jpg"
+         alt="Figure 1: Fabric CA 在 Fabric 网络架构中的作用"/> <figcaption>
+            <p>Figure 1: Fabric CA 在 Fabric 网络架构中的作用</p>
+        </figcaption>
+</figure>
+
+<p>有两种方法和 Fabric CA 服务器交互：使用 Fabric CA 客户端或者是一个 Fabric SDKs。所有和 Fabric CA 服务器的通讯均通过 REST APIs 进行。有关 REST APIs swagger 文档，请参阅 <code>fabirc-ca/swagger/swagger-fabric-ca.json</code> 。你可以通过 <a href="http://editor2.swagger.io/">Swagger 在线编辑器</a>查看这些文档。</p>
+<p>Fabric CA 客户端或者 SDK 可能链接至 Fabric CA 集群，如上图中右上角部分显示的集群示意图。客户端的访问被 HA 代理端点通过负载均衡服务导入至集群的一个成员。</p>
+<p>集群内所有 Fabric CA 服务器共享相同的数据库以保持对身份和证书的一致追踪。如果 LDAP 被配置，则身份信息会保存在 LDAP 而不是数据库。</p>
+<p>一个服务器可能包含多个 CAs，每个 CA 要么是根 CA 或者一个中间 CA，一个中间 CA 有一个父 CA，该父 CA 要么是根 CA，要么是另外一个中间 CA。</p>
+<h2 id="开始"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 开始</h2>
+<h3 id="前提要求"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 前提要求</h3>
+<ul>
+<li>Go 1.9+</li>
+<li>正确的设置了 <code>GOPATH</code> 环境变量</li>
+<li>正确安装 <code>libtool</code> 和 <code>libtdhl-dev</code> 包</li>
+</ul>
+<p>运行如下命令在 Ubuntu 下安装 libtool</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">sudo apt install libtool libltdl-dev
+</code></pre></td></tr></table>
+</div>
+</div><p>运行如下命令在 MacOSX 中安装 libtool</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">brew install libtool
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果通过 Homebrew 安装 libtool，则libtldl-dev 无需安装。</p>
+</blockquote>
+<p>更多有关 <code>libtool</code> 的信息，请参阅 <a href="https://www.gnu.org/software/libtool">https://www.gnu.org/software/libtool</a>。
+更多有关 <code>libltdl-dev</code>, 请参阅 <a href="https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html">https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html</a>。</p>
+<h3 id="安装"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 安装</h3>
+<p>如下命令安装 <code>fabric-ca-server</code> 和 <code>fabric-ca-client</code> 二进制包进入 <code>$GOPATH/bin</code> 目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">go get -u github.com/hyperledger/fabric-ca/cmd/...
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：如果你已经克隆 <code>fabric-ca</code> 代码库，请确保在运行如上命令前，你位于 <code>master</code> 分支。否则，会出现如下错误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">&lt;gopath&gt;/src/github.com/hyperledger/fabric-ca<span class="p">;</span> git pull --ff-only
+There is no tracking information <span class="k">for</span> the current branch.
+Please specify which branch you want to merge with.
+See git-pull<span class="o">(</span>1<span class="o">)</span> <span class="k">for</span> details.
+
+    git pull &lt;remote&gt; &lt;branch&gt;
+
+If you wish to <span class="nb">set</span> tracking information <span class="k">for</span> this branch you can <span class="k">do</span> so with:
+
+    git branch --set-upstream-to<span class="o">=</span>&lt;remote&gt;/&lt;branch&gt; tlsdoc
+
+package github.com/hyperledger/fabric-ca/cmd/fabric-ca-client: <span class="nb">exit</span> status <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="启动本地服务器"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> 启动本地服务器</h3>
+<p>运行如下命令在本地启动 <code>fabric-ca-server</code> - 使用默认设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server start -b admin:adminpw
+</code></pre></td></tr></table>
+</div>
+</div><p>其中的 <code>-b</code> 选项指定启动管理员注册 (enrollment) ID 和密码。如果 LDAP 没有被激活 (&ldquo;ldap.enabled&rdquo; 设置为 <code>false</code> )， <code>-b</code> 选项必须提供。</p>
+<p>文件名字为 <code>fabric-ca-server-config.yaml</code> 的默认设置在本地目录被创建，可以通过该文件定制 CA 服务器配置。</p>
+<h3 id="通过-docker-启动服务器"><!-- raw HTML omitted -->2.4<!-- raw HTML omitted --> 通过 Docker 启动服务器</h3>
+<h4 id="docker-hub"><!-- raw HTML omitted -->2.4.1<!-- raw HTML omitted --> Docker Hub</h4>
+<p>访问 <a href="https://hub.docker.com/r/hyperledger/fabric-ca/tags/">https://hub.docker.com/r/hyperledger/fabric-ca/tags/</a>, 找到你需要的 <code>fabric-ca</code> Docker 镜像版本标签。</p>
+<p>定位到 <code>$GOPATH/src/github.com/hyperledger/fabric-ca/docker/server</code> 目录并使用一个文本编辑器打开 <code>docker-compose.yml</code> 文件。</p>
+<p>更改该文件中 <code>image</code> 那行去指定你需要的版本标签。该文件看起来如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server:
+  image: hyperledger/fabric-ca:x86_64-1.0.0-beta
+  container_name: fabric-ca-server
+  ports:
+    - <span class="s2">&#34;7054:7054&#34;</span>
+  environment:
+    - <span class="nv">FABRIC_CA_HOME</span><span class="o">=</span>/etc/hyperledger/fabric-ca-server
+  volumes:
+    - <span class="s2">&#34;./fabric-ca-server:/etc/hyperledger/fabric-ca-server&#34;</span>
+  command: sh -c <span class="s1">&#39;fabric-ca-server start -b admin:adminpw&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在终端中运行如下命令可以启动 CA 服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">$ docker-compose up -d
+</code></pre></td></tr></table>
+</div>
+</div><p>这个命令将拉取指定的 <code>fabric-ca</code> 镜像版本，并启动一个 CA 服务器实例。</p>
+<h4 id="构建自己的-docker-镜像"><!-- raw HTML omitted -->2.4.2<!-- raw HTML omitted --> 构建自己的 Docker 镜像</h4>
+<p>你可以通过在终端中运行如下命令构建 <code>fabric-ca</code> Docker 镜像并启动一个 CA 服务器实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/hyperledger/fabric-ca
+make docker
+<span class="nb">cd</span> docker/server
+docker-compose up -d
+</code></pre></td></tr></table>
+</div>
+</div><p><code>hyperledger/fabric-ca</code> Docker 镜像包含 <code>fabric-ca-server</code> 和 <code>fabrica-ca-client</code> 组件。</p>
+<h3 id="浏览-fabric-ca-cli"><!-- raw HTML omitted -->2.5<!-- raw HTML omitted --> 浏览 Fabric CA CLI</h3>
+<p>如下链接展示了有关<a href="https://hyperledger-fabric-ca.readthedocs.io/en/latest/servercli.html">服务器 CLI</a> 和<a href="https://hyperledger-fabric-ca.readthedocs.io/en/latest/clientcli.html">客户端 CLI</a> 的使用帮助信息。</p>
+<h3 id="配置"><!-- raw HTML omitted -->2.6<!-- raw HTML omitted --> 配置</h3>
+<p>Fabric CA 支持三种配置方法，优先级列表如下：</p>
+<ol>
+<li>CLI 选项</li>
+<li>环境变量</li>
+<li>配置文件</li>
+</ol>
+<p>在该文档随后的部分，我们默认指通过配置文件进行配置。然而，配置文件的配置可以被环境变量或者 CLI 覆盖。</p>
+<p>例如，如果我们有如下客户端配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">tls:
+  <span class="c1"># Enable TLS (default: false)</span>
+  enabled: <span class="nb">false</span>
+
+  <span class="c1"># TLS for the client&#39;s listenting port (default: false)</span>
+  certfiles:
+  client:
+    certfile: cert.pem
+    keyfile:
+</code></pre></td></tr></table>
+</div>
+</div><p>如下环境变量可以被用来覆盖在配置文件中的 <code>cert.pem</code> 设置:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_TLS_CLIENT_CERTFILE</span><span class="o">=</span>cert2.pem
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们想覆盖环境变量和配置文件设置，我们可以使用 CLI 选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-client enroll --tls.client.certfile cert3.pem
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="有关文件路径"><!-- raw HTML omitted -->2.6.1<!-- raw HTML omitted --> 有关文件路径</h4>
+<p>所有 Fabric CA 服务器和客户端配置文件均支持相对和绝对路径。相对路径相对于配置文件所在的位置。例如，如果配置目录是 <code>~/config</code> , 并且 <code>tls</code> 配置如下所示，那么 Fabric CA 服务器或者客户端将在 <code>~/config</code> 目录寻找 <code>root.perm</code> 文件，在 <code>~/config/certs</code> 目录寻找 <code>cert.pem</code> 文件并且在 <code>/abs/path</code> 目录寻找 <code>key.pem</code> 文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">tls:
+  enabled: <span class="nb">true</span>
+  certfiles:
+    - root.pem
+  client:
+    certfile: certs/cert.pem
+    keyfile: /abs/path/key.pem
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="fabric-ca-服务器"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> Fabric CA 服务器</h2>
+<p>本节描述 Fabric CA 服务器。</p>
+<p>在启动 Fabric CA 服务器之前需要初始化它。这提供了一个机会去生成默认配置文件，在启动之前，你可以查看和定制配置文件。</p>
+<p>Fabric CA 服务根目录按照如下方式确定：</p>
+<ul>
+<li>如果 <code>-home</code> 选项被设置，则使用该设置作为根目录</li>
+<li>否则，如果 <code>FABRIC_CA_SERVER_HOME</code> 环境变量被设置，则使用该设置</li>
+<li>否则，如果 <code>FABRIC_CA_HOME</code> 环境变量被设置，则使用该设置</li>
+<li>否则，如果 <code>CA_CFG_PATH</code> 环境变量被设置，则使用该设置</li>
+<li>否则，使用当前目录</li>
+</ul>
+<p>在随后的有关 Fabric 服务器章节，我们假设你已经设置 <code>FABRIC_CA_HOME</code> 环境变量为 <code>$HOME/fabric-ca/server</code> 。</p>
+<p>如下教程假设服务器配置文件在服务器根目录存在。</p>
+<h3 id="初始化服务器"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 初始化服务器</h3>
+<p>执行如下命令初始化 Fabric CA 服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server init -b admin:adminpw
+</code></pre></td></tr></table>
+</div>
+</div><p>如果 LDAP 被禁用，选项 <code>-b</code> (引导用户身份) 需要在初始化时提供。至少一个引导用户身份应当提供，这个用户身份是服务器管理员。</p>
+<p>服务配置文件中包含一个证书签名申请 (CSR) 部分，该部分能够被配置。下面是一个简单的 CSR 配置实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">cn<span class="p">:</span><span class="w"> </span>fabric-ca-server<span class="w">
+</span><span class="w"></span>names<span class="p">:</span><span class="w">
+</span><span class="w">   </span>-<span class="w"> </span>C<span class="p">:</span><span class="w"> </span>US<span class="w">
+</span><span class="w">     </span>ST<span class="p">:</span><span class="w"> </span><span class="s2">&#34;North Carolina&#34;</span><span class="w">
+</span><span class="w">     </span>L<span class="p">:</span><span class="w">
+</span><span class="w">     </span>O<span class="p">:</span><span class="w"> </span>Hyperledger<span class="w">
+</span><span class="w">     </span>OU<span class="p">:</span><span class="w"> </span>Fabric<span class="w">
+</span><span class="w"></span>hosts<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>host1.example.com<span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>localhost<span class="w">
+</span><span class="w"></span>ca<span class="p">:</span><span class="w">
+</span><span class="w">   </span>expiry<span class="p">:</span><span class="w"> </span>131400h<span class="w">
+</span><span class="w">   </span>pathlength<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>所有以上域和 X.509 签名密钥和证书有关，证书通过 <code>fabric-ca-server init</code> 命令产生。这个和 <code>ca.cerfile</code> 以及 <code>ca.keyfile</code> 文件相符。如下是相关域：</p>
+<ul>
+<li><strong>cn</strong> 指常用名称</li>
+<li><strong>O</strong> 指组织名字</li>
+<li><strong>OU</strong> 是组织单元</li>
+<li><strong>L</strong> 是位置或者城市</li>
+<li><strong>ST</strong> 是省份</li>
+<li><strong>C</strong> 是国家</li>
+</ul>
+<p>如果需要，你可以定制 CSR 配置文件，删除 <code>ca.certfile</code> 和 <code>ca.keyfile</code> 配置项，并重新运行 <code>fabric-ca-server init -b admin:adminpw</code> 命令。</p>
+<p>命令 <code>fabric-ca-server init</code> 在没有指定 <code>-u &lt;parent-fabric-ca-server-URL&gt;</code> 选项情况下，产生一个自签名 CA 证书。如果 <code>-u</code> 选项被指定，该 CA 服务器证书被父 Fabric CA 服务器签名。为了父 Fabric CA 服务器认证，URL 必须形如 <code>&lt;scheme&gt;://&lt;enrollmentID&gt;:&lt;secret&gt;@&lt;host&gt;:&lt;port&gt;</code> , 这里 <code>&lt;enrollmentID&gt;</code> 和 <code>&lt;secret&gt;</code> 的值和一个 <code>hf.IntermediateCA</code> 属性值为 <code>true</code> 的用户身份相符。命令 <code>fabric-server init</code> 也在服务器根目录产生一个名为 <code>fabric-ca-server-config.yaml</code> 的配置文件。</p>
+<p>如果你想 Fabric CA 服务器使用你提供的 CA 签名证书和密钥文件，你必须分别放置这些文件到 <code>ca.certfile</code> 和 <code>ca.keyfile</code> 引用的目录。两个文件必须是 PEM 编码且不能够被加密。特别是，CA 证书文件内容必须以 <code>-----BEGIN CERTIFICATE-----</code> 开头，私钥内容必须以 <code>-----BEGIN PRIVATE KEY-----</code> 开头而不是 <code>-----BEGIN ENCRYPTED PRIVATE KEY-----</code> 开头。</p>
+<h4 id="算法和密钥大小"><!-- raw HTML omitted -->3.1.1<!-- raw HTML omitted --> 算法和密钥大小</h4>
+<p>CSR 能够被定制以产生支持椭圆曲线 (ECDSA) 算法的X.509 证书和密钥。如下是一个使用曲线 <code>prime256v1</code> 和签名算法 <code>ecdsa-with-SHA256</code> 的椭圆曲线数字签名算法 (ECDSA) 实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">key:
+   algo: ecdsa
+   size: <span class="m">256</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>算法和密钥大小的选择取决于安全的需要。</p>
+<p>椭圆曲线签名算法提供如下几个密钥大小选项：</p>
+<table>
+<thead>
+<tr>
+<th>密钥大小</th>
+<th>ASN1 OID</th>
+<th>签名算法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>256</td>
+<td>prime256v1</td>
+<td>ecdsa-with-SHA256</td>
+</tr>
+<tr>
+<td>384</td>
+<td>secp384r1</td>
+<td>esdsa-with-SHA384</td>
+</tr>
+<tr>
+<td>521</td>
+<td>secp521r1</td>
+<td>esdsa-with-SHA512</td>
+</tr>
+</tbody>
+</table>
+<h3 id="启动服务器"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 启动服务器</h3>
+<p>运行如下命令启动 CA 服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server start -b &lt;admin&gt;:&lt;adminpw&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>如果此前还没有初始化服务器，它会在第一次启动时初始化它自己。在初始化期间，如果 <code>ca-cert.pem</code> 和 <code>ca-key.pem</code> 文件不存在，服务器会产生 他们并且如果配置文件不存在，它也创建一个默认的配置文件。详情请参阅<a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9C%8D%E5%8A%A1%E5%99%A8">初始化 Fabric CA 服务器</a>一节。</p>
+<p>除非 Fabric CA 服务器被配置为使用 LDAP，它必须至少被配置一个预先注册好的引导身份以能够注册另外的身份标示。选项 <code>-b</code> 用于指定为引导身份指定用户名和密码。</p>
+<p>可以通过设置 <code>tls.enabled</code> 配置项为 <code>true</code> 来配置 Fabric CA 服务器监听 <code>https</code> 端口而不是 <code>http</code> 端口。</p>
+<p><strong>安全警告:</strong> Fabric CA 服务器应当总是被配置为激活 TLS (tls.enable 设置为 <code>true</code>)。否则，会导致黑客容易攻破脆弱的服务器以访问网络。</p>
+<p>可以通过设置配置文件中的配置项 <code>registry.maxenrollments</code> 来限制相同密码被注册用户使用的次数。如果设置该值为 1，Fabric CA 服务器仅允许密码被特定注册 ID 使用一次。如果设置为 -1，则该密码可以被重复注册使用。默认值为 -1。该指设置为 0，Fabric CA 服务器则禁止注册身份标示。</p>
+<p>启动 Fabric CA 服务器后，服务器开始监听 7054 端口。</p>
+<p>如果你想配置 Fabric CA 服务器集群或者使用 LDAP，你可以跳过以下章节去 <a href="#fabric-ca-%E5%AE%A2%E6%88%B7%E7%AB%AF">Fabric CA 客户端</a>一节。</p>
+<h3 id="配置数据库"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 配置数据库</h3>
+<p>本节描述如何配置 Fabric CA 服务器链接到 PostgreSQL 或者 MySQL 数据库。默认数据库是 SQLite 并且默认数据库文件 <code>fabric-ca-server.db</code> 位于 Fabric CA 服务器根目录。</p>
+<p>如果你不关心运行 Fabric CA 服务器集群，你可以跳过本节，否则，必须配置 PostgreSQL 或者 MySQL。Fabric CA 服务器集群支持如下版本：</p>
+<ul>
+<li>PostgreSQL: 9.5.5 或者更高版本</li>
+<li>MySQL: 5.7 或者更高版本</li>
+</ul>
+<h4 id="postgresql"><!-- raw HTML omitted -->3.3.1<!-- raw HTML omitted --> PostgreSQL</h4>
+<p>如下示例可以被添加到服务器配置文件以链接 PostgreSQL 数据库。请确保配置合适的变量值。数据库名字允许使用的字符有限制。更多信息，请参阅 PostgreSQL 文档：<a href="https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">db<span class="p">:</span><span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>postgres<span class="w">
+</span><span class="w">  </span>datasource<span class="p">:</span><span class="w"> </span>host=localhost<span class="w"> </span>port=<span class="m">5432</span><span class="w"> </span>user=Username<span class="w"> </span>password=Password<span class="w"> </span>dbname=fabric_ca<span class="w"> </span>sslmode=verify-full<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>指定 <code>sslmode</code> 选项配置 SSL 认证类型，合法的 <code>sslmode</code> 配置包括：</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>disable</td>
+<td>不使用 SSL</td>
+</tr>
+<tr>
+<td>require</td>
+<td>总是使用 SSL (跳过验证证书)</td>
+</tr>
+<tr>
+<td>verify-ca</td>
+<td>总是使用 SSL (验证服务器证书以确保该证书由可信 CA 签名)</td>
+</tr>
+<tr>
+<td>verify-full</td>
+<td>在 verify-ca 基础上添加对服务器 hostname 验证以确保服务器 hostname 和证书匹配</td>
+</tr>
+</tbody>
+</table>
+<p>如果你希望使用 TLS, 那么 CA 服务器配置文件的 <code>db.tls</code> 小节必须被配置。如果 PostgreSQL 服务器激活 SSL 客户端认证，那么客户端证书和密钥文件也必须在 <code>db.tls.client</code> 小节配置。如下是一个有关 <code>db.tls</code> 小节配置案例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">db<span class="p">:</span><span class="w">
+</span><span class="w">  </span>...<span class="w">
+</span><span class="w">  </span>tls<span class="p">:</span><span class="w">
+</span><span class="w">      </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span>certfiles<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>db-server-cert.pem<span class="w">
+</span><span class="w">      </span>client<span class="p">:</span><span class="w">
+</span><span class="w">            </span>certfile<span class="p">:</span><span class="w"> </span>db-client-cert.pem<span class="w">
+</span><span class="w">            </span>keyfile<span class="p">:</span><span class="w"> </span>db-client-key.pem<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>certfiles</strong> - PEM-encoded 可信根证书文件列表；</li>
+<li><strong>certfile</strong> and <strong>keyfile</strong> - CA 服务器 PEM-encoded 证书和公钥文件 - 用于和 PostgreSQL 服务器通讯；</li>
+</ul>
+<ol>
+<li>PostgreSQL SSL 配置</li>
+</ol>
+<pre><code>1.   PostgreSQL 服务器 SSL 配置基本指导:
+
+    1.  修改 postgresql.conf, 去掉 SSL 配置注释并设置其值为 &quot;on&quot; (SSL=on)
+    2.  在 PostgreSQL 数据目录放置 PostgreSQL 服务器证书和密钥文件；
+
+    为 PostgreSQL 服务器产生一个自签名证书的指导 - &lt;https://www.postgresql.org/docs/9.5/static/ssl-tcp.html&gt;。
+
+    注意：自签名证书适合测试目的，请不要在生产环境中使用自签名证书；
+
+2.   PostgreSQL 服务器 - 需要客户端证书
+
+    1.  将 CA 服务器 `root.crt` 中你信任的证书认证 (CAs) 证书放置在 PostgreSQL 数据目录；
+    2.  修改 `postgresql.conf`, 设置 &quot;ssl\_ca\_file&quot; 指向客户端根证书 (root cert)；
+    3.  修改 `pg_hba.conf`, 在 `hostssl` 配置小节设置 `clientcert` 参数为 1 ；
+
+    有关更多 PostgreSQL 服务器 SSL 配置细节，请参阅 PostgreSQL 文档 - &lt;https://www.postgresql.org/docs/9.4/static/libpq-ssl.html&gt;.
+</code></pre>
+<h4 id="mysql"><!-- raw HTML omitted -->3.3.2<!-- raw HTML omitted --> MySQL</h4>
+<p>要使用 MySQL 数据库，需要添加如下示例配置至 CA 服务器配置文件。请确保配置合适的变量值。数据库名字允许使用的字符有限制。有关 MySQL 的更多信息，请参阅文档 - <a href="https://dev.mysql.com/doc/refman/5.7/en/identifiers.html">https://dev.mysql.com/doc/refman/5.7/en/identifiers.html</a>。</p>
+<p>MySQL 5.7.X 版本特定模式会影响到服务器允许 &ldquo;0000-00-00&rdquo; 值。有必要配置 MySQL 服务器放松对零值的支持。我们希望服务器能够接受零值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">db<span class="p">:</span><span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>mysql<span class="w">
+</span><span class="w">  </span>datasource<span class="p">:</span><span class="w"> </span>root<span class="p">:</span>rootpw@tcp(localhost<span class="p">:</span><span class="m">3306</span>)/fabric_ca<span class="p">?</span>parseTime=<span class="kc">true</span><span class="cp">&amp;tls=custom</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果要使用 TLS 连接 MySQL 服务器， <code>db.tls.client</code> 小节也需要像 PostgreSQL 那样设置。</p>
+<ol>
+<li>MySQL SSL 配置</li>
+</ol>
+<pre><code>**MySQL 服务器 SSL 配置简单介绍:**
+
+1, 打开或者创建 MySQL 服务器配置文件 `my.cnf` 。添加或者去掉 `[mysqld]` 小节注释。这些配置用于指向服务器密钥和证书以及根 CA 证书。
+
+创建服务端和客户端证书的教程：
+&lt;http://dev.mysql.com/doc/refman/5.7/en/creating-ssl-files-using-openssl.html&gt;
+
+```nil
+[mysqld] ssl-ca=ca-cert.pem ssl-cert=server-cert.pem ssl-key=server-key.pem
+```
+
+运行如下查询以确认 SSL 已经激活：
+
+```sql
+mysql&gt; SHOW GLOBAL VARIABLES LIKE ‘have_%ssl’;
+```
+
+将看到输出：
+
+| Variable Name | Value | -- |
+|---------------|-------|----|
+| have\_openssl | YES   | -- |
+| hava\_ssl     | YES   | -- |
+
+2, 服务端 SSL 配置完成后，下一步是创建一个具有通过 SSL 访问 MySQL 服务器权限的用户。登入 MySQL 服务器，输入如下指令：
+
+```sql
+mysql&gt; GRANT ALL PRIVILEGES ON . TO ‘ssluser’@’%’ IDENTIFIED BY ‘password’ REQUIRE SSL;
+mysql&gt; FLUSH PRIVILEGES;
+```
+
+如果你想配置用户访问 MySQL 服务器的 IP 地址，将 '%' 修改为指定 IP 地址即可。
+</code></pre>
+<ol start="2">
+<li>MySQL 服务器 - 客户端证书配置</li>
+</ol>
+<pre><code>客户端安全连接配置选项和服务端相似。
+
+-   ssl-ca 标识根 CA 证书。如果用到，这个选项必须和服务端使用的证书一样；
+-   ssl-cert 标识 MySQL 服务器证书；
+-   ssl-key 标识 MySQL 服务器私钥；// 译者备注：TODO - 待确认，这里可能有误；
+
+Suppose that you want to connect using an account that has no special encryption requirements or was created using a GRANT statement that includes the REQUIRE SSL option. As a recommended set of secure-connection options, start the MySQL server with at least –ssl-cert and –ssl-key options. Then set the `db.tls.certfiles` property in the server configuration file and start the Fabric CA server.
+
+To require that a client certificate also be specified, create the account using the REQUIRE X509 option. Then the client must also specify proper client key and certificate files; otherwise, the MySQL server will reject the connection. To specify client key and certificate files for the Fabric CA server, set the `db.tls.client.certfile`, and `db.tls.client.keyfile` configuration properties.
+</code></pre>
+<h3 id="配置-ldap"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 配置 LDAP</h3>
+<p>Fabric CA 服务器能够被配置为和 LDAP 服务器一起工作。</p>
+<p>特别地，Fabirc CA 服务器能够链接至 LDAP 服务器以：</p>
+<ul>
+<li>认证已经注册的身份</li>
+<li>获取身份属性用于授权</li>
+</ul>
+<p>修改配置文件的 LDAP 部分以配置 CA 服务器链接至 LDAP 服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">ldap<span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="c"># Enables or disables the LDAP client (default: false)</span><span class="w">
+</span><span class="w">   </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">   </span><span class="c"># The URL of the LDAP server</span><span class="w">
+</span><span class="w">   </span>url<span class="p">:</span><span class="w"> </span>&lt;scheme&gt;<span class="p">:</span>//&lt;adminDN&gt;<span class="p">:</span>&lt;adminPassword&gt;@&lt;host&gt;<span class="p">:</span>&lt;port&gt;/&lt;base<span class="sd">&gt;
+</span><span class="sd">  </span><span class="sd"> </span><span class="sd">userfilter: &lt;filter&gt;</span><span class="w">
+</span><span class="w">   </span>attribute<span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># &#39;names&#39; is an array of strings that identify the specific attributes</span><span class="w">
+</span><span class="w">      </span><span class="c"># which are requested from the LDAP server.</span><span class="w">
+</span><span class="w">      </span>names<span class="p">:</span><span class="w"> </span>&lt;LDAPAttrs<span class="sd">&gt;
+</span><span class="sd">     </span><span class="sd"> </span><span class="sd"># The &#39;converters&#39; section is used to convert LDAP attribute values</span><span class="w">
+</span><span class="w">      </span><span class="c"># to fabric CA attribute values.</span><span class="w">
+</span><span class="w">      </span><span class="c">#</span><span class="w">
+</span><span class="w">      </span><span class="c"># For example, the following converts an LDAP &#39;uid&#39; attribute</span><span class="w">
+</span><span class="w">      </span><span class="c"># whose value begins with &#39;revoker&#39; to a fabric CA attribute</span><span class="w">
+</span><span class="w">      </span><span class="c"># named &#34;hf.Revoker&#34; with a value of &#34;true&#34; (because the expression</span><span class="w">
+</span><span class="w">      </span><span class="c"># evaluates to true).</span><span class="w">
+</span><span class="w">      </span><span class="c">#    converters:</span><span class="w">
+</span><span class="w">      </span><span class="c">#       - name: hf.Revoker</span><span class="w">
+</span><span class="w">      </span><span class="c">#         value: attr(&#34;uid&#34;) =~ &#34;revoker*&#34;</span><span class="w">
+</span><span class="w">      </span><span class="c">#</span><span class="w">
+</span><span class="w">      </span><span class="c"># As another example, assume a user has an LDAP attribute named</span><span class="w">
+</span><span class="w">      </span><span class="c"># &#39;member&#39; which has multiple values of &#34;dn1&#34;, &#34;dn2&#34;, and &#34;dn3&#34;.</span><span class="w">
+</span><span class="w">      </span><span class="c"># Further assume the following configuration.</span><span class="w">
+</span><span class="w">      </span><span class="c">#    converters:</span><span class="w">
+</span><span class="w">      </span><span class="c">#       - name: myAttr</span><span class="w">
+</span><span class="w">      </span><span class="c">#         value: map(attr(&#34;member&#34;),&#34;groups&#34;)</span><span class="w">
+</span><span class="w">      </span><span class="c">#    maps:</span><span class="w">
+</span><span class="w">      </span><span class="c">#       groups:</span><span class="w">
+</span><span class="w">      </span><span class="c">#          - name: dn1</span><span class="w">
+</span><span class="w">      </span><span class="c">#            value: orderer</span><span class="w">
+</span><span class="w">      </span><span class="c">#          - name: dn2</span><span class="w">
+</span><span class="w">      </span><span class="c">#            value: peer</span><span class="w">
+</span><span class="w">      </span><span class="c"># The value of the user&#39;s &#39;myAttr&#39; attribute is then computed to be</span><span class="w">
+</span><span class="w">      </span><span class="c"># &#34;orderer,peer,dn3&#34;.  This is because the value of &#39;attr(&#34;member&#34;)&#39; is</span><span class="w">
+</span><span class="w">      </span><span class="c"># &#34;dn1,dn2,dn3&#34;, and the call to &#39;map&#39; with a 2nd argument of</span><span class="w">
+</span><span class="w">      </span><span class="c"># &#34;group&#34; replaces &#34;dn1&#34; with &#34;orderer&#34; and &#34;dn2&#34; with &#34;peer&#34;.</span><span class="w">
+</span><span class="w">      </span>converters<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>&lt;fcaAttrName<span class="sd">&gt;
+</span><span class="sd">         </span><span class="sd"> </span><span class="sd">value: &lt;fcaExpr&gt;</span><span class="w">
+</span><span class="w">      </span>maps<span class="p">:</span><span class="w">
+</span><span class="w">        </span>&lt;mapName&gt;<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>&lt;from<span class="sd">&gt;
+</span><span class="sd">             </span><span class="sd"> </span><span class="sd">value: &lt;to&gt;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>其中：</p>
+<ul>
+<li><strong>scheme</strong> 是 <code>ldap</code> 或者 <code>ldaps</code> ；</li>
+<li><strong>adminDN</strong> 是管理员用户名；</li>
+<li><strong>pass</strong> 是管理员用户密码；</li>
+<li><strong>host</strong> 是 LDAP 服务器名字或者 IP 地址；</li>
+<li><strong>port</strong> 是可选 LDAP 服务器端口，默认 <code>ldap</code> 是 389, <code>ldaps</code> 是 636；</li>
+<li><strong>base</strong> 是可选的用于检索的 LDAP 树根；</li>
+<li><strong>filter</strong> 是一个可转换登录用户名至一个可区分名字的过滤器。例如，检索过滤器 <code>(uid=%s)</code> 用于检索 <code>uid</code> 属性值为登录用户名的 LDAP 条目。与之相似， <code>(email=%s)</code> 用于通过 Emial 地址登录；</li>
+<li><strong>LDAPAttrs</strong> 是一个包含多个 LDAP 属性名的数组；</li>
+<li><code>atrribute.converters</code> 部分用于转换 LDAP 属性至 Fabric CA 属性；</li>
+<li><code>attribute.maps</code> 部分用于映射 LDAP 响应值。</li>
+</ul>
+<p>使用 govaluate 包的LDAP 表达式语言用户手册可以访问 <a href="https://github.com/Knetic/govaluate/blob/master/MANUAL.md">https://github.com/Knetic/govaluate/blob/master/MANUAL.md</a>。 它定义了像是 &ldquo;=~&rdquo; 和 &ldquo;revoker*&rdquo; 这样的正则表达式操作符。</p>
+<h3 id="配置集群"><!-- raw HTML omitted -->3.5<!-- raw HTML omitted --> 配置集群</h3>
+<p>本节提供一个如何使用 Haproxy 以路由负载均衡流量至 Fabric CA 服务器集群。请确保修改机器名和端口以匹配你的 Fabric CA 服务器设置。</p>
+<p>haproxy.conf 文件配置如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">global<span class="w">
+</span><span class="w">      </span>maxconn<span class="w"> </span><span class="m">4096</span><span class="w">
+</span><span class="w">      </span>daemon<span class="w">
+</span><span class="w">
+</span><span class="w"></span>defaults<span class="w">
+</span><span class="w">      </span>mode<span class="w"> </span>http<span class="w">
+</span><span class="w">      </span>maxconn<span class="w"> </span><span class="m">2000</span><span class="w">
+</span><span class="w">      </span>timeout<span class="w"> </span>connect<span class="w"> </span><span class="m">5000</span><span class="w">
+</span><span class="w">      </span>timeout<span class="w"> </span>client<span class="w"> </span><span class="m">50000</span><span class="w">
+</span><span class="w">      </span>timeout<span class="w"> </span>server<span class="w"> </span><span class="m">50000</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>listen<span class="w"> </span>http-in<span class="w">
+</span><span class="w">      </span>bind<span class="w"> </span><span class="cp">*:7054</span><span class="w">
+</span><span class="w">      </span>balance<span class="w"> </span>roundrobin<span class="w">
+</span><span class="w">      </span>server<span class="w"> </span>server1<span class="w"> </span>hostname1<span class="p">:</span>port<span class="w">
+</span><span class="w">      </span>server<span class="w"> </span>server2<span class="w"> </span>hostname2<span class="p">:</span>port<span class="w">
+</span><span class="w">      </span>server<span class="w"> </span>server3<span class="w"> </span>hostname3<span class="p">:</span>port<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>注意: 如果使用 TLS，需要配置 <code>mode tcp</code> 。</p>
+<h3 id="设置多-cas"><!-- raw HTML omitted -->3.6<!-- raw HTML omitted --> 设置多 CAs</h3>
+<p>默认情况下，Fabric CA 服务器包含一个单一默认 CA。然而，多个 CAs 能够通过使用 cafiles 或者 cacount 配置选项加入一个 CA 服务器。每个 CA 将有自己的根目录 (home directory)。</p>
+<h4 id="cacount"><!-- raw HTML omitted -->3.6.1<!-- raw HTML omitted --> cacount</h4>
+<p><code>cacount</code> 提供了一个快速启动 X 个默认额外 CAs 的方法。每个 CA 根目录都相对于服务器根目录，使用这个选项，目录结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">--&lt;Server Home&gt;
+  <span class="p">|</span>--ca
+    <span class="p">|</span>--ca1
+    <span class="p">|</span>--ca2
+</code></pre></td></tr></table>
+</div>
+</div><p>每个额外的 CA 将获得一个在其根目录生成的默认配置文件，配置文件包含一个唯一 CA 名字。</p>
+<p>例如，如下命令将启动 2 个默认 CA 实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server start -b admin:adminpw --cacount <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="cafiles"><!-- raw HTML omitted -->3.6.2<!-- raw HTML omitted --> cafiles</h4>
+<p>当使用 <code>cafiles</code> 配置选项的时候，如果绝对路径没有被提供，CA 根目录将被设置为相对于服务器根目录。</p>
+<p>使用这个选项，CA 配置文件必须已经被生成且被配置为启动每个 CA。每个配置文件必须有一个唯一的 CA 名字和 Common Name (CN)，否则，服务将启动失败。CA 配置文件将覆盖任何默认 CA 配置，并且任何在 CA 配置文件中没有设置的选项将使用默认 CA 对应的值替换。</p>
+<p>优先级如下：</p>
+<ol>
+<li>CA 配置文件</li>
+<li>默认 CA CLI 标志</li>
+<li>默认 CA 环境变量</li>
+<li>默认 CA 配置文件</li>
+</ol>
+<p>一个 CA 配置文件必须包含至少如下信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">ca<span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c"># Name of this CA</span><span class="w">
+</span><span class="w"></span>name<span class="p">:</span><span class="w"> </span>&lt;CANAME<span class="sd">&gt;
+</span><span class="sd"></span><span class="sd">
+</span><span class="sd"></span><span class="sd">csr:</span><span class="w">
+</span><span class="w">  </span>cn<span class="p">:</span><span class="w"> </span>&lt;COMMONNAME&gt;<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>你可以配置你的目录结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">--&lt;Server Home&gt;
+  <span class="p">|</span>--ca
+    <span class="p">|</span>--ca1
+      <span class="p">|</span>-- fabric-ca-config.yaml
+    <span class="p">|</span>--ca2
+      <span class="p">|</span>-- fabric-ca-config.yaml
+</code></pre></td></tr></table>
+</div>
+</div><p>例如，如下命令将启动两个定制 CA 实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">fabric-ca-server start -b admin:adminpw --cafiles ca/ca1/fabric-ca-config.yaml
+--cafiles ca/ca2/fabric-ca-config.yaml
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="注册--enrolling--一个中间-ca"><!-- raw HTML omitted -->3.7<!-- raw HTML omitted --> 注册 (Enrolling) 一个中间 CA</h3>
+<p>为了给一个中间 CA 创建一个签名证书，中间 CA 必须和一个 CA 客户端一样的方式注册 (enroll) 至 CA 服务器。这可以通过使用 <code>-u</code> 选项指定一个父 CA URL , enroment ID 和密码 (如下所述)。和这个注册 ID 相关的身份必须具有一个名字为 &ldquo;hf.IntermediateCA&rdquo; 且值为 &ldquo;true&rdquo; 的属性。其证书中 CN (Common Name) 属性将被设置为 enroment ID。如果一个中间 CA 尝试明确指定一个 CN 属性值将会产生错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-server start -b admin:adminpw -u http://&lt;enrollmentID&gt;:&lt;secret&gt;@&lt;parentserver&gt;:&lt;parentport&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>更多有关中间 CA 选项，请参阅 <a href="#fabric-ca-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">Fabric CA 服务器配置文件格式</a>一节。</p>
+<h3 id="升级-ca-服务器"><!-- raw HTML omitted -->3.8<!-- raw HTML omitted --> 升级 CA 服务器</h3>
+<p>Fabric CA 服务器必须先于 Fabric CA 客户端被更新。在更新之前，建议做好当前数据库的备份：</p>
+<ul>
+<li>如果使用 sqlite3, 备份当前数据库文件 (默认名字是 <code>fabric-ca-server.db</code>)。</li>
+<li>对于其他类型的数据库，请使用合适的备份/复制机制。</li>
+</ul>
+<p>升级一个单一实例的 Fabric CA 服务器的步骤：</p>
+<ol>
+<li>停止 <code>fabric-ca-server</code> 进程；</li>
+<li>确认当前数据库已经被备份；</li>
+<li>使用新版本替换旧版本 <code>fabric-ca-server</code> 二进制文件；</li>
+<li>启动 <code>fabric-ca-server</code> 进程；</li>
+<li>使用如下命令检验 <code>fabric-ca-server</code> 进程是否可用 (<!-- raw HTML omitted --> 指的是 CA 服务器主机名)：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-client getcainfo -u http://&lt;host&gt;:7054
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="升级一个集群"><!-- raw HTML omitted -->3.8.1<!-- raw HTML omitted --> 升级一个集群</h4>
+<p>执行如下过程以升级 fabric-ca-server 集群实例 (无论是使用 MySQL 或者是 PostgreSQL 数据库)。我们假设你有两个成员 <code>host1</code> 和 <code>host2</code>  fabric-ca-server 构成的一个集群，两者分别启动并监听 7054 端口，并正在使用 haproxy 作负载均衡。经过升级处理流程后，访问流量会分别经负载均衡分配至升级后的 fabric-ca-server 集群成员 <code>host3</code> 和 <code>host4</code>, 两者分别启动并监听 7054 端口。</p>
+<p>为了使用 <code>haproxy stats</code> 命令监控变化，需要激活统计数据收集。添加如下两行至 haproxy 配置文件全局小节：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">stats socket /var/run/haproxy.sock mode <span class="m">666</span> level operator
+stats timeout 2m
+</code></pre></td></tr></table>
+</div>
+</div><p>重新启动 haproxy 以使配置生效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># haproxy -f &lt;configfile&gt; -st $(pgrep haproxy)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>下面的函数提供了有用的功能以解析 haproxy &ldquo;show stat&rdquo; 命令返回的大量 CSV 数据以显示总结信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">haProxyShowStats<span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+   <span class="nb">echo</span> <span class="s2">&#34;show stat&#34;</span> <span class="p">|</span> nc -U /var/run/haproxy.sock <span class="p">|</span>sed <span class="s1">&#39;1s/^# *//&#39;</span><span class="p">|</span>
+      awk -F<span class="s1">&#39;,&#39;</span> -v <span class="nv">fmt</span><span class="o">=</span><span class="s2">&#34;%4s %12s %10s %6s %6s %4s %4s\n&#34;</span> <span class="s1">&#39;
+</span><span class="s1">         { if (NR==1) for (i=1;i&lt;=NF;i++) f[tolower($i)]=i }
+</span><span class="s1">         { printf fmt, $f[&#34;sid&#34;],$f[&#34;pxname&#34;],$f[&#34;svname&#34;],$f[&#34;status&#34;],
+</span><span class="s1">                       $f[&#34;weight&#34;],$f[&#34;act&#34;],$f[&#34;bck&#34;] }&#39;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>初始化 haproxy 配置文件如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">server server1 host1:7054 check
+server server2 host2:7054 check
+</code></pre></td></tr></table>
+</div>
+</div><p>改变该配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">server server1 host1:7054 check backup
+server server2 host2:7054 check backup
+server server3 host3:7054 check
+server server4 host4:7054 check
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>重启 HA proxy：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">haproxy -f &lt;configfile&gt; -st <span class="k">$(</span>pgrep haproxy<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>&quot;haProxyShowStats&quot;</code> 现在会反映该配置变化，两个活跃的，老版本的备份服务器和两个新的升级版服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">sid   pxname      svname  status  weig  act  bck
+  <span class="m">1</span>   fabric-cas  server3   DOWN     <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+  <span class="m">2</span>   fabric-cas  server4   DOWN     <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+  <span class="m">3</span>   fabric-cas  server1     UP     <span class="m">1</span>    <span class="m">0</span>    <span class="m">1</span>
+  <span class="m">4</span>   fabric-cas  server2     UP     <span class="m">1</span>    <span class="m">0</span>    <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>分别在 <code>host3</code> 和 <code>host4</code> 上安装升级版本的 fabric-ca-server。新的升级被服务器 (<code>host3</code> 和 <code>host4</code>) 被配置为使用和老版本服务器 (<code>host1</code> 和 <code>host2</code>) 相同的数据库。启动升级版本服务器后，数据库将自动迁移。HA proxy 将自动转发所有新的流量到升级版服务器。可以使用命令 <code>fabric-ca-client gegcainfo</code> 验证集群功能正常。而且 <code>haProxyShowStats</code> 命令现在会显示所有服务器均处于活跃状态：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">sid   pxname      svname  status  weig  act  bck
+  <span class="m">1</span>   fabric-cas  server3    UP     <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+  <span class="m">2</span>   fabric-cas  server4    UP     <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+  <span class="m">3</span>   fabric-cas  server1    UP     <span class="m">1</span>    <span class="m">0</span>    <span class="m">1</span>
+  <span class="m">4</span>   fabric-cas  server2    UP     <span class="m">1</span>    <span class="m">0</span>    <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>停止老版本服务器 <code>host1</code> 和 <code>host2</code> 。在继续处理之前，使用 <code>fabric-ca-client getcainfo</code> 命令确认新的集群工作正常。然后从 <code>haproxy</code> 配置文件去掉老版本服务相关配置，修改后的配置如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">server server3 host3:7054 check
+server server4 host4:7054 check
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>重启 HA proxy：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">haproxy -f &lt;configfile&gt; -st <span class="k">$(</span>pgrep haproxy<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>命令 <code>haProxyShowStats</code> 现在会反映该配置变化，现在有两个活跃的升级版服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">sid   pxname      svname  status  weig  act  bck
+  <span class="m">1</span>   fabric-cas  server3   UP       <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+  <span class="m">2</span>   fabric-cas  server4   UP       <span class="m">1</span>    <span class="m">1</span>    <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="fabric-ca-客户端"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> Fabric CA 客户端</h2>
+<p>本节描述如何使用 <code>fabric-ca-client</code> 命令。</p>
+<p>Fabric CA 客户端根目录按如下规则确定：</p>
+<ul>
+<li>如果 <code>-home</code> 命令行选项被提供，使用该值；</li>
+<li>否则，如果 <code>FABRIC_CA_CLIENT_HOME</code> 环境变量被设置，使用该值；</li>
+<li>否则，如果 <code>FABRIC_CA_HOME</code> 环境变量被设置，使用该值；</li>
+<li>否则，如果 <code>CA_CFG_PATH</code> 环境变量被设置，使用该值；</li>
+<li>否则，使用 <code>$HOME/.fabric-ca-client</code> ；</li>
+</ul>
+<p>后面的教程假设客户端配置文件存在于客户端根目录。</p>
+<h3 id="注册引导身份"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 注册引导身份</h3>
+<p>首先，如果需要的话，定制客户端配置文件的 CSR (Certificate Signing Request) 小节。注意 <code>src.cn</code> 域必须设置为引导身份 ID。默认 CSR 值如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">csr<span class="p">:</span><span class="w">
+</span><span class="w">  </span>cn<span class="p">:</span><span class="w"> </span>&lt;&lt;enrollment<span class="w"> </span>ID&gt;<span class="sd">&gt;
+</span><span class="sd"> </span><span class="sd"> </span><span class="sd">key:</span><span class="w">
+</span><span class="w">    </span>algo<span class="p">:</span><span class="w"> </span>ecdsa<span class="w">
+</span><span class="w">    </span>size<span class="p">:</span><span class="w"> </span><span class="m">256</span><span class="w">
+</span><span class="w">  </span>names<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>C<span class="p">:</span><span class="w"> </span>US<span class="w">
+</span><span class="w">      </span>ST<span class="p">:</span><span class="w"> </span>North<span class="w"> </span>Carolina<span class="w">
+</span><span class="w">      </span>L<span class="p">:</span><span class="w">
+</span><span class="w">      </span>O<span class="p">:</span><span class="w"> </span>Hyperledger<span class="w"> </span>Fabric<span class="w">
+</span><span class="w">      </span>OU<span class="p">:</span><span class="w"> </span>Fabric<span class="w"> </span>CA<span class="w">
+</span><span class="w">  </span>hosts<span class="p">:</span><span class="w">
+</span><span class="w">   </span>-<span class="w"> </span>&lt;&lt;hostname<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>fabric-ca-client&gt;<span class="sd">&gt;
+</span><span class="sd"> </span><span class="sd"> </span><span class="sd">ca:</span><span class="w">
+</span><span class="w">    </span>pathlen<span class="p">:</span><span class="w">
+</span><span class="w">    </span>pathlenzero<span class="p">:</span><span class="w">
+</span><span class="w">    </span>expiry<span class="p">:</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后运行 <code>fabric-ca-client enroll</code> 命令以注册身份。例如，如下命令通过调用运行在本地 7054 端口的 CA 服务器注册一个身份，其 ID 是 <code>admin</code>, 密码是 <code>adminpw</code> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/admin
+fabric-ca-client enroll -u http://admin:adminpw@localhost:7054
+</code></pre></td></tr></table>
+</div>
+</div><p>命令 <code>enroll</code> 在 CA 客户端 <code>msp</code> 目录存储一个注册证书 (ECert)，该证书和子目录中的一个私钥及证书链 PEM 文件相关。可以看到一些指示 PEM 文件存储位置的消息。</p>
+<h3 id="登记--registering--一个新身份"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 登记 (Registering) 一个新身份</h3>
+<p>执行登记请求的身份必须是当前已经注册且具有适当登记身份类型授权。</p>
+<p>具体的说，在登记操作期间，要通过如下三种授权检查：</p>
+<ol>
+<li>管理员 (调用者) 必须具有 &ldquo;hf.Registra.Roles&rdquo; 属性，该属性的值是一个逗号隔开的值列表，每一个值代表一个被授权的登记身份类型；例如，如果管理员具有 &ldquo;hf.Registrar.Roles&rdquo; 属性值列表为 &ldquo;peer,app,user&rdquo;，该管理员可以登记身份类型是 <code>peer</code>, <code>app</code>, 和 <code>user</code> 的身份， 但不能登记身份类型为 <code>order</code> 的身份。</li>
+<li>管理员组织属性 (affiliation) 的值必须等于或者是被待登记身份组织属性值的前缀。例如，所属组织为 &ldquo;a.b&rdquo; 的管理员可以登记组织为 &ldquo;a.b.c&rdquo; 的身份标示但不能登记组织为 &ldquo;a.c&rdquo; 的身份。如果登记一个根组织身份，则组织应当指定为点号 (&quot;.&quot;) 并且管理员也必须是根组织管理员。如果没有指定组织，则新身份被登记为和调用管理员组织相同。</li>
+<li>如果符合如下条件，管理员可以登记一个带有相应属性的身份：
+<ul>
+<li>对于 Fabric CA 保留的具有前缀 &ldquo;hf.&rdquo; 的属性，只有管理员自己具有这些属性且他们是属性 &ldquo;hf.Registrar.Attributes&rdquo; 值列表的一部分的时候，管理员才可以登记。更多的，如果要登记的属性是列表类型，其值一定等于或者是管理员拥有的该属性的值的一个子集。如果要登记的属性的类型是布尔类型，则管理员拥有该属性的值必须是 &ldquo;true&rdquo; 才可以登记该属性。</li>
+<li>对于定制属性 (例如，任何名字不以 &ldquo;hf.&rdquo; 开头的属性) ，要求管理具有 &ldquo;hf.Registar.Attributes&rdquo; 属性且该值和被登记的属性相同或者模式相匹配方可登记。模式匹配仅支持结束位置的 &ldquo;<strong>&rdquo; 通配符。例如，&ldquo;a.b.</strong>&rdquo; 是一个合法匹配模式，其可以匹配所有以 &ldquo;a.b.&rdquo; 开头的属性。例如，如果管理员具有 <code>hf.Registrar.Attributes=orgAdmin</code>, 那么管理员只能为身份添加或者移除 &ldquo;orgAdmin&rdquo; 属性。</li>
+<li>如果请求的属性名字是 &ldquo;hf.Registrar.Atrributes&rdquo; 本身，会执行额外的检查以确保要登记的该属性值和管理员拥有的该属性值的相同或者是其的一个子集。这要求每一个请求的值都要匹配管理员属性 &ldquo;hr.Registrar.Atrributes&rdquo; 的相应值。例如，如果管理员属性 &ldquo;hr.Registrar.Atrributes&rdquo; 的值是 &ldquo;a.b.*, x.y.z&rdquo; 并且请求的属性值是 &ldquo;a.b.c, x.y.z&rdquo;，检查合法，因为 &ldquo;a.b.c&rdquo; 匹配 &ldquo;a.b.*&rdquo; 且 &ldquo;x.y.z&rdquo; 匹配管理员属性值 &ldquo;x.y.z&rdquo;。</li>
+</ul>
+</li>
+</ol>
+<p><strong>示例：</strong></p>
+<ul>
+<li>
+<p>合法示例：</p>
+<ul>
+<li>如果管理员具有属性 &ldquo;hf.Registrar.Attributes = ab.*, x.y.z&rdquo; 并且要登记的属性是 &ldquo;a.b.c&rdquo;，这是合法的，因为 &ldquo;a.b.c&rdquo; 匹配 &ldquo;a.b.*&quot;；</li>
+<li>如果管理员具有属性 &ldquo;hf.Registrar.Attributes = ab.*, x.y.z&rdquo; 并且要登记的属性是 &ldquo;x.y.z&rdquo;，这是合法的；</li>
+<li>如果管理员具有属性 &ldquo;hf.Registrar.Attributes = ab.*, x.y.z&rdquo; 并且要登记的属性是 &ldquo;a.b.c, x.y.z&rdquo;，这是合法的；</li>
+<li>如果管理员具有属性 &ldquo;hf.Registrar.Roles = peer,client&rdquo; 并且要登记的属性 &ldquo;hf.Registrar.Roles&rdquo; 的值是 &ldquo;peer&rdquo; 或者是 &ldquo;peer,client&rdquo;，这是合法的，因为请求的值等于或者是管理员值的一个子集；</li>
+</ul>
+</li>
+<li>
+<p>非法示例：</p>
+<ul>
+<li>TODO</li>
+</ul>
+</li>
+</ul>
+<p>下表中列出所有能够被登记的保留属性。属性名字大小写敏感。</p>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hf.Registrar.Roles</td>
+<td>列表</td>
+<td>允许管理员管理的角色列表</td>
+</tr>
+<tr>
+<td>hf.Registrar.DelegateRoles</td>
+<td>列表</td>
+<td>List of roles that the registrar is allowed to give a registree  for its ‘hf.Registrar.Roles’ attribute</td>
+</tr>
+<tr>
+<td>hf.Registrar.Attributes</td>
+<td>列表</td>
+<td>允许管理员登记的属性列表</td>
+</tr>
+<tr>
+<td>hf.GenCRL</td>
+<td>布尔</td>
+<td>该属性值为真的身份能够产生 CRL</td>
+</tr>
+<tr>
+<td>hf.Revoker</td>
+<td>布尔</td>
+<td>该属性值为真的身份能够吊销一个用户 and/or 证书</td>
+</tr>
+<tr>
+<td>hf.AffiliationMgr</td>
+<td>布尔</td>
+<td>该属性值为真的身份能够管理组织</td>
+</tr>
+<tr>
+<td>hf.InermediateCA</td>
+<td>布尔</td>
+<td>该属性值为真的身份能够作为中间 CA enroll</td>
+</tr>
+</tbody>
+</table>
+<p>注意：当登记一个身份的时候，你可以指定一个属性名字和值列数组。如果该数组包含有多个名字相同的元素，只有最后的元素被使用。换句话说，不支持合并多值属性。</p>
+<p>如下命令使用 <strong>admin</strong> 身份证书登记一个新用户，该用户 enrollment id 是 &ldquo;admin2&rdquo;，组织是 &ldquo;org1.department1&rdquo;，且属性 &ldquo;hf.Revoker=true&rdquo;，并且属性 &ldquo;admin=true&rdquo;。后缀 &ldquo;:ecert&rdquo; 是指默认属性 &ldquo;admin=true&rdquo; 将被插入用户注册证书，随后可被用于访问控制。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/admin
+fabric-ca-client register --id.name admin2 --id.affiliation org1.department1 --id.attrs <span class="s1">&#39;hf.Revoker=true,admin=true:ecert&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Enrollment 密码会在终端打印出来，这个密码会被 <code>enroll</code> 命令使用。这允许管理员登记一个身份并随后把 enrollment ID 和密码给另外的人去注册该身份。</p>
+<p>多个属性可以通过 <code>--id.attrs</code> 选项指定，每个属性必须使用逗号分割。如果一个属性值包含逗号，该属性必须使用双引号。下面是例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-client register -d --id.name admin2 --id.affiliation org1.department1 --id.attrs <span class="s1">&#39;&#34;hf.Registrar.Roles=peer,user&#34;,hf.Revoker=true&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">fabric-ca-client register -d --id.name admin2 --id.affiliation org1.department1 --id.attrs <span class="s1">&#39;&#34;hf.Registrar.Roles=peer,user&#34;&#39;</span> --id.attrs hf.Revoker<span class="o">=</span><span class="nb">true</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>你可以通过修改客户端配置文件，使用登记命令设置任意域的默认值。例如，如下所示的配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">id<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>user<span class="w">
+</span><span class="w">  </span>affiliation<span class="p">:</span><span class="w"> </span>org1.department1<span class="w">
+</span><span class="w">  </span>maxenrollments<span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">  </span>attributes<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>hf.Revoker<span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>name<span class="p">:</span><span class="w"> </span>anotherAttrName<span class="w">
+</span><span class="w">      </span>value<span class="p">:</span><span class="w"> </span>anotherAttrValue<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如下命令会登记一个 enrollment id 是 &ldquo;admin3&rdquo; 的新身份，其 enrollment id 来自于命令行，其他部分来自于配置文件，包括 type: &ldquo;user&rdquo;, affiliation: &ldquo;org1.department1&rdquo;, 以及属性 &ldquo;hf.Revoker&rdquo; 和 &ldquo;anotherAttrName&rdquo;。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">export<span class="w"> </span>FABRIC_CA_CLIENT_HOME=$HOME/fabric-ca/clients/admin<span class="w">
+</span><span class="w"></span>fabric-ca-client<span class="w"> </span>register<span class="w"> </span>--id.name<span class="w"> </span>admin3<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如上所示，可登记一个具有多个属性的身份且要求在配置文件指定所有属性的名字和值。</p>
+<p>设置 <code>maxenrollments</code> 的值为 0 或者不在配置文件中配置该选项，系统会使用 CA <code>maxenrollments</code> 值登记身份。并且，一个登记身份的 <code>maxenrollments</code> 值不能大于 CA <code>maxenrollments</code> 值。例如，如果 CA <code>maxenrollments</code> 值为 5, 任何新登记身份 <code>maxenrollments</code> 值必须小于或等于 5 ，并且不能够设置为 -1 (无限制)。</p>
+<p>接下去，让我们登记一个对等节点身份，该身份将被用于在随后小节注册 (enroll) 对等节点。如下命令登记 <code>peer1</code> 身份。注意，这里我们选择指定我们自己的密码 (secret) 而非让服务器为我们生成。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/admin
+fabric-ca-client register --id.name peer1 --id.type peer --id.affiliation org1.department1 --id.secret peer1pw
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意，除了被配置在服务器配置文件中的非叶组织 (non-leaf affiliations) 外 (总是使用小写)， 组织 (affiliations) 大小写敏感。例如，如果服务器配置文件中 <code>affiliations</code> 小节如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">affiliations:
+  BU1:
+    Department1:
+      - Team1
+  BU2:
+    - Department2
+    - Department3
+</code></pre></td></tr></table>
+</div>
+</div><p>BU1, Department1, BUT2 被存储为小写。这是因为 Fabric CA 使用 Viper 读取配置，Viper 对 map keys 不敏感并且总是返回小写。为了登记一个具有 &ldquo;Team1 affiliation&rdquo; 属性的身份，bu1.department1.Team1 需要通过 <code>-id.affiliation</code> 选项 指定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/admin
+fabric-ca-client register --id.name client1 --id.type client --id.affiliation bu1.department1.Team1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="注册--enrolling--对等节点身份"><!-- raw HTML omitted -->4.3<!-- raw HTML omitted --> 注册 (enrolling) 对等节点身份</h3>
+<p>既然你已经成功的登记 (Registry) 了一个对等节点身份，现在，你可以提供 enrollment ID 和密码 (由登记调用返回) 以注册对等节点。除了这里可以使用 <code>-M</code> 选项填充 Fabric MSP (Membership Service Provider) 目录结构以外，该过程和注册引导身份相同。</p>
+<p>如下命令注册 peer1。请确保使用你的节点 MSP 目录替换 <code>-M</code> 选项的值。该目录配置于对等节点 <code>core.yaml</code> 配置文件的 &ldquo;mspConfigPath&rdquo; 配置项。你也可以设置 <code>FABRIC_CA_CLIENT_HOME</code> 环境变量并导出对等节点的 <code>home</code> 目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/peer1
+fabric-ca-client enroll -u http://peer1:peer1pw@localhost:7054 -M <span class="nv">$FABRIC_CA_CLIENT_HOME</span>/msp
+</code></pre></td></tr></table>
+</div>
+</div><p>注册一个 orderer 节点和此类似，只不过 MSP 目录的路径是 &ldquo;LocalMSPDir&rdquo;，该设置位于 orderer 节点 orderer.yaml 配置文件。</p>
+<p>一个被 Fabric CA 服务器颁发的注册证书具有组织单元属性 (&ldquo;OUs&rdquo;)：</p>
+<ol>
+<li>OU 根等于身份类型；</li>
+<li>为每个身份组织的构成部分添加一个 OU；</li>
+</ol>
+<p>例如，如果身份类型是 <code>peer</code> 并且组织属性值是 &ldquo;department1.team1&rdquo;，该身份的 OU 层级结构 (从叶节点到根节点) 是 OU=team1, OU=department1, OU=peer。</p>
+<h3 id="从另外一个-ca-服务器获得一个-ca-证书链"><!-- raw HTML omitted -->4.4<!-- raw HTML omitted --> 从另外一个 CA 服务器获得一个 CA 证书链</h3>
+<p>通常，对等节点 MSP 目录下的 <code>cacerts</code> 目录包含所有该对等节点信任的 CA 证书链。命令 <code>fabric-ca-client getcainfo</code> 用于从 Fabric CA 服务器实例获取所有证书链。</p>
+<p>例如，如下命令会在本地启动名字为 <code>CA2</code> 的第二个 Fabric CA 服务器并监听 7055 端口。这代表另外一个由区块链上不同成员管理的完全不同的受信根 CA。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_SERVER_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/ca2
+fabric-ca-server start -b admin:ca2pw -p <span class="m">7055</span> -n CA2
+</code></pre></td></tr></table>
+</div>
+</div><p>如下命令将安装 CA2 证书链至 对等节点 <code>peer1</code> MSP 目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">export</span> <span class="nv">FABRIC_CA_CLIENT_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/fabric-ca/clients/peer1
+fabric-ca-client getcainfo -u http://localhost:7055 -M <span class="nv">$FABRIC_CA_CLIENT_HOME</span>/msp
+</code></pre></td></tr></table>
+</div>
+</div><p>默认情况下，Fabric CA 服务器以 child-first 顺序返回 CA 链。这意味着返回的 CA 证书链中的每个证书后面跟着发行方证书。如果你须要 CA 服务器以相反顺序返回 CA 链，须要配置环境变量 <code>CA_CHAIN_PARENT_FIRST</code> 为 <code>true</code> 并重启 CA 服务器。CA 客户端能够正确的处理这两种顺序。</p>
+<h3 id="为用户获取一个-idemix--identity-mixer--证书"><!-- raw HTML omitted -->TODO<!-- raw HTML omitted --> <!-- raw HTML omitted -->4.5<!-- raw HTML omitted --> 为用户获取一个 Idemix (Identity Mixer) 证书</h3>
+<p>Identity Mixer (Idemix) is a cryptographic protocol suite for privacy-preserving authentication and transfer of certified attributes. Idemix allows users to authenticate with verifiers without the involvement of the issuer (CA) and selectively disclose only those attributes that are required by the verifier and can do so without being linkable across their transactions.</p>
+<p>Fabric CA 服务器除了 X509 证书外，还能够颁发 Idemix 凭证。一个 Idemix 凭证可以通过 <code>/api/v1/idemix/credential</code> API 获取。有关更多 Fabric CA 服务器 API 信息，请参阅 <a href="https://github.com/hyperledger/fabric-ca/blob/master/swagger/swagger-fabric-ca.json">swagger-fabric-ca.json</a>。</p>
+<p>Idemix 凭证颁发分两个步骤。首先，通过发送一个空内容请求到 <code>/api/v1/idemix/credential</code> API 以获得一个随机值和 CA Idemix 公钥。然后，使用随机数和 CA Idemix 公钥创建一个凭证请求并将其作为另外一个请求的内容发送到 <code>/api/v1/idemix/credential</code> API 以获取 Idemix 凭证、CRI (Credential Revocation Information)、以及属性名称和值。当前，只支持三个属性：</p>
+<dl>
+<dt><strong>OU</strong></dt>
+<dd>用户所属组织部门。改属性值被用于设置用户的隶属部门。例如，如果用户隶属于 <em>dept1.unit1</em>, 那么 OU 属性值就是 <em>dept1.unit1</em></dd>
+<dt><strong>IsAdmin</strong></dt>
+<dd>用户是否是管理员。该属性值用于设置 <em>isAdmin</em>  登记属性</dd>
+<dt><strong>EnrollmentID</strong></dt>
+<dd>用户注册 ID</dd>
+</dl>
+<h2 id="获得-idemix-cri--证书吊销信息"><!-- raw HTML omitted -->TODO<!-- raw HTML omitted --> <!-- raw HTML omitted -->5<!-- raw HTML omitted --> 获得 Idemix CRI (证书吊销信息)</h2>
+<h2 id="hsm"><!-- raw HTML omitted -->TODO<!-- raw HTML omitted --> <!-- raw HTML omitted -->6<!-- raw HTML omitted --> HSM</h2>
+<h2 id="文件格式"><!-- raw HTML omitted -->TODO<!-- raw HTML omitted --> <!-- raw HTML omitted -->7<!-- raw HTML omitted --> 文件格式</h2>
+<h3 id="fabric-ca-服务器配置文件格式"><!-- raw HTML omitted -->7.1<!-- raw HTML omitted --> Fabric CA 服务器配置文件格式</h3>
+<h3 id="fabric-ca-客户端配置文件格式"><!-- raw HTML omitted -->7.2<!-- raw HTML omitted --> Fabric CA 客户端配置文件格式</h3>
+<h2 id="解决问题"><!-- raw HTML omitted -->TODO<!-- raw HTML omitted --> <!-- raw HTML omitted -->8<!-- raw HTML omitted --> 解决问题</h2>
+<h2 id="参考文献"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li>Fabric CA document,  <a href="https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#table-of-contents">https://hyperledger-fabric-ca.readthedocs.io/en/latest/users-guide.html#table-of-contents</a>.</li>
+<li>Fabric CA 1.2 API, <a href="https://github.com/hyperledger/fabric-ca/blob/release-1.2/swagger/swagger-fabric-ca.json">https://github.com/hyperledger/fabric-ca/blob/release-1.2/swagger/swagger-fabric-ca.json</a>.</li>
+<li>SoftHSM home, <a href="https://www.opendnssec.org/softhsm/">https://www.opendnssec.org/softhsm/</a>.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-08-26
+        <a href="/commit/6c341f0c525f0ecbd7bac5ced0f14d20de1bee1a" title="update Fabtic CA document and add webAR document.">(6c341f0)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/blockchain/">Blockchain</a>
+          <a href="/tags/fabric/">Fabric</a>
+          <a href="/tags/ca/">CA</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/web-ar-s101/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Web AR 101</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/fabric-geting-start/">
+            <span class="next-text nav-default">Fabric 入门</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blockchain on Junahan - Blog</title>
+    <link>/tags/blockchain/</link>
+    <description>Recent content in Blockchain on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 29 Jul 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fabric CA 用户手册</title>
+      <link>/post/fabric-ca-user-guide-cn/</link>
+      <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-ca-user-guide-cn/</guid>
+      <description>1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
+    </item>
+    
+    <item>
+      <title>Fabric 入门</title>
+      <link>/post/fabric-geting-start/</link>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-geting-start/</guid>
+      <description>1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具</description>
+    </item>
+    
+  </channel>
+</rss>

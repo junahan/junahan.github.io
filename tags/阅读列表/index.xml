@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>阅读列表 on Junahan - Blog</title>
+    <link>/tags/%E9%98%85%E8%AF%BB%E5%88%97%E8%A1%A8/</link>
+    <description>Recent content in 阅读列表 on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/%E9%98%85%E8%AF%BB%E5%88%97%E8%A1%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>阅读清单 - 2019</title>
+      <link>/post/reading-list/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/reading-list/</guid>
+      <description>这里是我个人的阅读清单，自 2018 年开始逐年更新。 12019 阅读清单 (未完待续) 《高效能人士的七个习惯》(The Seven Habits of Highly Effective People) - [美]史蒂芬·柯维（Step</description>
+    </item>
+    
+  </channel>
+</rss>

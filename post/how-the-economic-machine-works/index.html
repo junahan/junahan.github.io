@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>经济机器是如何运作的？ - 笔记大纲 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/how-the-economic-machine-works/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="经济机器是如何运作的？ - 笔记大纲" />
+<meta property="og:description" content="1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/how-the-economic-machine-works/" />
+<meta property="article:published_time" content="2019-10-20T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-11-10T12:53:54+08:00" />
+<meta itemprop="name" content="经济机器是如何运作的？ - 笔记大纲">
+<meta itemprop="description" content="1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图">
+<meta itemprop="datePublished" content="2019-10-20T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-10T12:53:54&#43;08:00" />
+<meta itemprop="wordCount" content="2788">
+
+
+
+<meta itemprop="keywords" content="经济机器," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="经济机器是如何运作的？ - 笔记大纲"/>
+<meta name="twitter:description" content="1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">经济机器是如何运作的？ - 笔记大纲</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BB%8F%E6%B5%8E%E6%9C%BA%E5%99%A8/"> 经济机器 </a>
+            </div>
+          <span class="more-meta"> 约 2788 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">1 前言</a></li>
+    <li><a href="#经济分析模型">2 经济分析模型</a></li>
+    <li><a href="#经济机器的零部件">3 经济机器的零部件</a>
+      <ul>
+        <li><a href="#交易">3.1 交易</a></li>
+        <li><a href="#信贷">3.2 信贷</a></li>
+        <li><a href="#周期">3.3 周期</a></li>
+      </ul>
+    </li>
+    <li><a href="#三个因素的相互作用">4 三个因素的相互作用</a>
+      <ul>
+        <li><a href="#有信贷-vs-dot-没有信贷">4.1 有信贷 vs. 没有信贷</a></li>
+        <li><a href="#借债产生周期">4.2 借债产生周期</a></li>
+        <li><a href="#借贷-vs-dot-货币">4.3 借贷 vs. 货币</a></li>
+        <li><a href="#借贷如何驱动周期">4.4 借贷如何驱动周期</a></li>
+        <li><a href="#短期债务周期">4.5 短期债务周期</a></li>
+        <li><a href="#长期债务周期">4.6 长期债务周期</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">5 总结</a>
+      <ul>
+        <li><a href="#经济运作模型">5.1 经济运作模型</a></li>
+        <li><a href="#三条经验法则">5.2 三条经验法则</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文献">6 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="前言"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 前言</h2>
+<p>本文是我观看 <a href="https://www.economicprinciples.org/zh-hans/">How the Economic Machine Works</a> (<a href="https://v.youku.com/v%5Fshow/id%5FXNjE5MTU2Njgw.html">国内 YOUKU 链接</a>) - (by <a href="https://www.linkedin.com/in/raydalio/">Ray Dalio</a>, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图)。</p>
+<h2 id="经济分析模型"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 经济分析模型</h2>
+<p>经济有几个简单的零部件和无数次重复的简单交易组成。交易由人的天性所驱动，从而形成三股主要的经济动力。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g84z79cwo5j31fc0im7wh.jpg"
+         alt="Figure 1: 经济运行的三个动力" width="80%"/> <figcaption>
+            <p>Figure 1: 经济运行的三个动力</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>生产率的增长 - 是经济增长的长期驱动力</li>
+<li>短期债务周期 - 持续约 5 - 8 年的短期债务周期</li>
+<li>长期债务周期 - 持续约 75 - 100 年的长期债务周期</li>
+</ul>
+<p>组合以上三个因素，就可以得到一个良好的经济运行模型。便于我们跟踪经济走势并理解当前正在发生的事情。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g84z91rf7qj31fc0qynpd.jpg"
+         alt="Figure 2: 经济运行模型示意图" width="80%"/> <figcaption>
+            <p>Figure 2: 经济运行模型示意图</p>
+        </figcaption>
+</figure>
+
+<h2 id="经济机器的零部件"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 经济机器的零部件</h2>
+<h3 id="交易"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 交易</h3>
+<p>交易是经济机器的最基本零部件，所有的经济周期和动力都是交易造成的。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g84zxi62x9j31fc0sikjl.jpg"
+         alt="Figure 3: 交易无处不在" width="80%"/> <figcaption>
+            <p>Figure 3: 交易无处不在</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>交易时刻发生，人们使用货币或者信用交换商品、服务或者金融资产。</li>
+<li>支出总额 = 货币 + 信用，是经济的驱动力。</li>
+<li>交易是经济机器的最基本零部件，所有的经济周期和动力都是交易造成的。</li>
+<li>同一种类的商品所有买卖方构成市场。</li>
+<li>经济就是由所有市场的全部交易组成。</li>
+<li>个人、企业、银行和政府构成市场上的交易主体。</li>
+<li>政府由中央政府和中央央行两个部分构成。</li>
+<li>中央政府负责收税和花钱</li>
+<li>中央银行不同于一般交易方，通过利率和发行货币控制货币和信贷。央行在信贷流通当中发挥着重要的作用。</li>
+</ul>
+<h3 id="信贷"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 信贷</h3>
+<p>信贷是经济中最重要的组成部分 - 是经济中最大且最为变换莫测的部分。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8511exro7j31b80reb29.jpg"
+         alt="Figure 4: 信贷" width="80%"/> <figcaption>
+            <p>Figure 4: 信贷</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>任何交易双方均可以按照约定凭空产生信贷。</li>
+<li>信贷看似简单，实则复杂。信贷还有一个名称即债务，信贷一旦产生，立即变成债务。</li>
+<li>债务是贷款人的资产，是借款人的负债。</li>
+<li>债务偿还发生在将来，只有借款人偿还了债务，信贷交易才得以完成。</li>
+<li>信贷之所以重要是因为借款人一旦获得贷款，就可以增加支出。</li>
+<li>支出是经济的驱动力 - 一个人的支出是另外一个人收入。</li>
+<li>&ldquo;收入增加 -&gt; 信贷增加 -&gt; 支出增加&rdquo; 不断循环的自我驱动模式导致经济增长，由此产生了经济周期。</li>
+</ul>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g851atrms5j31l20rwql7.jpg"
+         alt="Figure 5: 收入-借贷-支出循环" width="80%"/> <figcaption>
+            <p>Figure 5: 收入-借贷-支出循环</p>
+        </figcaption>
+</figure>
+
+<h3 id="周期"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 周期</h3>
+<p>债务是经济波动的主要动力。</p>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g851hoxzjaj31c60s4npd.jpg"
+         alt="Figure 6: 债务制造周期" width="80%"/> <figcaption>
+            <p>Figure 6: 债务制造周期</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>长期看，生产多少就是收入多少。</li>
+<li>知识的积累会提高生产率。</li>
+<li>生产率在长期内最关键，生产率增长是经济的长期驱动力量。但生产率的提高不会剧烈波动，不是经济波动的主要动力。</li>
+<li>信贷在短期内最重要。通过借债可以让当前消费超过产出，但是在还债时不得不让消费低于产出。</li>
+<li>债务量的波动有两大周期
+<ul>
+<li>短期债务周期 - 持续 5-8 年</li>
+<li>长期债务周期 - 持续 75 - 100 年</li>
+</ul>
+</li>
+</ul>
+<h2 id="三个因素的相互作用"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 三个因素的相互作用</h2>
+<h3 id="有信贷-vs-dot-没有信贷"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 有信贷 vs. 没有信贷</h3>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g851rttmvkj31c60f6kap.jpg"
+         alt="Figure 7: 信贷 vs. 没有信贷" width="80%"/> <figcaption>
+            <p>Figure 7: 信贷 vs. 没有信贷</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>在没有信贷的情况下，增加支出的唯一办法是增加生产</li>
+<li>有信贷的情况下，则可以通过借债增加支出</li>
+</ul>
+<h3 id="借债产生周期"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 借债产生周期</h3>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g851uoy9eij31c60nitwr.jpg"
+         alt="Figure 8: 借债产生周期" width="80%"/> <figcaption>
+            <p>Figure 8: 借债产生周期</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>借债的本质就是向未来的自己借钱</li>
+</ul>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g851wujpqtj31do0punc8.jpg"
+         alt="Figure 9: 借债的本质 - 向未来的自己借钱" width="80%"/> <figcaption>
+            <p>Figure 9: 借债的本质 - 向未来的自己借钱</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>一旦一笔借贷发生，就制造了一个周期。</li>
+<li>信贷触发了一系列机械和可以预料的将在未来发生的事件。</li>
+</ul>
+<h3 id="借贷-vs-dot-货币"><!-- raw HTML omitted -->4.3<!-- raw HTML omitted --> 借贷 vs. 货币</h3>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8525o97s5j31do0pux6q.jpg"
+         alt="Figure 10: 信贷总额远远大于货币总额" width="80%"/> <figcaption>
+            <p>Figure 10: 信贷总额远远大于货币总额</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>使用货币完成交易 - 交易当即完成。</li>
+<li>使用信贷进行交易 - 交易完成时间推迟至偿还贷款那一刻。</li>
+<li>信贷总额远远大于货币总额 (如美国 50 万亿 vs. 3 万亿)。</li>
+</ul>
+<h3 id="借贷如何驱动周期"><!-- raw HTML omitted -->4.4<!-- raw HTML omitted --> 借贷如何驱动周期</h3>
+<ul>
+<li>信贷可以使收入的增长速度短期内超过生产率的增长速度，但长期内并非如此。</li>
+<li>在有信贷的经济运行中，我们可以通过跟踪各种交易，观察信贷如何带来经济增长。</li>
+<li>借贷正是通过 <code>收入增加 -&gt; 信贷增加 -&gt; 支出增加</code> 不断循环的自我驱动模式导致经济增长。</li>
+<li>借贷形成周期，周期会上升，最终也会下降，从而形成了短期债务周期和长期债务周期。</li>
+</ul>
+<h3 id="短期债务周期"><!-- raw HTML omitted -->4.5<!-- raw HTML omitted --> 短期债务周期</h3>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8blkp981mj31qc0owau1.jpg"
+         alt="Figure 11: 利率" width="80%"/> <figcaption>
+            <p>Figure 11: 利率</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>上升周期 - 经济扩张、信贷增加、支出增加、价格上升、通货膨胀、利率上升</li>
+<li>下行周期 - 信贷减少、还款增多、支出减少、价格下跌、通货紧缩甚至经济衰退、利率下降</li>
+<li>这个周期主要有央行控制 - 通过利率调节借贷规模从而引起经济的扩张和收缩。</li>
+<li>在上升周期中，央行通过增加利率来抑制通货膨胀。
+<ul>
+<li>利率上升 - 信贷减少 -&gt; 支出减少 -&gt; 经济收缩</li>
+<li>利率下降 - 信贷增加 -&gt; 支出增加 -&gt; 经济扩张</li>
+</ul>
+</li>
+<li>短期债务周期通常持续 5 - 8 年，在几十年中不断重复。</li>
+<li>在每个周期的低谷和高峰后，经济增长和债务都超过前一个周期。这是人的天性促成的 - 人具有借更多钱和花更多钱的倾向而不喜欢偿还债务。这导致在长期内债务增加的速度超过收入，而产生了长期债务周期。</li>
+</ul>
+<h3 id="长期债务周期"><!-- raw HTML omitted -->4.6<!-- raw HTML omitted --> 长期债务周期</h3>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bk9ekivjj31e90u0x6p.jpg"
+         alt="Figure 12: 长债务周期" width="80%"/> <figcaption>
+            <p>Figure 12: 长债务周期</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>人的天性 - 具有借更多钱和花更多钱的倾向而不喜欢偿还债务。这导致在长期内债务增加的速度超过收入，而产生了长期债务周期。</li>
+<li>杠杆化过程 (约 50 年) - 经济繁荣</li>
+<li>去杠杆化过程 (约 2-3 年) - 经济萧条</li>
+<li>通货再膨胀阶段 (约 10 年) - 失去的十年</li>
+</ul>
+<h4 id="杠杆化阶段"><!-- raw HTML omitted -->4.6.1<!-- raw HTML omitted --> 杠杆化阶段</h4>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bkwbkgg1j31o20u0x6p.jpg"
+         alt="Figure 13: 杠杆化阶段" width="80%"/> <figcaption>
+            <p>Figure 13: 杠杆化阶段</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>经济繁荣期 (收入上涨、资产价格上升) 借贷很划算 - 收入增长 &gt; 债务增长。</li>
+<li>人们只注意最近的景象。</li>
+<li>债务长期增长、资产价格上升不可持续，产生泡沫。</li>
+<li>债务在几十年内大量积累，偿债成本越来越高，偿债成本增加 &gt; 收入增长 -&gt; 减少借债/削减支出 -&gt; 收入减少 (一个人的支出是另外一个人收入)，周期开始逆转，经济进入去杠杆化过程。</li>
+</ul>
+<h4 id="去杠杆化阶段"><!-- raw HTML omitted -->4.6.2<!-- raw HTML omitted --> 去杠杆化阶段</h4>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bfmyrtpqj31j30u0x6p.jpg"
+         alt="Figure 14: 去杠杆化过程" width="80%"/> <figcaption>
+            <p>Figure 14: 去杠杆化过程</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>去杠杆化过程的代价</li>
+</ul>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bj54tuuuj31ki0u01kx.jpg"
+         alt="Figure 15: 大萧条和战争" width="80%"/> <figcaption>
+            <p>Figure 15: 大萧条和战争</p>
+        </figcaption>
+</figure>
+
+<blockquote>
+<ul>
+<li>消减支出</li>
+<li>收入下降</li>
+<li>信贷消失</li>
+<li>资产价格下跌</li>
+<li>银行发生挤兑</li>
+<li>股票市场暴跌</li>
+<li>社会紧张加剧</li>
+</ul>
+</blockquote>
+<ul>
+<li>去杠杆化的恶性循环 - 减少借债 -&gt; 消减支出 -&gt; 收入减少 -&gt; 财富减少 -&gt; 信贷减少 -&gt; 减少借债 -&gt; …</li>
+<li>在去杠杆化过程中，由于利率已经降低至 0，无法通过降低利率来刺激经济。</li>
+</ul>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bfsv5l22j31on0u0b2a.jpg"
+         alt="Figure 16: 美国利率" width="80%"/> <figcaption>
+            <p>Figure 16: 美国利率</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>和短周期的经济衰退不同，在去杠杆化过程中，由于借款人的债务负担过重，无法通过降低利率来挽回局面。</li>
+</ul>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bgfa5m7sj31p40u07wj.jpg"
+         alt="Figure 17: 美国债务负担" width="80%"/> <figcaption>
+            <p>Figure 17: 美国债务负担</p>
+        </figcaption>
+</figure>
+
+<h4 id="如何应对去杠杆化"><!-- raw HTML omitted -->4.6.3<!-- raw HTML omitted --> 如何应对去杠杆化</h4>
+<p>应对去杠杆化的主要抓手是必须减轻债务负担。可以采用四种办法。</p>
+<ul>
+<li>消减支出 - 个人、企业和政府消减支出 - 通货紧缩</li>
+<li>减少债务 - 通过债务违约和重组 - 萧条</li>
+<li>财富再分配 - 劫富济贫</li>
+<li>发行货币 - 央行发行更多货币 - 量化宽松</li>
+</ul>
+<p>以上四个办法被应用于现代历史上每次去杠杆化过程</p>
+<ul>
+<li>1930 年代 美国</li>
+<li>1950 年代 英国</li>
+<li>1990 年代 日本</li>
+<li>2010 年代 西班牙和意大利</li>
+</ul>
+<h5 id="政府赤字"><!-- raw HTML omitted -->4.6.3.1<!-- raw HTML omitted --> 政府赤字</h5>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bisj5rbkj31p40u07wi.jpg"
+         alt="Figure 18: 中央政府的财政赤字" width="80%"/> <figcaption>
+            <p>Figure 18: 中央政府的财政赤字</p>
+        </figcaption>
+</figure>
+
+<h5 id="财富再分配"><!-- raw HTML omitted -->4.6.3.2<!-- raw HTML omitted --> 财富再分配</h5>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bj1rgqm7j31p40u0e81.jpg"
+         alt="Figure 19: 财富再分配" width="80%"/> <figcaption>
+            <p>Figure 19: 财富再分配</p>
+        </figcaption>
+</figure>
+
+<h5 id="发行货币"><!-- raw HTML omitted -->4.6.3.3<!-- raw HTML omitted --> 发行货币</h5>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bj8j7z3ij31n90u0kjl.jpg"
+         alt="Figure 20: 发行货币 - 美国" width="80%"/> <figcaption>
+            <p>Figure 20: 发行货币 - 美国</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bjbedx3qj31n90u0hdu.jpg"
+         alt="Figure 21: 发行货币 - 英国/欧洲" width="80%"/> <figcaption>
+            <p>Figure 21: 发行货币 - 英国/欧洲</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bjeq8b03j31e30u0b29.jpg"
+         alt="Figure 22: 央行和政府合作" width="80%"/> <figcaption>
+            <p>Figure 22: 央行和政府合作</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>央行发行货币购买政府债券 - 相当于借钱给政府</li>
+<li>政府实行赤字经济政策 - 以购买商品和服务的方式增加人们的收入</li>
+<li>降低经济中的总债务负担</li>
+</ul>
+<h4 id="如何和谐的去杠杆化"><!-- raw HTML omitted -->4.6.4<!-- raw HTML omitted --> 如何和谐的去杠杆化</h4>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bjxe4cz6j31yy0iee81.jpg"
+         alt="Figure 23: 平衡的艺术" width="80%"/> <figcaption>
+            <p>Figure 23: 平衡的艺术</p>
+        </figcaption>
+</figure>
+
+<ul>
+<li>综合利用通货紧缩手段和发行货币方法</li>
+<li>增加货币发行量弥补信贷的降低</li>
+<li>发行货币推动收入的增长率 &gt; 债务的利率</li>
+<li>避免滥发货币导致恶性通货膨胀</li>
+</ul>
+<h2 id="总结"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 总结</h2>
+<h3 id="经济运作模型"><!-- raw HTML omitted -->5.1<!-- raw HTML omitted --> 经济运作模型</h3>
+<p>结合短期债务周期、长期债务周期和生产率增长结合起来，就会得到一个不错的经济运作模型。</p>
+<ul>
+<li>短期债务周期</li>
+<li>长期债务周期</li>
+<li>生产率增长</li>
+</ul>
+<h3 id="三条经验法则"><!-- raw HTML omitted -->5.2<!-- raw HTML omitted --> 三条经验法则</h3>
+<ol>
+<li>不要让债务的增长速度超过收入 - 债务负担最终会把你压垮</li>
+<li>不要让收入的增长速度超过生产率 - 失去竞争力</li>
+<li>尽一切努力提高生产率 - 生产率在长期内起着最关键的作用</li>
+</ol>
+<h2 id="参考文献"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li><a href="https://www.economicprinciples.org/zh-hans/">How the Economic Machine Works</a> (<a href="https://v.youku.com/v%5Fshow/id%5FXNjE5MTU2Njgw.html">国内 YOUKU 链接</a>) by <a href="https://www.linkedin.com/in/raydalio/">Ray Dalio</a>, 2019.</li>
+<li><a href="https://www.economicprinciples.org/downloads/Paradigm-Shifts.pdf">PARADIGM SHIFTS</a> (<a href="https://www.chainnews.com/articles/046554004601.htm">瑞·达利欧万字雄文：未来十年投资的范式转移</a>), by Ray Dalio, 2019.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-10
+        <a href="/commit/dfccfb8c8124be9929bb98954d2e385d92101205" title="many changes.">(dfccfb8)</a>
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%BB%8F%E6%B5%8E%E6%9C%BA%E5%99%A8/">经济机器</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/emacs-sql/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Emacs SQL Mode 介绍</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/kong-k8s-ingress-controller-101/">
+            <span class="next-text nav-default">Kong Kubernetes Ingress Controller 入门</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

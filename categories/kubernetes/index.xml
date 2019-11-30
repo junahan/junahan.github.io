@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Junahan - Blog</title>
+    <link>/categories/kubernetes/</link>
+    <description>Recent content in kubernetes on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 02 Jun 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kong Kubernetes Ingress Controller 入门</title>
+      <link>/post/kong-k8s-ingress-controller-101/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/kong-k8s-ingress-controller-101/</guid>
+      <description>1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2</description>
+    </item>
+    
+    <item>
+      <title>Minikube &#43; Helm 搭建本地 k8s 环境</title>
+      <link>/post/minikube-helm-101/</link>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/minikube-helm-101/</guid>
+      <description>1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
+    </item>
+    
+  </channel>
+</rss>

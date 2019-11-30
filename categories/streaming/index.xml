@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Streaming on Junahan - Blog</title>
+    <link>/categories/streaming/</link>
+    <description>Recent content in Streaming on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/streaming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>流媒体服务器 101</title>
+      <link>/post/streaming-server-101/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>/post/streaming-server-101/</guid>
+      <description>1摘要 针对流媒体播放服务器和客户端做的一个调查汇总。 2H5 player vedio.js - Video.js is a web video player built from the ground up for an HTML5 world. It supports HTML5 and Flash video, as well as YouTube and Vimeo (through plugins). It supports video playback on desktops and mobile devices. This project</description>
+    </item>
+    
+  </channel>
+</rss>
