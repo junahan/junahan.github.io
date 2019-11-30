@@ -6,7 +6,7 @@
     <description>Recent content on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,15 @@
       
       <guid>/about/</guid>
       <description>这里是 Junhan 的个人网站 - 关注分布式计算和 AI 技术。 联系我</description>
+    </item>
+    
+    <item>
+      <title>使用 Hugo &#43; Org 发布博文</title>
+      <link>/post/emacs-hugo-blog/</link>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-hugo-blog/</guid>
+      <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew</description>
     </item>
     
     <item>

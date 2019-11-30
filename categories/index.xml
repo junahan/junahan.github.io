@@ -6,15 +6,15 @@
     <description>Recent content in Categories on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Nov 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Emacs</title>
+      <title>emacs</title>
       <link>/categories/emacs/</link>
-      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 +0800</pubDate>
       
       <guid>/categories/emacs/</guid>
       <description></description>

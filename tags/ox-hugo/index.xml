@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>org-mode on Junahan - Blog</title>
-    <link>/tags/org-mode/</link>
-    <description>Recent content in org-mode on Junahan - Blog</description>
+    <title>ox-hugo on Junahan - Blog</title>
+    <link>/tags/ox-hugo/</link>
+    <description>Recent content in ox-hugo on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 12 Nov 2019 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="/tags/org-mode/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/ox-hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>/post/emacs-hugo-blog/</guid>
       <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew</description>
-    </item>
-    
-    <item>
-      <title>学习 Emacs Org - 工具和配置</title>
-      <link>/post/learning-emacs-org-tools-and-conf/</link>
-      <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
-      
-      <guid>/post/learning-emacs-org-tools-and-conf/</guid>
-      <description>本文是学习使用 ORG 系列中的第一篇，该系列是在学习过程中逐步整理而成，仍然在不断更新之中。在本文中，我们将介绍 Emacs org 模块的一些基本功能，一些学习心</description>
     </item>
     
   </channel>
