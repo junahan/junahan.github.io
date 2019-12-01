@@ -43,12 +43,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/mysql-partitioning-test/" />
 <meta property="article:published_time" content="2019-12-01T00:00:00+08:00" />
-<meta property="article:modified_time" content="2019-12-01T17:24:15+08:00" />
+<meta property="article:modified_time" content="2019-12-01T17:28:36+08:00" />
 <meta itemprop="name" content="MySQL 分区案例">
 <meta itemprop="description" content="MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究">
 <meta itemprop="datePublished" content="2019-12-01T00:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-01T17:24:15&#43;08:00" />
-<meta itemprop="wordCount" content="3815">
+<meta itemprop="dateModified" content="2019-12-01T17:28:36&#43;08:00" />
+<meta itemprop="wordCount" content="3875">
 
 
 
@@ -130,7 +130,7 @@
             <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
             <a href="/categories/mysql/"> MySQL </a>
             </div>
-          <span class="more-meta"> 约 3815 字 </span>
+          <span class="more-meta"> 约 3875 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
         
       </div>
@@ -158,6 +158,8 @@
       <ul>
         <li><a href="#pt-prepare">3.1 pt-prepare</a></li>
         <li><a href="#pt-ten-millions-test">3.2 pt-ten-millions-test</a></li>
+        <li><a href="#pt-twenty-millions-test-dot-sql">3.3 pt-twenty-millions-test.sql</a></li>
+        <li><a href="#pt-a-hundred-millions-test-dot-sql">3.4 pt-a-hundred-millions-test.sql</a></li>
       </ul>
     </li>
     <li><a href="#结果汇总分析">4 结果汇总分析</a></li>
@@ -878,7 +880,11 @@
 </span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">54</span> <span class="n">sec</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="结果汇总分析"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 结果汇总分析</h2>
+</div><h3 id="pt-twenty-millions-test-dot-sql"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> pt-twenty-millions-test.sql</h3>
+<p>内容同 <a href="#pt-ten-millions-test">pt-ten-millions-test</a>，不在赘述。</p>
+<h3 id="pt-a-hundred-millions-test-dot-sql"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> pt-a-hundred-millions-test.sql</h3>
+<p>内容同 <a href="#pt-ten-millions-test">pt-ten-millions-test</a>，不在赘述。</p>
+<h2 id="结果汇总分析"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 结果汇总分析</h2>
 <blockquote>
 <p>测试条件：</p>
 <ul>
