@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MySQL 分区案例 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究" /><meta name="keywords" content="MySQL Partition, MySQL 分区, MySQL" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/mysql-partitioning-test/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="MySQL 分区案例" />
+<meta property="og:description" content="MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/mysql-partitioning-test/" />
+<meta property="article:published_time" content="2019-11-11T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-12-01T17:06:33+08:00" />
+<meta itemprop="name" content="MySQL 分区案例">
+<meta itemprop="description" content="MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究">
+<meta itemprop="datePublished" content="2019-11-11T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-01T17:06:33&#43;08:00" />
+<meta itemprop="wordCount" content="3815">
+
+
+
+<meta itemprop="keywords" content="MySQL," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL 分区案例"/>
+<meta name="twitter:description" content="MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MySQL 分区案例</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-11 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
+            <a href="/categories/mysql/"> MySQL </a>
+            </div>
+          <span class="more-meta"> 约 3815 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#方案及测评要求">1 方案及测评要求</a>
+      <ul>
+        <li><a href="#目录结构">1.1 目录结构</a></li>
+        <li><a href="#测评案例">1.2 测评案例</a></li>
+        <li><a href="#测评要求">1.3 测评要求</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据表结构及数据">2 数据表结构及数据</a>
+      <ul>
+        <li><a href="#测试表结构">2.1 测试表结构</a></li>
+        <li><a href="#测试数据">2.2 测试数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#测试脚本">3 测试脚本</a>
+      <ul>
+        <li><a href="#pt-prepare">3.1 pt-prepare</a></li>
+        <li><a href="#pt-ten-millions-test">3.2 pt-ten-millions-test</a></li>
+      </ul>
+    </li>
+    <li><a href="#结果汇总分析">4 结果汇总分析</a></li>
+    <li><a href="#结论和建议">5 结论和建议</a></li>
+    <li><a href="#参考文献">6 参考文献</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<p>MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 <a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning.html">MySQL Partitioning</a> 方案。这里提供了研究和测试的结果，包括用于测试的脚本、数据和测试结果分析。</p>
+<!-- raw HTML omitted -->
+<blockquote>
+<p><em>注意：这里以 MySQL 5.7 版本为基础讨论分区。</em></p>
+</blockquote>
+<h2 id="方案及测评要求"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 方案及测评要求</h2>
+<p>根据应用的特点：</p>
+<ul>
+<li>这里选择使用 Range 类型的分区。</li>
+<li>分区列为日期类型 - 对应用而言，最常用的访问集中在最近的一些数据。</li>
+<li>对于老的数据可以在日后通过分区裁剪整个移除。</li>
+<li>以数据的分布情况来确定分区的粒度 - 原则上保证每个分区的数据控制在百万级别。</li>
+</ul>
+<h3 id="目录结构"><!-- raw HTML omitted -->1.1<!-- raw HTML omitted --> 目录结构</h3>
+<p>可以从 <a href="https://github.com/junahan/mysql-partitioning-test">mysql-partitioning-test</a> 仓库下载所有脚本和数据文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">.
+├── README.org
+├── data.zip
+├── sql
+│   ├── pt-a-hundred-millions-test.sql                <span class="c1"># 1 亿规模数据表测试脚本</span>
+│   ├── pt-a-millions-ref-test.sql                    <span class="c1"># 100 万规模数据表，用于作为性能的基准参考</span>
+│   ├── pt-prepare.sql                                <span class="c1"># 数据库设置准备脚本，主要用于关闭 MySQL 缓存</span>
+│   ├── pt-ten-millions-test.sql                      <span class="c1"># 1000 万规模数据表测试脚本</span>
+│   ├── pt-twenty-millions-test.sql                   <span class="c1"># 2000 万规模数据表测试脚本</span>
+│   ├── pt_a_hundred_millions_original_schema.sql     <span class="c1"># 1 亿规模原始数据表</span>
+│   ├── pt_a_millions_ref_schema.sql                  <span class="c1"># 100 万规模数据表 schema</span>
+│   ├── pt_base_goods_schema_and_data.sql             <span class="c1"># 用于 Join 测试的数据表 schema 和数据</span>
+│   ├── pt_ten_millions_original_schema.sql           <span class="c1"># 1000 万规模数据表 schema</span>
+│   └── pt_twenty_millions_original_schema.sql        <span class="c1"># 2000 万规模数据表 schema</span>
+└── summary-mysql-partition.xlsx                      <span class="c1"># the test result data.</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>README.org - 本文档。</li>
+<li>data.zip - 压缩后的测试数据，普通 CSV 文件。解压后可以直接导入 MySQL 数据库。</li>
+<li>sql - 测试表 Schema 以及测试脚本。详细请参看注释。</li>
+<li>summary-mysql-partition.xlsx - 测试结果数据汇总。</li>
+</ul>
+<blockquote>
+<p>由于 data.zip 大小的原因 (高达数十 GB)，没有包含 1 亿数据，但可以通过 SQL 脚本重建 1 亿数据表。</p>
+</blockquote>
+<h3 id="测评案例"><!-- raw HTML omitted -->1.2<!-- raw HTML omitted --> 测评案例</h3>
+<!-- raw HTML omitted -->
+<table>
+<thead>
+<tr>
+<th>测试案例/数据规模</th>
+<th>备注说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert (以 100 条为单位)</td>
+<td>测试 insert 操作性能，以 100 条数据为单位统计测试结果</td>
+</tr>
+<tr>
+<td>全表扫描</td>
+<td>使用 <code>SELECT COUNT(goods_name) FROM</code> 语句强制做全表扫描查询并统计测试结果</td>
+</tr>
+<tr>
+<td>扫描约 500 万数据</td>
+<td>使用 <code>SELECT COUNT(goods_name) FROM ... WHERE ...</code> 语句，使用分区列做条件限制扫描约 500 万数据并统计测试结果</td>
+</tr>
+<tr>
+<td>扫描约 200 万数据</td>
+<td>使用 <code>SELECT COUNT(goods_name) FROM ... WHERE ...</code> 语句，使用分区列做条件限制扫描约 200 万数据并统计测试结果</td>
+</tr>
+<tr>
+<td>扫描约 100 万数据</td>
+<td>使用 <code>SELECT COUNT(goods_name) FROM ... WHERE ...</code> 语句，使用分区列做条件限制扫描约 100 万数据并统计测试结果</td>
+</tr>
+<tr>
+<td>Left Join + 选择 100 万数据</td>
+<td>使用 <code>SELECT COUNT(temp.id) FROM ... LEFT JOIN ... ON ... WHERE ...</code> 语句，使用分区列做条件限制扫描约 100 万数据并统计测试结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="测评要求"><!-- raw HTML omitted -->1.3<!-- raw HTML omitted --> 测评要求</h3>
+<ul>
+<li>禁用数据库查询缓存 (query cache)</li>
+<li>所有测试案例均在原始表（未分区）和分区表分别执行和统计结果</li>
+<li>原始表和分区表具有相同的索引</li>
+<li>每个测试案例执行 5 (适用于运行时间较长的案例) 或者 10 次并丢弃明显不合理的结果</li>
+<li>所有测试分别在 1 千万，2 千万，1 亿三个数据量级上进行</li>
+</ul>
+<h2 id="数据表结构及数据"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 数据表结构及数据</h2>
+<p>根据测评的要求，我们需要准备不同规模的测试数据。</p>
+<h3 id="测试表结构"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 测试表结构</h3>
+<p>测试用表结构如下表所示：</p>
+<!-- raw HTML omitted -->
+<table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>数据类型</th>
+<th>是否索引</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>varchar(32)</td>
+<td>是</td>
+<td>本次测试中，在原始表中创建为主键索引</td>
+</tr>
+<tr>
+<td>goods_id</td>
+<td>varchar(32)</td>
+<td>是</td>
+<td>用于 Join 查询</td>
+</tr>
+<tr>
+<td>goods_name</td>
+<td>varchar(32)</td>
+<td>否</td>
+<td>不创建索引的列，用于测试</td>
+</tr>
+<tr>
+<td>in_date</td>
+<td>datetime(4)</td>
+<td>是</td>
+<td>用于分区表列</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>id 列在原始表里面创建为主键索引，但在分区表里面为普通索引。这个和 MySQL Partitioning 的主键和唯一索引键限制有关。</li>
+<li>goods_id 和 in_date 列分别在原始表和分区表创建索引。</li>
+<li>goods_name 列表不加索引并在测试期间被用作 <code>SELECT count(goods_name) ...</code> 查询中，以执行可做性能对比的查询。</li>
+</ul>
+<h3 id="测试数据"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 测试数据</h3>
+<p>测试数据位于项目 data.zip 文件里面。是普通的 csv 文件，可以直接导入数据库对应的表中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">data
+├── <span class="o">[</span> 62M<span class="o">]</span>  pt_a_millions_ref.csv             <span class="c1"># 100 万数据，用作性能参考</span>
+├── <span class="o">[</span>547M<span class="o">]</span>  pt_ten_millions_original.csv      <span class="c1"># 1,000 万数据</span>
+└── <span class="o">[</span>1.2G<span class="o">]</span>  pt_twenty_millions_original.csv   <span class="c1"># 2,000 万数据</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><em>这里由于 1 亿数据文件的尺寸过大的原因而没有提供。你可以通过 SQL 脚本自己生成相应的数据。</em></p>
+</blockquote>
+<h2 id="测试脚本"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 测试脚本</h2>
+<p>测试脚本是针对不同规模数据及测试案例制作的 SQL 脚本。测试脚本列表如下：</p>
+<!-- raw HTML omitted -->
+<table>
+<thead>
+<tr>
+<th>数据规模</th>
+<th>测试脚本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据库准备</td>
+<td>sql/pt-prepare.sql</td>
+<td>用于初始化和准备测试环境 - 包括关闭 MySQL 缓存</td>
+</tr>
+<tr>
+<td>1,000 万规模数据表</td>
+<td>sql/pt-ten-millions-test.sql</td>
+<td>包含创建分区、所有测试案例语句等</td>
+</tr>
+<tr>
+<td>2,000 万规模数据表</td>
+<td>sql/pt-twenty-millions-test.sql</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>1 亿规模数据表</td>
+<td>sql/pt-a-hundred-millions-test.sql</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pt-prepare"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> pt-prepare</h3>
+<p>该脚本用于准备测试环境，如检查 MySQL 版本号和禁用缓存。</p>
+<h4 id="检查-mysql-版本号"><!-- raw HTML omitted -->3.1.1<!-- raw HTML omitted --> 检查 MySQL 版本号</h4>
+<p>需要 MySQL 5.7.0 以上版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 检查版本号 require &gt; 5.7.0
+</span><span class="c1"></span><span class="k">select</span> <span class="o">@</span><span class="o">@</span><span class="k">version</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="n">RESULTS</span><span class="p">:</span>
+<span class="o">|</span> <span class="o">@</span><span class="o">@</span><span class="k">version</span> <span class="o">|</span>
+<span class="o">|</span><span class="c1">-----------|
+</span><span class="c1"></span><span class="o">|</span>    <span class="mi">5</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">25</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="关闭-mysql-缓存"><!-- raw HTML omitted -->3.1.2<!-- raw HTML omitted --> 关闭 MySQL 缓存</h4>
+<p>确保所有测试案例均在无缓存情况下运行以得到稳定且精确的执行时间统计。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 关闭 cache
+</span><span class="c1"></span><span class="c1">-- show variables like &#39;query_cache%&#39;;
+</span><span class="c1"></span><span class="k">set</span> <span class="k">GLOBAL</span> <span class="n">query_cache_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">set</span> <span class="n">query_cache_type</span> <span class="o">=</span> <span class="k">off</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;</span><span class="s1">query_cache%</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="n">RESULTS</span><span class="p">:</span>
+<span class="o">|</span> <span class="n">Variable_name</span>                <span class="o">|</span>   <span class="n">Value</span> <span class="o">|</span>
+<span class="o">|</span><span class="c1">------------------------------+---------|
+</span><span class="c1"></span><span class="o">|</span> <span class="n">query_cache_limit</span>            <span class="o">|</span> <span class="mi">1048576</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">query_cache_min_res_unit</span>     <span class="o">|</span>    <span class="mi">4096</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">query_cache_size</span>             <span class="o">|</span>       <span class="mi">0</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">query_cache_type</span>             <span class="o">|</span>     <span class="k">OFF</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">query_cache_wlock_invalidate</span> <span class="o">|</span>     <span class="k">OFF</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="pt-ten-millions-test"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> pt-ten-millions-test</h3>
+<p>该脚本是 SQL 语句集合，用于 1,000 万数据规模场景下创建分区及运行全部测试案例。这里是<a href="sql/pt-ten-millions-test.sql">脚本源文件</a>。</p>
+<h4 id="复制原始表"><!-- raw HTML omitted -->3.2.1<!-- raw HTML omitted --> 复制原始表</h4>
+<p>为了对比测试，复制原始表用于创建分区表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 复制表
+</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="k">as</span> <span class="p">(</span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="统计数据分布情况"><!-- raw HTML omitted -->3.2.2<!-- raw HTML omitted --> 统计数据分布情况</h4>
+<p>使用已经创建好索引的原始表 (性能好) 统计数据按年、按月的分布情况，为创建分区做指引。</p>
+<ul>
+<li>统计 <code>in_date</code> 字段的范围</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 统计 in_date 范围
+</span><span class="c1"></span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">,</span> <span class="k">min</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">|</span> <span class="k">max</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span>             <span class="o">|</span> <span class="k">min</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span>             <span class="o">|</span>
+<span class="o">|</span><span class="c1">--------------------------+--------------------------|
+</span><span class="c1"></span><span class="o">|</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">30</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">.</span><span class="mi">0000</span> <span class="o">|</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">.</span><span class="mi">0000</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>统计数据年度分布情况</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 统计数据年度分布
+</span><span class="c1"></span><span class="k">select</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">group</span> <span class="k">by</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">|</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span> <span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|</span><span class="c1">---------------+----------|
+</span><span class="c1"></span><span class="o">|</span>          <span class="mi">2017</span> <span class="o">|</span> <span class="mi">10000000</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>统计数据月度分布情况</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 统计数据月度分布
+</span><span class="c1"></span><span class="k">select</span> <span class="k">MONTH</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">where</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s1">2017</span><span class="s1">&#39;</span> <span class="k">group</span> <span class="k">by</span> <span class="k">MONTH</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">|</span> <span class="k">MONTH</span><span class="p">(</span><span class="n">in_date</span><span class="p">)</span> <span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">|</span><span class="c1">----------------+----------|
+</span><span class="c1"></span><span class="o">|</span>              <span class="mi">1</span> <span class="o">|</span>  <span class="mi">7059807</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">2</span> <span class="o">|</span>   <span class="mi">821748</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">3</span> <span class="o">|</span>   <span class="mi">306033</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">4</span> <span class="o">|</span>   <span class="mi">290470</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">5</span> <span class="o">|</span>   <span class="mi">322146</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">6</span> <span class="o">|</span>   <span class="mi">279145</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">7</span> <span class="o">|</span>   <span class="mi">294363</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">8</span> <span class="o">|</span>   <span class="mi">316447</span> <span class="o">|</span>
+<span class="o">|</span>              <span class="mi">9</span> <span class="o">|</span>   <span class="mi">309841</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="设计分区并创建分区表"><!-- raw HTML omitted -->3.2.3<!-- raw HTML omitted --> 设计分区并创建分区表</h4>
+<p>根据数据分布情况的统计，可以看到多数数据集中在 2017 年 1 月份。为了遵循每个分区原则上数据量在 100 万规模级别，我们需要在创建分区的时候，考虑到 1 月份数据集中分布的情况。因此，1 月份是按照每三天左右一个分区来处理。分区的 SQL 脚本如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="n">PARTITION</span> <span class="k">BY</span> <span class="n">RANGE</span> <span class="n">COLUMNS</span> <span class="p">(</span><span class="n">in_date</span><span class="p">)</span>
+<span class="p">(</span><span class="n">PARTITION</span> <span class="n">p20161201</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2016-12-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170101</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170104</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-04</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170107</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-07</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170110</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-10</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170116</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-16</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170119</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-19</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170122</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-22</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170125</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-25</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170128</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-01-28</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170201</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170301</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-03-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170401</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-04-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170501</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-05-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170601</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-06-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170701</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-07-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170801</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-08-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20170901</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-09-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20171001</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-10-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20171101</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-11-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20171201</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2017-12-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20180101</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="p">(</span><span class="s1">&#39;</span><span class="s1">2018-01-01</span><span class="s1">&#39;</span><span class="p">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p20999999</span> <span class="k">VALUES</span> <span class="k">LESS</span> <span class="k">THAN</span> <span class="k">MAXVALUE</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="为分区表创建索引"><!-- raw HTML omitted -->3.2.4<!-- raw HTML omitted --> 为分区表创建索引</h4>
+<p>为了对照测试结果，我们将和原始表一样，为分区表创建相应的索引 (不同的是 id 列的索引在原始表示主键索引，而在分区表则是普通索引)。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">pt_ten_millions_partitioning_test</span>
+      <span class="k">ADD</span> <span class="k">INDEX</span> <span class="n">pt_tmpt_id</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="p">,</span>
+      <span class="k">ADD</span> <span class="k">INDEX</span> <span class="n">pt_tmpt_goods_id</span> <span class="p">(</span><span class="n">goods_id</span><span class="p">)</span><span class="p">,</span>
+      <span class="k">ADD</span> <span class="k">INDEX</span> <span class="n">pt_tmpt_in_date</span> <span class="p">(</span><span class="n">in_date</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="case-1-选择-100-万数据"><!-- raw HTML omitted -->3.2.5<!-- raw HTML omitted --> CASE 1 - 选择 100 万数据</h4>
+<ul>
+<li>原始表 - 扫描约 100 万数据</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- SQL 执行计划分析
+</span><span class="c1"></span><span class="k">explain</span> <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+<span class="c1">-- explain select count(id) from pt_ten_millions_original where in_date &gt; &#39;2017-02-01&#39; and in_date &lt; &#39;2017-03-30&#39;;
+</span><span class="c1"></span>
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">select_type</span> <span class="o">|</span> <span class="k">table</span>                    <span class="o">|</span> <span class="n">partitions</span> <span class="o">|</span> <span class="k">type</span> <span class="o">|</span> <span class="n">possible_keys</span>  <span class="o">|</span> <span class="k">key</span>  <span class="o">|</span> <span class="n">key_len</span> <span class="o">|</span> <span class="k">ref</span>  <span class="o">|</span>    <span class="k">rows</span> <span class="o">|</span> <span class="n">filtered</span> <span class="o">|</span> <span class="n">Extra</span>       <span class="o">|</span>
+<span class="o">|</span><span class="c1">----+-------------+--------------------------+------------+------+----------------+------+---------+------+---------+----------+-------------|
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">pt_ten_millions_original</span> <span class="o">|</span> <span class="k">NULL</span>       <span class="o">|</span> <span class="k">ALL</span>  <span class="o">|</span> <span class="n">pt_tmo_in_date</span> <span class="o">|</span> <span class="k">NULL</span> <span class="o">|</span> <span class="k">NULL</span>    <span class="o">|</span> <span class="k">NULL</span> <span class="o">|</span> <span class="mi">9229334</span> <span class="o">|</span>    <span class="mi">21</span><span class="p">.</span><span class="mi">36</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span> <span class="o">|</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>从执行分析结果来看，这个查询会使用到 in_date 列的索引。</li>
+<li>为什么使用 <code>count(goods_name)</code> 而非 <code>count(id)</code> 作为测试语句？
+<ul>
+<li><code>count(goods_name)</code> 模拟我们日常使用的查询 <code>SELECT id, goods_name FROM ...</code></li>
+<li>使用 <code>count(goods_name)</code> 返回最少数据以更加准确的统计 SQL 查询的执行性能</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="o">|</span>           <span class="mi">1085828</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">89</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>分区表 - 扫描约 100 万数据</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- SQL 执行计划分析
+</span><span class="c1"></span><span class="k">explain</span> <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">+</span><span class="c1">----+-------------+-----------------------------------+---------------------+------+-----------------+------+---------+------+---------+----------+-------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">select_type</span> <span class="o">|</span> <span class="k">table</span>                             <span class="o">|</span> <span class="n">partitions</span>          <span class="o">|</span> <span class="k">type</span> <span class="o">|</span> <span class="n">possible_keys</span>   <span class="o">|</span> <span class="k">key</span>  <span class="o">|</span> <span class="n">key_len</span> <span class="o">|</span> <span class="k">ref</span>  <span class="o">|</span> <span class="k">rows</span>    <span class="o">|</span> <span class="n">filtered</span> <span class="o">|</span> <span class="n">Extra</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-----------------------------------+---------------------+------+-----------------+------+---------+------+---------+----------+-------------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="o">|</span> <span class="n">p20170301</span><span class="p">,</span><span class="n">p20170401</span> <span class="o">|</span> <span class="k">ALL</span>  <span class="o">|</span> <span class="n">pt_tmpt_in_date</span> <span class="o">|</span> <span class="k">NULL</span> <span class="o">|</span> <span class="k">NULL</span>    <span class="o">|</span> <span class="k">NULL</span> <span class="o">|</span> <span class="mi">1126661</span> <span class="o">|</span>    <span class="mi">50</span><span class="p">.</span><span class="mi">00</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-----------------------------------+---------------------+------+-----------------+------+---------+------+---------+----------+-------------+
+</span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span><span class="p">,</span> <span class="mi">1</span> <span class="n">warning</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>从执行计划上看，需要扫描两个分区，可能使用 in_date 列索引。</li>
+<li>执行涉及的数据行大约是 1,126,661</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 执行 SQL 查询
+</span><span class="c1"></span><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="o">#</span><span class="o">+</span><span class="k">RESULT</span><span class="p">:</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="n">goods_name</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="o">|</span>           <span class="mi">1086417</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------+
+</span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">66</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个结果 <strong>0.66</strong> 秒相对于原始表选择相同规模数据的结果 (<strong>2.89</strong> 秒) 具有显著的优化效果。</p>
+<h4 id="case-2-选择-200-万数据"><!-- raw HTML omitted -->3.2.6<!-- raw HTML omitted --> CASE 2 - 选择 200 万数据</h4>
+<p>和 <a href="#case-1-%E9%80%89%E6%8B%A9-100-%E4%B8%87%E6%95%B0%E6%8D%AE">CASE 1 - 选择 100 万数据</a> 类似。</p>
+<h4 id="case-3-选择-500-万数据"><!-- raw HTML omitted -->3.2.7<!-- raw HTML omitted --> CASE 3 - 选择 500 万数据</h4>
+<p>和 <a href="#case-1-%E9%80%89%E6%8B%A9-100-%E4%B8%87%E6%95%B0%E6%8D%AE">CASE 1 - 选择 100 万数据</a> 类似。</p>
+<h4 id="case-4-left-join-plus-选择-100-万数据"><!-- raw HTML omitted -->3.2.8<!-- raw HTML omitted --> CASE 4 - Left Join + 选择 100 万数据</h4>
+<ul>
+<li>在原始表 Left Join 执行计划和结果</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span>
+<span class="k">explain</span> <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">as</span> <span class="n">t1</span>
+ <span class="k">left</span> <span class="k">join</span> <span class="n">pt_base_goods</span> <span class="k">as</span> <span class="n">base</span>
+ <span class="k">on</span> <span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">=</span> <span class="n">base</span><span class="p">.</span><span class="n">goods_id</span>
+ <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">select_type</span> <span class="o">|</span> <span class="k">table</span> <span class="o">|</span> <span class="n">partitions</span> <span class="o">|</span> <span class="k">type</span> <span class="o">|</span> <span class="n">possible_keys</span>      <span class="o">|</span> <span class="k">key</span>                <span class="o">|</span> <span class="n">key_len</span> <span class="o">|</span> <span class="k">ref</span>              <span class="o">|</span> <span class="k">rows</span>    <span class="o">|</span> <span class="n">filtered</span> <span class="o">|</span> <span class="n">Extra</span>                    <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">t1</span>    <span class="o">|</span> <span class="k">NULL</span>       <span class="o">|</span> <span class="k">ALL</span>  <span class="o">|</span> <span class="n">pt_tmo_in_date</span>     <span class="o">|</span> <span class="k">NULL</span>               <span class="o">|</span> <span class="k">NULL</span>    <span class="o">|</span> <span class="k">NULL</span>             <span class="o">|</span> <span class="mi">9229334</span> <span class="o">|</span>    <span class="mi">21</span><span class="p">.</span><span class="mi">36</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span>              <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">base</span>  <span class="o">|</span> <span class="k">NULL</span>       <span class="o">|</span> <span class="k">ref</span>  <span class="o">|</span> <span class="n">index_pbg_goods_id</span> <span class="o">|</span> <span class="n">index_pbg_goods_id</span> <span class="o">|</span> <span class="mi">26</span>      <span class="o">|</span> <span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>   <span class="mi">100</span><span class="p">.</span><span class="mi">00</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span><span class="p">;</span> <span class="k">Using</span> <span class="k">index</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="mi">2</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span><span class="p">,</span> <span class="mi">1</span> <span class="n">warning</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">04</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span>
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_original</span> <span class="k">as</span> <span class="n">t1</span>
+ <span class="k">left</span> <span class="k">join</span> <span class="n">pt_base_goods</span> <span class="k">as</span> <span class="n">base</span>
+ <span class="k">on</span> <span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">=</span> <span class="n">base</span><span class="p">.</span><span class="n">goods_id</span>
+ <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="o">|</span>      <span class="mi">1085828</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">5</span><span class="p">.</span><span class="mi">18</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>分区表 Left Join 执行计划和结果</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span>
+<span class="k">explain</span> <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="k">as</span> <span class="n">t1</span>
+ <span class="k">left</span> <span class="k">join</span> <span class="n">pt_base_goods</span> <span class="k">as</span> <span class="n">base</span>
+ <span class="k">on</span> <span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">=</span> <span class="n">base</span><span class="p">.</span><span class="n">goods_id</span>
+ <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+---------------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="n">id</span> <span class="o">|</span> <span class="n">select_type</span> <span class="o">|</span> <span class="k">table</span> <span class="o">|</span> <span class="n">partitions</span>          <span class="o">|</span> <span class="k">type</span> <span class="o">|</span> <span class="n">possible_keys</span>      <span class="o">|</span> <span class="k">key</span>                <span class="o">|</span> <span class="n">key_len</span> <span class="o">|</span> <span class="k">ref</span>              <span class="o">|</span> <span class="k">rows</span>    <span class="o">|</span> <span class="n">filtered</span> <span class="o">|</span> <span class="n">Extra</span>                    <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+---------------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">t1</span>    <span class="o">|</span> <span class="n">p20170301</span><span class="p">,</span><span class="n">p20170401</span> <span class="o">|</span> <span class="k">ALL</span>  <span class="o">|</span> <span class="n">pt_tmpt_in_date</span>    <span class="o">|</span> <span class="k">NULL</span>               <span class="o">|</span> <span class="k">NULL</span>    <span class="o">|</span> <span class="k">NULL</span>             <span class="o">|</span> <span class="mi">1126661</span> <span class="o">|</span>    <span class="mi">50</span><span class="p">.</span><span class="mi">00</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span>              <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="k">SIMPLE</span>      <span class="o">|</span> <span class="n">base</span>  <span class="o">|</span> <span class="k">NULL</span>                <span class="o">|</span> <span class="k">ref</span>  <span class="o">|</span> <span class="n">index_pbg_goods_id</span> <span class="o">|</span> <span class="n">index_pbg_goods_id</span> <span class="o">|</span> <span class="mi">26</span>      <span class="o">|</span> <span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">|</span>       <span class="mi">1</span> <span class="o">|</span>   <span class="mi">100</span><span class="p">.</span><span class="mi">00</span> <span class="o">|</span> <span class="k">Using</span> <span class="k">where</span><span class="p">;</span> <span class="k">Using</span> <span class="k">index</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+-------------+-------+---------------------+------+--------------------+--------------------+---------+------------------+---------+----------+--------------------------+
+</span><span class="c1"></span><span class="mi">2</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span><span class="p">,</span> <span class="mi">1</span> <span class="n">warning</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span>
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="k">from</span> <span class="n">pt_ten_millions_partitioning_test</span> <span class="k">as</span> <span class="n">t1</span>
+ <span class="k">left</span> <span class="k">join</span> <span class="n">pt_base_goods</span> <span class="k">as</span> <span class="n">base</span>
+ <span class="k">on</span> <span class="n">t1</span><span class="p">.</span><span class="n">goods_id</span> <span class="o">=</span> <span class="n">base</span><span class="p">.</span><span class="n">goods_id</span>
+ <span class="k">where</span> <span class="n">in_date</span> <span class="o">&gt;</span> <span class="s1">&#39;</span><span class="s1">2017-02-01</span><span class="s1">&#39;</span> <span class="k">and</span> <span class="n">in_date</span> <span class="o">&lt;</span> <span class="s1">&#39;</span><span class="s1">2017-03-30</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="o">|</span> <span class="k">count</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="o">|</span>      <span class="mi">1086417</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+
+</span><span class="c1"></span><span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">54</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="结果汇总分析"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 结果汇总分析</h2>
+<blockquote>
+<p>测试条件：</p>
+<ul>
+<li>MacBook Pro (CPU 2.3 GHz Intel Core i5/ 	Memory 8G)</li>
+<li>MySQL 默认配置</li>
+<li>关闭 MySQL 查询缓存</li>
+</ul>
+</blockquote>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8rvopjnsdj30zk0be0ve.jpg"
+         alt="Figure 1: 不同规模数据下的对照结果" width="100%"/> <figcaption>
+            <p>Figure 1: 不同规模数据下的对照结果</p>
+        </figcaption>
+</figure>
+
+<blockquote>
+<ul>
+<li>Insert 操作在无分区和分区表之间几乎无差别，且在不同数据集规模下的差别也不是太显著</li>
+<li>全表扫描测试案例 - 分区表比未分区稍慢</li>
+<li>随着扫描数据量范围收窄，分区表性能依次大幅度上升，在不同规模数据集上表现一致</li>
+<li>数据规模达到 1 亿后，原始表查询性能在大多数情况下表现很差</li>
+</ul>
+</blockquote>
+<figure>
+    <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8s45pae8qj30xe0ccmyn.jpg"
+         alt="Figure 2: 不同规模数据下分区性能表现" width="100%"/> <figcaption>
+            <p>Figure 2: 不同规模数据下分区性能表现</p>
+        </figcaption>
+</figure>
+
+<blockquote>
+<ul>
+<li>分区表在各种数据规模下的表现一致，和查询扫描的数据量有关</li>
+<li>随着查询扫描的数据量越大，性能越差</li>
+<li>全表扫描要比原始表性能稍差 - 这里为了显示问题没有列出全表扫描的结果</li>
+<li>慎用大表 Left Join，其性能取决于查询要扫描的数据规模</li>
+</ul>
+</blockquote>
+<h2 id="结论和建议"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 结论和建议</h2>
+<p>经过以上的数据汇总和分析，我们可以得出如下几个结论：</p>
+<ul>
+<li>没有银弹，分区方案需要应用和的配合，在查询的时候要利用分区列作为条件来减少需要扫描的数据。范围越小，使用分区的优化效果越发显著。</li>
+<li>根据业务查询的特点，合理的规划和使用分区方案可以带来性能的大幅度提升。如业务上查询大多可以根据时间或者其他因素收窄查询条件以大幅度缩小需要扫描的数据量。</li>
+<li>谨慎对大表执行 Left Join。性能显然差强人意。</li>
+</ul>
+<h2 id="参考文献"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 参考文献</h2>
+<ol>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning.html">MySQL 5.7 Reference Manual - Partitioning</a>, Oracle, 2019.</li>
+<li><a href="https://github.com/junahan/junahan-site/blob/master/org/s101/mysql-partitioning.org">MySQL 分区学习</a>, by Junahan, 2019.</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-12-01
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">MySQL</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/emacs-hugo-blog/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">使用 Hugo &#43; Org 发布博文</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/emacs-mu4e/">
+            <span class="next-text nav-default">使用 Emacs Mu4e 作为邮件客户端</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

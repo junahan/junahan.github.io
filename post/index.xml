@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>MySQL 分区案例</title>
+      <link>/post/mysql-partitioning-test/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>/post/mysql-partitioning-test/</guid>
+      <description>MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究</description>
+    </item>
+    
+    <item>
       <title>使用 Emacs Mu4e 作为邮件客户端</title>
       <link>/post/emacs-mu4e/</link>
       <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>

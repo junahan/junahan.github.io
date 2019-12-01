@@ -48,11 +48,11 @@
 <meta itemprop="description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构">
 <meta itemprop="datePublished" content="2018-07-29T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-26T12:30:04&#43;08:00" />
-<meta itemprop="wordCount" content="10367">
+<meta itemprop="wordCount" content="10329">
 
 
 
-<meta itemprop="keywords" content="Blockchain,Fabric,CA," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="blockchain,fabric,CA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Fabric CA 用户手册"/>
 <meta name="twitter:description" content="1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构"/>
 
@@ -126,9 +126,9 @@
       <div class="post-meta">
         <span class="post-time"> 2018-07-29 </span>
         <div class="post-category">
-            <a href="/categories/blockchain/"> Blockchain </a>
+            <a href="/categories/blockchain/"> blockchain </a>
             </div>
-          <span class="more-meta"> 约 10367 字 </span>
+          <span class="more-meta"> 约 10329 字 </span>
           <span class="more-meta"> 预计阅读 21 分钟 </span>
         
       </div>
@@ -239,8 +239,7 @@
 </div><blockquote>
 <p>如果通过 Homebrew 安装 libtool，则libtldl-dev 无需安装。</p>
 </blockquote>
-<p>更多有关 <code>libtool</code> 的信息，请参阅 <a href="https://www.gnu.org/software/libtool">https://www.gnu.org/software/libtool</a>。
-更多有关 <code>libltdl-dev</code>, 请参阅 <a href="https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html">https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html</a>。</p>
+<p>更多有关 <code>libtool</code> 的信息，请参阅 <a href="https://www.gnu.org/software/libtool">https://www.gnu.org/software/libtool</a>。更多有关 <code>libltdl-dev</code>, 请参阅 <a href="https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html">https://www.gnu.org/software/libtool/manual/html%5Fnode/Using-libltdl.html</a>。</p>
 <h3 id="安装"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 安装</h3>
 <p>如下命令安装 <code>fabric-ca-server</code> 和 <code>fabric-ca-client</code> 二进制包进入 <code>$GOPATH/bin</code> 目录。</p>
 <div class="highlight"><div class="chroma">
@@ -632,26 +631,31 @@ docker-compose up -d
 <li><strong>certfiles</strong> - PEM-encoded 可信根证书文件列表；</li>
 <li><strong>certfile</strong> and <strong>keyfile</strong> - CA 服务器 PEM-encoded 证书和公钥文件 - 用于和 PostgreSQL 服务器通讯；</li>
 </ul>
+<h5 id="postgresql-ssl-配置"><!-- raw HTML omitted -->3.3.1.1<!-- raw HTML omitted --> PostgreSQL SSL 配置</h5>
+<ul>
+<li>PostgreSQL 服务器 SSL 配置基本指导:
 <ol>
-<li>PostgreSQL SSL 配置</li>
+<li>修改 postgresql.conf, 去掉 SSL 配置注释并设置其值为 &ldquo;on&rdquo; (SSL=on)</li>
+<li>在 PostgreSQL 数据目录放置 PostgreSQL 服务器证书和密钥文件；</li>
 </ol>
-<pre><code>1.   PostgreSQL 服务器 SSL 配置基本指导:
-
-    1.  修改 postgresql.conf, 去掉 SSL 配置注释并设置其值为 &quot;on&quot; (SSL=on)
-    2.  在 PostgreSQL 数据目录放置 PostgreSQL 服务器证书和密钥文件；
-
-    为 PostgreSQL 服务器产生一个自签名证书的指导 - &lt;https://www.postgresql.org/docs/9.5/static/ssl-tcp.html&gt;。
-
-    注意：自签名证书适合测试目的，请不要在生产环境中使用自签名证书；
-
-2.   PostgreSQL 服务器 - 需要客户端证书
-
-    1.  将 CA 服务器 `root.crt` 中你信任的证书认证 (CAs) 证书放置在 PostgreSQL 数据目录；
-    2.  修改 `postgresql.conf`, 设置 &quot;ssl\_ca\_file&quot; 指向客户端根证书 (root cert)；
-    3.  修改 `pg_hba.conf`, 在 `hostssl` 配置小节设置 `clientcert` 参数为 1 ；
-
-    有关更多 PostgreSQL 服务器 SSL 配置细节，请参阅 PostgreSQL 文档 - &lt;https://www.postgresql.org/docs/9.4/static/libpq-ssl.html&gt;.
-</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>为 PostgreSQL 服务器产生一个自签名证书的指导 - <a href="https://www.postgresql.org/docs/9.5/static/ssl-tcp.html">https://www.postgresql.org/docs/9.5/static/ssl-tcp.html</a>。
+<em>注意：自签名证书适合测试目的，请不要在生产环境中使用自签名证书；</em></p>
+</blockquote>
+<ul>
+<li>PostgreSQL 服务器 - 需要客户端证书
+<ol>
+<li>将 CA 服务器 <code>root.crt</code> 中你信任的证书认证 (CAs) 证书放置在 PostgreSQL 数据目录；</li>
+<li>修改 <code>postgresql.conf</code>, 设置 &ldquo;ssl_ca_file&rdquo; 指向客户端根证书 (root cert)；</li>
+<li>修改 <code>pg_hba.conf</code>, 在 <code>hostssl</code> 配置小节设置 <code>clientcert</code> 参数为 1 ；</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>有关更多 PostgreSQL 服务器 SSL 配置细节，请参阅 PostgreSQL 文档 - <a href="https://www.postgresql.org/docs/9.4/static/libpq-ssl.html">https://www.postgresql.org/docs/9.4/static/libpq-ssl.html</a>.</p>
+</blockquote>
 <h4 id="mysql"><!-- raw HTML omitted -->3.3.2<!-- raw HTML omitted --> MySQL</h4>
 <p>要使用 MySQL 数据库，需要添加如下示例配置至 CA 服务器配置文件。请确保配置合适的变量值。数据库名字允许使用的字符有限制。有关 MySQL 的更多信息，请参阅文档 - <a href="https://dev.mysql.com/doc/refman/5.7/en/identifiers.html">https://dev.mysql.com/doc/refman/5.7/en/identifiers.html</a>。</p>
 <p>MySQL 5.7.X 版本特定模式会影响到服务器允许 &ldquo;0000-00-00&rdquo; 值。有必要配置 MySQL 服务器放松对零值的支持。我们希望服务器能够接受零值。</p>
@@ -668,55 +672,69 @@ docker-compose up -d
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果要使用 TLS 连接 MySQL 服务器， <code>db.tls.client</code> 小节也需要像 PostgreSQL 那样设置。</p>
-<ol>
-<li>MySQL SSL 配置</li>
-</ol>
-<pre><code>**MySQL 服务器 SSL 配置简单介绍:**
-
-1, 打开或者创建 MySQL 服务器配置文件 `my.cnf` 。添加或者去掉 `[mysqld]` 小节注释。这些配置用于指向服务器密钥和证书以及根 CA 证书。
-
-创建服务端和客户端证书的教程：
-&lt;http://dev.mysql.com/doc/refman/5.7/en/creating-ssl-files-using-openssl.html&gt;
-
-```nil
-[mysqld] ssl-ca=ca-cert.pem ssl-cert=server-cert.pem ssl-key=server-key.pem
-```
-
-运行如下查询以确认 SSL 已经激活：
-
-```sql
-mysql&gt; SHOW GLOBAL VARIABLES LIKE ‘have_%ssl’;
-```
-
-将看到输出：
-
-| Variable Name | Value | -- |
-|---------------|-------|----|
-| have\_openssl | YES   | -- |
-| hava\_ssl     | YES   | -- |
-
-2, 服务端 SSL 配置完成后，下一步是创建一个具有通过 SSL 访问 MySQL 服务器权限的用户。登入 MySQL 服务器，输入如下指令：
-
-```sql
-mysql&gt; GRANT ALL PRIVILEGES ON . TO ‘ssluser’@’%’ IDENTIFIED BY ‘password’ REQUIRE SSL;
-mysql&gt; FLUSH PRIVILEGES;
-```
-
-如果你想配置用户访问 MySQL 服务器的 IP 地址，将 '%' 修改为指定 IP 地址即可。
-</code></pre>
-<ol start="2">
-<li>MySQL 服务器 - 客户端证书配置</li>
-</ol>
-<pre><code>客户端安全连接配置选项和服务端相似。
-
--   ssl-ca 标识根 CA 证书。如果用到，这个选项必须和服务端使用的证书一样；
--   ssl-cert 标识 MySQL 服务器证书；
--   ssl-key 标识 MySQL 服务器私钥；// 译者备注：TODO - 待确认，这里可能有误；
-
-Suppose that you want to connect using an account that has no special encryption requirements or was created using a GRANT statement that includes the REQUIRE SSL option. As a recommended set of secure-connection options, start the MySQL server with at least –ssl-cert and –ssl-key options. Then set the `db.tls.certfiles` property in the server configuration file and start the Fabric CA server.
-
-To require that a client certificate also be specified, create the account using the REQUIRE X509 option. Then the client must also specify proper client key and certificate files; otherwise, the MySQL server will reject the connection. To specify client key and certificate files for the Fabric CA server, set the `db.tls.client.certfile`, and `db.tls.client.keyfile` configuration properties.
-</code></pre>
+<h5 id="mysql-ssl-配置"><!-- raw HTML omitted -->3.3.2.1<!-- raw HTML omitted --> MySQL SSL 配置</h5>
+<p><strong>MySQL 服务器 SSL 配置简单介绍:</strong></p>
+<ul>
+<li>打开或者创建 MySQL 服务器配置文件 <code>my.cnf</code> 。添加或者去掉 <code>[mysqld]</code> 小节注释。这些配置用于指向服务器密钥和证书以及根 CA 证书。</li>
+</ul>
+<p>创建服务端和客户端证书的教程：
+<a href="http://dev.mysql.com/doc/refman/5.7/en/creating-ssl-files-using-openssl.html">http://dev.mysql.com/doc/refman/5.7/en/creating-ssl-files-using-openssl.html</a></p>
+<pre><code class="language-nil" data-lang="nil">[mysqld] ssl-ca=ca-cert.pem ssl-cert=server-cert.pem ssl-key=server-key.pem
+</code></pre><p>运行如下查询以确认 SSL 已经激活：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="k">GLOBAL</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="err">‘</span><span class="n">have_</span><span class="o">%</span><span class="n">ssl</span><span class="err">’</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将看到输出：</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Value</th>
+<th>&ndash;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>have_openssl</td>
+<td>YES</td>
+<td>&ndash;</td>
+</tr>
+<tr>
+<td>hava_ssl</td>
+<td>YES</td>
+<td>&ndash;</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>服务端 SSL 配置完成后，下一步是创建一个具有通过 SSL 访问 MySQL 服务器权限的用户。登入 MySQL 服务器，输入如下指令：</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="p">.</span> <span class="k">TO</span> <span class="err">‘</span><span class="n">ssluser</span><span class="err">’</span><span class="o">@</span><span class="err">’</span><span class="o">%</span><span class="err">’</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="err">‘</span><span class="n">password</span><span class="err">’</span> <span class="n">REQUIRE</span> <span class="n">SSL</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">FLUSH</span> <span class="k">PRIVILEGES</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果你想配置用户访问 MySQL 服务器的 IP 地址，将 &lsquo;%&rsquo; 修改为指定 IP 地址即可。</p>
+<h5 id="mysql-服务器-客户端证书配置"><!-- raw HTML omitted -->3.3.2.2<!-- raw HTML omitted --> MySQL 服务器 - 客户端证书配置</h5>
+<p>客户端安全连接配置选项和服务端相似。</p>
+<ul>
+<li>ssl-ca 标识根 CA 证书。如果用到，这个选项必须和服务端使用的证书一样；</li>
+<li>ssl-cert 标识 MySQL 服务器证书；</li>
+<li>ssl-key 标识 MySQL 服务器私钥；// 译者备注：TODO - 待确认，这里可能有误；</li>
+</ul>
+<p>Suppose that you want to connect using an account that has no special encryption requirements or was created using a GRANT statement that includes the REQUIRE SSL option. As a recommended set of secure-connection options, start the MySQL server with at least –ssl-cert and –ssl-key options. Then set the <code>db.tls.certfiles</code> property in the server configuration file and start the Fabric CA server.</p>
+<p>To require that a client certificate also be specified, create the account using the REQUIRE X509 option. Then the client must also specify proper client key and certificate files; otherwise, the MySQL server will reject the connection. To specify client key and certificate files for the Fabric CA server, set the <code>db.tls.client.certfile</code>, and <code>db.tls.client.keyfile</code> configuration properties.</p>
 <h3 id="配置-ldap"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 配置 LDAP</h3>
 <p>Fabric CA 服务器能够被配置为和 LDAP 服务器一起工作。</p>
 <p>特别地，Fabirc CA 服务器能够链接至 LDAP 服务器以：</p>
@@ -989,6 +1007,7 @@ To require that a client certificate also be specified, create the account using
 <li>启动 <code>fabric-ca-server</code> 进程；</li>
 <li>使用如下命令检验 <code>fabric-ca-server</code> 进程是否可用 (<!-- raw HTML omitted --> 指的是 CA 服务器主机名)：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1043,6 +1062,7 @@ stats timeout 2m
 </div><ol>
 <li>初始化 haproxy 配置文件如下：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1071,6 +1091,7 @@ server server4 host4:7054 check
 </div><ol>
 <li>重启 HA proxy：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1099,6 +1120,7 @@ server server4 host4:7054 check
 </div><ol>
 <li>分别在 <code>host3</code> 和 <code>host4</code> 上安装升级版本的 fabric-ca-server。新的升级被服务器 (<code>host3</code> 和 <code>host4</code>) 被配置为使用和老版本服务器 (<code>host1</code> 和 <code>host2</code>) 相同的数据库。启动升级版本服务器后，数据库将自动迁移。HA proxy 将自动转发所有新的流量到升级版服务器。可以使用命令 <code>fabric-ca-client gegcainfo</code> 验证集群功能正常。而且 <code>haProxyShowStats</code> 命令现在会显示所有服务器均处于活跃状态：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1118,6 +1140,7 @@ server server4 host4:7054 check
 </div><ol>
 <li>停止老版本服务器 <code>host1</code> 和 <code>host2</code> 。在继续处理之前，使用 <code>fabric-ca-client getcainfo</code> 命令确认新的集群工作正常。然后从 <code>haproxy</code> 配置文件去掉老版本服务相关配置，修改后的配置如下：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1131,6 +1154,7 @@ server server4 host4:7054 check
 </div><ol>
 <li>重启 HA proxy：</li>
 </ol>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1499,8 +1523,8 @@ fabric-ca-client getcainfo -u http://localhost:7055 -M <span class="nv">$FABRIC_
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/blockchain/">Blockchain</a>
-          <a href="/tags/fabric/">Fabric</a>
+          <a href="/tags/blockchain/">blockchain</a>
+          <a href="/tags/fabric/">fabric</a>
           <a href="/tags/ca/">CA</a>
           </div>
       <nav class="post-nav">

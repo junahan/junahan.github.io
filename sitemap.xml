@@ -10,7 +10,7 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-11-30T14:14:39+08:00</lastmod>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,7 +31,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-11-30T14:14:39+08:00</lastmod>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -52,14 +52,14 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-11-30T14:14:39+08:00</lastmod>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2019-11-30T14:14:39+08:00</lastmod>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -67,6 +67,41 @@
   <url>
     <loc>/post/emacs-hugo-blog/</loc>
     <lastmod>2019-11-30T14:14:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/database/</loc>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/mysql/</loc>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/mysql/</loc>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/post/mysql-partitioning-test/</loc>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2019-12-01T17:06:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -121,36 +156,36 @@
   </url>
   
   <url>
-    <loc>/tags/economic/</loc>
-    <lastmod>2019-11-10T12:53:54+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/categories/economic/</loc>
-    <lastmod>2019-11-10T12:53:54+08:00</lastmod>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/%E7%BB%8F%E6%B5%8E/</loc>
-    <lastmod>2019-11-10T12:53:54+08:00</lastmod>
+    <loc>/tags/economic/</loc>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/%E7%BB%8F%E6%B5%8E/</loc>
-    <lastmod>2019-11-10T12:53:54+08:00</lastmod>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/%E7%BB%8F%E6%B5%8E/</loc>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/post/how-the-economic-machine-works/</loc>
-    <lastmod>2019-11-10T12:53:54+08:00</lastmod>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -226,13 +261,6 @@
   </url>
   
   <url>
-    <loc>/categories/web/</loc>
-    <lastmod>2019-06-09T16:35:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/tags/web/</loc>
     <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -240,14 +268,21 @@
   </url>
   
   <url>
-    <loc>/categories/streaming/</loc>
-    <lastmod>2018-09-19T11:18:45+08:00</lastmod>
+    <loc>/categories/web/</loc>
+    <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/streaming/</loc>
+    <lastmod>2018-09-19T11:18:45+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/streaming/</loc>
     <lastmod>2018-09-19T11:18:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -282,14 +317,14 @@
   </url>
   
   <url>
-    <loc>/categories/blockchain/</loc>
+    <loc>/tags/blockchain/</loc>
     <lastmod>2019-03-26T21:27:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/blockchain/</loc>
+    <loc>/categories/blockchain/</loc>
     <lastmod>2019-03-26T21:27:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -450,14 +485,14 @@
   </url>
   
   <url>
-    <loc>/tags/ai/</loc>
+    <loc>/categories/ai/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/ai/</loc>
+    <loc>/tags/ai/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -513,14 +548,14 @@
   </url>
   
   <url>
-    <loc>/tags/bitcoin/</loc>
+    <loc>/categories/bitcoin/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/bitcoin/</loc>
+    <loc>/tags/bitcoin/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
