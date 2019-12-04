@@ -10,7 +10,7 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2019-12-01T17:28:36+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,7 +24,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-12-01T17:28:36+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -52,14 +52,14 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-12-01T17:28:36+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2019-12-01T17:28:36+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -156,13 +156,6 @@
   </url>
   
   <url>
-    <loc>/tags/economic/</loc>
-    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/categories/economic/</loc>
     <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -170,7 +163,7 @@
   </url>
   
   <url>
-    <loc>/tags/%E7%BB%8F%E6%B5%8E/</loc>
+    <loc>/tags/economic/</loc>
     <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -178,6 +171,13 @@
   
   <url>
     <loc>/categories/%E7%BB%8F%E6%B5%8E/</loc>
+    <lastmod>2019-11-30T14:58:01+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/%E7%BB%8F%E6%B5%8E/</loc>
     <lastmod>2019-11-30T14:58:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -261,14 +261,14 @@
   </url>
   
   <url>
-    <loc>/tags/web/</loc>
+    <loc>/categories/web/</loc>
     <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/web/</loc>
+    <loc>/tags/web/</loc>
     <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -317,36 +317,36 @@
   </url>
   
   <url>
-    <loc>/categories/blockchain/</loc>
-    <lastmod>2019-03-26T21:27:23+08:00</lastmod>
+    <loc>/tags/blockchain/</loc>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/blockchain/</loc>
-    <lastmod>2019-03-26T21:27:23+08:00</lastmod>
+    <loc>/categories/blockchain/</loc>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/ca/</loc>
-    <lastmod>2018-08-26T12:30:04+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/fabric/</loc>
-    <lastmod>2019-03-26T21:27:23+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/post/fabric-ca-user-guide-cn/</loc>
-    <lastmod>2018-08-26T12:30:04+08:00</lastmod>
+    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -394,14 +394,14 @@
   </url>
   
   <url>
-    <loc>/categories/service-mesh/</loc>
+    <loc>/tags/service-mesh/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/service-mesh/</loc>
+    <loc>/categories/service-mesh/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -506,13 +506,6 @@
   </url>
   
   <url>
-    <loc>/categories/deep-learning/</loc>
-    <lastmod>2018-12-02T09:21:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/tags/deep-learning/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -520,7 +513,7 @@
   </url>
   
   <url>
-    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <loc>/categories/deep-learning/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -534,7 +527,7 @@
   </url>
   
   <url>
-    <loc>/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -548,14 +541,21 @@
   </url>
   
   <url>
-    <loc>/categories/bitcoin/</loc>
-    <lastmod>2018-08-02T08:44:05+08:00</lastmod>
+    <loc>/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/bitcoin/</loc>
+    <lastmod>2018-08-02T08:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/bitcoin/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -597,14 +597,14 @@
   </url>
   
   <url>
-    <loc>/categories/syntax-highlighting/</loc>
+    <loc>/tags/syntax-highlighting/</loc>
     <lastmod>2018-07-29T13:12:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/syntax-highlighting/</loc>
+    <loc>/categories/syntax-highlighting/</loc>
     <lastmod>2018-07-29T13:12:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
