@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MySQL on Junahan - Blog</title>
+    <title>mysql on Junahan - Blog</title>
     <link>/tags/mysql/</link>
-    <description>Recent content in MySQL on Junahan - Blog</description>
+    <description>Recent content in mysql on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 01 Dec 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jan 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MySQL 分区学习 - 几种不同类型的分区</title>
+      <link>/post/mysql-partitioing-types/</link>
+      <pubDate>Thu, 09 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/mysql-partitioing-types/</guid>
+      <description>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区（</description>
+    </item>
     
     <item>
       <title>MySQL 分区案例</title>
