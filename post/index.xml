@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 09 Jan 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jan 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Emacs YASnippet 备忘录</title>
+      <link>/post/emacs-yasnippet/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/emacs-yasnippet/</guid>
+      <description>本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M+x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &amp;#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &amp;#39;prog-mode-hook #&amp;#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模</description>
+    </item>
     
     <item>
       <title>MySQL 分区学习 - 几种不同类型的分区</title>
