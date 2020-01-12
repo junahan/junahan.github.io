@@ -6,27 +6,27 @@
     <description>Recent content in mysql on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 09 Jan 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>MySQL 分区学习 - 几种不同类型的分区</title>
+      <title>MySQL 分区 - 案例</title>
+      <link>/post/mysql-partitioning-test/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/mysql-partitioning-test/</guid>
+      <description>MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究</description>
+    </item>
+    
+    <item>
+      <title>MySQL 分区 - 分区类型</title>
       <link>/post/mysql-partitioing-types/</link>
       <pubDate>Thu, 09 Jan 2020 00:00:00 +0800</pubDate>
       
       <guid>/post/mysql-partitioing-types/</guid>
-      <description>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区（</description>
-    </item>
-    
-    <item>
-      <title>MySQL 分区案例</title>
-      <link>/post/mysql-partitioning-test/</link>
-      <pubDate>Sun, 01 Dec 2019 00:00:00 +0800</pubDate>
-      
-      <guid>/post/mysql-partitioning-test/</guid>
-      <description>MySQL 服务最近出现了一些性能的问题，特别是对于数据量超过千万规模的数据表。为了对大数据表的性能优化。我们有针对性的研究了 MySQL Partitioning 方案。这里提供了研究</description>
+      <description>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区 (Partitioning)</description>
     </item>
     
   </channel>

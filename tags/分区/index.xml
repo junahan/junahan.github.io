@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>MySQL 分区学习 - 几种不同类型的分区</title>
+      <title>MySQL 分区 - 分区类型</title>
       <link>/post/mysql-partitioing-types/</link>
       <pubDate>Thu, 09 Jan 2020 00:00:00 +0800</pubDate>
       
       <guid>/post/mysql-partitioing-types/</guid>
-      <description>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区（</description>
+      <description>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区 (Partitioning)</description>
     </item>
     
   </channel>
