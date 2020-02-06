@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jan 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jan 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>fabric</title>
+      <link>/tags/fabric/</link>
+      <pubDate>Tue, 21 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/tags/fabric/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hyperledger</title>
+      <link>/tags/hyperledger/</link>
+      <pubDate>Tue, 21 Jan 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/tags/hyperledger/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>mysql</title>
@@ -183,7 +201,7 @@
     </item>
     
     <item>
-      <title>Blockchain</title>
+      <title>blockchain</title>
       <link>/tags/blockchain/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
       
@@ -197,24 +215,6 @@
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
       
       <guid>/tags/ca/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fabric</title>
-      <link>/tags/fabric/</link>
-      <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
-      
-      <guid>/tags/fabric/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hyperledger</title>
-      <link>/tags/hyperledger/</link>
-      <pubDate>Mon, 16 Jul 2018 00:00:00 +0800</pubDate>
-      
-      <guid>/tags/hyperledger/</guid>
       <description></description>
     </item>
     

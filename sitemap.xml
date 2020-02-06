@@ -9,21 +9,70 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-01-12T16:54:01+08:00</lastmod>
+    <loc>/categories/blockchain/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/database/</loc>
-    <lastmod>2020-01-12T16:54:01+08:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/fabric/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/post/fabric-performance-benchmarks/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/hyperledger/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <lastmod>2020-02-06T17:55:51+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/database/</loc>
     <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -46,20 +95,6 @@
   <url>
     <loc>/post/mysql-partitioning-test/</loc>
     <lastmod>2020-01-12T16:51:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-01-12T16:54:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -289,13 +324,6 @@
   </url>
   
   <url>
-    <loc>/tags/web/</loc>
-    <lastmod>2019-06-09T16:35:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/categories/web/</loc>
     <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -303,14 +331,21 @@
   </url>
   
   <url>
-    <loc>/categories/streaming/</loc>
-    <lastmod>2018-09-19T11:18:45+08:00</lastmod>
+    <loc>/tags/web/</loc>
+    <lastmod>2019-06-09T16:35:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/streaming/</loc>
+    <lastmod>2018-09-19T11:18:45+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/streaming/</loc>
     <lastmod>2018-09-19T11:18:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -352,21 +387,7 @@
   </url>
   
   <url>
-    <loc>/categories/blockchain/</loc>
-    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>/tags/ca/</loc>
-    <lastmod>2019-12-01T19:43:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/fabric/</loc>
     <lastmod>2019-12-01T19:43:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -381,13 +402,6 @@
   
   <url>
     <loc>/post/fabric-geting-start/</loc>
-    <lastmod>2019-03-26T21:27:23+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/hyperledger/</loc>
     <lastmod>2019-03-26T21:27:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -464,14 +478,14 @@
   </url>
   
   <url>
-    <loc>/categories/s101/</loc>
+    <loc>/tags/s101/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/s101/</loc>
+    <loc>/categories/s101/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -513,14 +527,14 @@
   </url>
   
   <url>
-    <loc>/tags/ai/</loc>
+    <loc>/categories/ai/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/ai/</loc>
+    <loc>/tags/ai/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -562,14 +576,14 @@
   </url>
   
   <url>
-    <loc>/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2018-12-02T09:21:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
