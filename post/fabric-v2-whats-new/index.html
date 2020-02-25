@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fabric 2.0 新特性介绍 - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junahan" /><meta name="description" content="Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用" /><meta name="keywords" content="blockchain, fabric" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/fabric-v2-whats-new/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Fabric 2.0 新特性介绍" />
+<meta property="og:description" content="Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/fabric-v2-whats-new/" />
+<meta property="article:published_time" content="2020-02-21T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-02-25T17:48:17+08:00" />
+<meta itemprop="name" content="Fabric 2.0 新特性介绍">
+<meta itemprop="description" content="Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用">
+<meta itemprop="datePublished" content="2020-02-21T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-25T17:48:17&#43;08:00" />
+<meta itemprop="wordCount" content="3644">
+
+
+
+<meta itemprop="keywords" content="blockchain,fabric," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fabric 2.0 新特性介绍"/>
+<meta name="twitter:description" content="Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Fabric 2.0 新特性介绍</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-21 </span>
+        <div class="post-category">
+            <a href="/categories/blockchain/"> blockchain </a>
+            <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"> 区块链 </a>
+            </div>
+          <span class="more-meta"> 约 3644 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#智能合约去中心化治理">1 智能合约去中心化治理</a>
+      <ul>
+        <li><a href="#使用新的链码生命周期">1.1 使用新的链码生命周期</a></li>
+      </ul>
+    </li>
+    <li><a href="#为协同和共识而生的新链码应用模式">2 为协同和共识而生的新链码应用模式</a></li>
+    <li><a href="#私有数据增强">3 私有数据增强</a></li>
+    <li><a href="#外部链码启动器">4 外部链码启动器</a></li>
+    <li><a href="#提升-couchdb-性能的状态数据库缓存">5 提升 CouchDB 性能的状态数据库缓存</a></li>
+    <li><a href="#基于-alpine-linux-的容器镜像">6 基于 Alpine Linux 的容器镜像</a></li>
+    <li><a href="#测试网络样例">7 测试网络样例</a></li>
+    <li><a href="#升级到-fabric-2-dot-0">8 升级到 Fabric 2.0</a></li>
+    <li><a href="#发布说明">9 发布说明</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用和隐私方案、增强智能合约治理、营运节点的新选项等。保持不变的是根据你自己的需要升级网络组件的能力、支持从 v1.4.x 版本滚动升级以及只有组织成员准备好的情况下激活新功能的能力。</p>
+<p>让我们来快速浏览下 Fabric 2.0 发布版的亮点吧！</p>
+<dl>
+<dt>新链码生命周期管理</dt>
+<dd>完全重新设计链码生命周期管理流程，提供安装链码至对等节点和在通道上激活链码的新流程，从而引入智能合约的去中心化治理。新链码生命周期管理允许多个组织一道对链码的参数达成一致，如，链码背书策略。</dd>
+<dt>为协作和共识而生的新链码应用模式</dt>
+<dd>用于增强链码生命周期管理的去中心化方法同样适用于链码应用程序以确保组织能够在交易数据被提交到账本之前对其达成一致。额外的，组织现在能够自行扩展链码副本以满足他们自己的需求。例如，一个组织能够添加他自己的链码校验逻辑以更好的保护其特定的利益。对于既定的一笔交易，只要必要的背书节点之间就链码的执行结果达成共识，交易就想以前的版本一样被提交至账本。</dd>
+<dt>基于必要原则的数据隐私保护</dt>
+<dd>除了以往使用通道和私有数据集合在网络成员间共享数据的方法外，v2.0 提供新的非指定组织私有数据集合特性以允许组织间基于必要原则共享私有数据。这个特性可以消除为共享私有数据而在组织成员间创建大量的通道或者私有数据集合组合。通道账本上的 Hashes 作为交易证据以确保当私有数据在共享的时候能够被验证或者需要的时候被审计。</dd>
+<dt>新的外置链码启动器</dt>
+<dd>外置链码启动器允许管理员使用选择的技术构建和启动链码。去掉了对等节点访问容器守护进程的要求。例如，管理员可以将链码作为一个外部服务部署于 Kubernetes pod 上。</dd>
+<dt>新的 Raft 共识类型</dt>
+<dd>在 v1.4.1 版本引入的排序服务 Raft 共识现在是推荐使用共识服务。其消除了对外部 Kafka 集群的依赖。这个特性支持由多个组织提供排序服务的去中心化治理模式。额外的，排序节点现在能够选择为哪通道提供排序服务代替传统的必须为所有通道提供服务的模式。这带来了一个重要的可扩展性提升以更好的支持大量通道和交易，更不用说很明显的隐私保护的提升。</dd>
+<dt>性能提升</dt>
+<dd>加入几个贯穿 v1.x 和 v2.0 的性能提升。加入新的缓存以提升使用 CouchDB 状态数据库的对等节点的性能。另外，交易验证也在提交阶段并发执行。优化排序节点消息处理流以去掉冗余检查、并且写锁处理现在是异步的。链码查询支持分页以提升大结果集性能。现在是时候说系统可以达到数千 TPS 吞吐量。</dd>
+</dl>
+<h2 id="智能合约去中心化治理"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 智能合约去中心化治理</h2>
+<p>Fabric v2.0 为智能合约引入了去中心化治理，提供安装链码至对等节点和在通道上激活链码新处理流程。新链码生命周期管理允许多个组织一道对链码的参数达成一致，如，链码背书策略。相对于此前的链码生命周期管理，新模型提供了一些提升。</p>
+<dl>
+<dt>多组织必须就链码的参数达成一致</dt>
+<dd>在 Fabric v1.0 版本中，一个组织有能力为通道中所有组织设置链码参数（通过实例化背书策略），其他组织成员仅仅有拒绝安装链码并不参与交易的权利。而新的链码生命周期管理更加灵活，既支持中心化模式（和老版本的一样），也支持去中心化模式，新模式要求链码在通道中激活之前，有足够多的组织就链码的背书策略和其他细节达成一致。</dd>
+<dt>更加考虑周全的链码升级流程</dt>
+<dd>之前版本的链码生命周期管理允许单一组织发起链码升级交易，这会给其他仍没有安装新链码的组织带来风险。新模型中，只有足够多的组织同意升级链码的情况下才允许升级链码。</dd>
+<dt>简单背书策略和私有数据集更新</dt>
+<dd>新的链码生命周期模型允许修改背书策略或者私有数据集配置配置而无需重新打包和安装链码。用户也可以从一个新的要求通道中大多数组织背书的默认策略中获益。新策略会随着通道中组织的加入和退出而自动更新。</dd>
+<dt>方便检出的链码包</dt>
+<dd>链码安装包以容易读取的 TAR 文件打包。这使得安装包很容易检出及利于跨不同组织协调一致安装链码。</dd>
+<dt>使用一个安装包在通道中启动多个链码</dt>
+<dd>在之前版本中，当链码包被安装的时候，通过指定名字和版本号来标示通道中的每个链码。现在则可以使用单一的链码包在相同或者多个通道中使用不同的名字部署多次。例如，可以使用同一份链码的不同副本来追踪不通类型的资产。</dd>
+<dt>不同成员的链码包不必保持一摸一样</dt>
+<dd>组织可以根据自己的使用场景扩展链码，例如，组织可以实施不同的验证规则。链码交易只要有必要数量的组织背书通过就可以被验证并提交到账本中。这也允许单个组织根据自己的计划执行下版本修复而不要求锁定整个网络。</dd>
+</dl>
+<h3 id="使用新的链码生命周期"><!-- raw HTML omitted -->1.1<!-- raw HTML omitted --> 使用新的链码生命周期</h3>
+<p>对于现有的 Fabric 部署，Fabric 2.0 仍然可以继续沿用以前的链码生命周期。只有通道应用能力升级到 v2.0 版本的时候，新生命周期才会有效。可以查看 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/chaincode4noah.html">Chaincode for Operators</a> 了解有关新链码生命周期的详细细节。</p>
+<h2 id="为协同和共识而生的新链码应用模式"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 为协同和共识而生的新链码应用模式</h2>
+<p>用于增强链码生命周期管理的去中心化方法同样适用于链码应用程序以确保组织能够在交易数据被提交到账本之前对其达成一致。</p>
+<dl>
+<dt>自动化检查</dt>
+<dd>如前所述，组织可以扩展链码以在为交易背书之前增加自动检查功能。</dd>
+<dt>去中心化协议 (Decentralized agreement)</dt>
+<dd>人类的判断可以被建模到跨越多个交易的链码处理流程中。链码可能要求一些组织行动人表明对一个账本交易的条款达成一致。然后，一个最终的链码提议能够验证所有单个交易都符合交易条款并最终在通道成员间执行结算。有关私有条款说明的现实例子，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data/private-data.html">Private data</a> 文档里的资产交易场景示例。</dd>
+</dl>
+<h2 id="私有数据增强"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 私有数据增强</h2>
+<p>Fabric 2.0 支持私有数据处理及共享的新模式而不必为通道內所有需共享的成员创建私有数据集组合。特别是你可能想跨越不同的数据集合而不是一个多成员集合间共享数据，每个集合都可能包含一个单一的组织，或者包含一个单一组织及监管或者审计机构。</p>
+<p>Fabric 2.0 提供好几个增强以使得新的私有数据新模式成为可能。</p>
+<dl>
+<dt>共享和验证私有数据</dt>
+<dd>当分享私有数据给不在数据集內的通道成员或者给另外一个包含一个或者多个成员的私有数据集（通过向私有数据集写入 KEY 的方式）的时候，接收方可以利用 <code>GetPrivateDataHash()</code> 链码 API 来验证私有数据和链上哈希匹配且由前序交易的私有数据所创建。</dd>
+<dt>集合级别的背书策略</dt>
+<dd>作为一个选项，私有数据集现在可以背书策略定义，该定义覆盖链码级别的背书策略。这个特性能够用来约束那些组织可以写数据到私有数据集中，并激活此前提到的新的链码生命周期和链码和应用模式。例如，可以有一个链码级别的背书策略，其要求大多数组织进行背书，但是对于既定的交易，也许需要参与交易的两个组织分别在他们自己的私有数据集上达成一致并进行背书。</dd>
+<dt>隐含的按组织 （per-organization） 内置私有数据集合</dt>
+<dd>在 Fabric v2.0 中部署链码的时候，如果想使利用按组织内置私有数据模式，甚至都无需定义私有数据集合。隐含的组织特定集合无需定义即可使用。</dd>
+</dl>
+<p>要了解更多有关私有数据模式，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data/private-data.html">Private data</a> (概念文档)。有关更多私有数据集合配置和隐含数据集合的信息，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data-arch.html">Private data</a> (参考文档)。</p>
+<h2 id="外部链码启动器"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 外部链码启动器</h2>
+<p>外部链码启动器允许管理员使用他们选择的技术构建和启动链码。使用外部链码构建器和启动器不需要像此前版本一样使用 Docker 容器 API 启动和运行链码。</p>
+<dl>
+<dt>移除对 Docker 守护程序的依赖</dt>
+<dd>Fabric v2.0 前序版本要求对等节点能够访问 Docker 守护进程以构建和启动链码 - 在一些情形下，生产环境可能不满足 Peer 进程所要求的权限。</dd>
+<dt>替代容器选择</dt>
+<dd>链码已经不再要求运行于容器之中，其可能在管理员选择的环境中被执行（包含容器）。</dd>
+<dt>外置构建器可执行程序</dt>
+<dd>管理员可以外置一组构建器可执行程序来代替 Peer 节点构建和运行链码。</dd>
+<dt>链码可作为外部服务</dt>
+<dd>传统方式中，链码容器由 Peer 节点启动并随后连接回 Peer 节点。现在可以将链码作为服务来运行，例如，链码可以运行于 Kubernetes Pod 中，Peer 节点可以连接并执行链码。更多信息，请参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/cc%5Fservice.html">链码作为服务</a>。</dd>
+</dl>
+<p>参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/cc%5Flauncher.html">外部构建器和启动器</a>一节以了解更多有关外部链码启动器特性。</p>
+<h2 id="提升-couchdb-性能的状态数据库缓存"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 提升 CouchDB 性能的状态数据库缓存</h2>
+<ul>
+<li>但使用外部 CouchDB 状态库的情形下，由于背书和验证阶段导致的读延迟性能瓶颈已成成为历史。</li>
+<li>在 Fabric v2.0 中，一个新的 peer 缓存使用快速本地缓存读取模式代替这些昂贵的查找操作。缓存大小可以通过 <code>core.yaml</code> 属性 <code>cacheSize</code> 进行配置。</li>
+</ul>
+<h2 id="基于-alpine-linux-的容器镜像"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 基于 Alpine Linux 的容器镜像</h2>
+<p>自 Fabric v2.0 开始，Fabric Docker 镜像将采用 Alpine Linux - 一个面向安全的轻量级 Linux 发行版。这意味着 Docker 镜像的尺寸更小巧、可更快速的下载、减少启动时间、也减少占用主机磁盘空间。Alpine Linux 被设计为自第而上考虑安全因素，其极简设计极大的减少了安全漏洞风险。</p>
+<h2 id="测试网络样例"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 测试网络样例</h2>
+<p>Fabric-simple 仓库现在包含了一个新的测试网络。新测试网络采用模块化构建并提供用户友好的测试网络样例使得测试应用程序和链码变得更加容易。新测试网络除了 <code>cryptogen</code> 以外，也支持使用 CA 来部署网络。</p>
+<p>有关新的测试网络的更多详情，请参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/test%5Fnetwork.html">使用 Fabric 测试网络</a>一节。</p>
+<h2 id="升级到-fabric-2-dot-0"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 升级到 Fabric 2.0</h2>
+<p>一个新的主要发布版本总会带来一些额外的升级担忧。不过请放心，Fabric v2.0 支持从 v1.4.x 进行滚动升级，因此，网络组件能够被升级而无需停止服务。升级文档做了相当多的扩充和重写，现在有了一个单独的主页入口 - <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrade.html">升级到最新版本</a>。在这个主页中，可以找到诸如<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrading%5Fyour%5Fcomponents.html">升级组件</a>以及<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/updating%5Fcapabilities.html">更新一个通道的能力等级</a>这样的文档，也可以查阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrade%5Fto%5Fnewest%5Fversion.html">Fabric 2.0 升级须知</a>。</p>
+<h2 id="发布说明"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 发布说明</h2>
+<p>发布说明为用户提供了更多有关 Fabric 2.0 的信息。特别是要看看那些变更以及宣布不再支持的特性和事项。更多详情，请参阅 <a href="https://github.com/hyperledger/fabric/releases/tag/v2.0.0">Fabric 2.0 发布说明</a>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junahan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-25
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/blockchain/">blockchain</a>
+          <a href="/tags/fabric/">fabric</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/fabric-performance-benchmarks/">
+            <span class="next-text nav-default">Fabric 性能基准测试</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

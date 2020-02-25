@@ -6,7 +6,7 @@
     <description>Recent content on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 21 Jan 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,15 @@
       
       <guid>/about/</guid>
       <description>这里是 Junhan 的个人网站 - 关注分布式计算和 AI 技术。 联系我</description>
+    </item>
+    
+    <item>
+      <title>Fabric 2.0 新特性介绍</title>
+      <link>/post/fabric-v2-whats-new/</link>
+      <pubDate>Fri, 21 Feb 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fabric-v2-whats-new/</guid>
+      <description>Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用</description>
     </item>
     
     <item>
