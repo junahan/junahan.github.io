@@ -9,64 +9,64 @@
   </url>
   
   <url>
-    <loc>/tags/blockchain/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <loc>/categories/blockchain/</loc>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/blockchain/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <loc>/tags/blockchain/</loc>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/fabric/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/post/fabric-v2-whats-new/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
-    <lastmod>2020-02-25T17:58:17+08:00</lastmod>
+    <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -93,14 +93,14 @@
   </url>
   
   <url>
-    <loc>/tags/mysql/</loc>
+    <loc>/categories/mysql/</loc>
     <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/mysql/</loc>
+    <loc>/tags/mysql/</loc>
     <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -121,14 +121,14 @@
   </url>
   
   <url>
-    <loc>/tags/emacs/</loc>
+    <loc>/categories/emacs/</loc>
     <lastmod>2020-01-11T16:07:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/emacs/</loc>
+    <loc>/tags/emacs/</loc>
     <lastmod>2020-01-11T16:07:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -233,14 +233,14 @@
   </url>
   
   <url>
-    <loc>/categories/economic/</loc>
+    <loc>/tags/economic/</loc>
     <lastmod>2020-01-11T21:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/economic/</loc>
+    <loc>/categories/economic/</loc>
     <lastmod>2020-01-11T21:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -352,14 +352,14 @@
   </url>
   
   <url>
-    <loc>/tags/streaming/</loc>
+    <loc>/categories/streaming/</loc>
     <lastmod>2018-09-19T11:18:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/streaming/</loc>
+    <loc>/tags/streaming/</loc>
     <lastmod>2018-09-19T11:18:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
