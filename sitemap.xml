@@ -9,14 +9,14 @@
   </url>
   
   <url>
-    <loc>/categories/blockchain/</loc>
+    <loc>/tags/blockchain/</loc>
     <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/blockchain/</loc>
+    <loc>/categories/blockchain/</loc>
     <lastmod>2020-02-26T10:59:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -93,14 +93,14 @@
   </url>
   
   <url>
-    <loc>/categories/mysql/</loc>
+    <loc>/tags/mysql/</loc>
     <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/mysql/</loc>
+    <loc>/categories/mysql/</loc>
     <lastmod>2020-01-12T16:54:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -233,14 +233,14 @@
   </url>
   
   <url>
-    <loc>/tags/economic/</loc>
+    <loc>/categories/economic/</loc>
     <lastmod>2020-01-11T21:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/economic/</loc>
+    <loc>/tags/economic/</loc>
     <lastmod>2020-01-11T21:04:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -597,14 +597,14 @@
   </url>
   
   <url>
-    <loc>/categories/bitcoin/</loc>
+    <loc>/tags/bitcoin/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/bitcoin/</loc>
+    <loc>/categories/bitcoin/</loc>
     <lastmod>2018-08-02T08:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -646,14 +646,14 @@
   </url>
   
   <url>
-    <loc>/tags/syntax-highlighting/</loc>
+    <loc>/categories/syntax-highlighting/</loc>
     <lastmod>2018-07-29T13:12:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/categories/syntax-highlighting/</loc>
+    <loc>/tags/syntax-highlighting/</loc>
     <lastmod>2018-07-29T13:12:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
