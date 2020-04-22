@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-" /><meta name="keywords" content="minikube, helm, kubernetes" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-" /><meta name="keywords" content="minikube, helm, kubernetes" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Minikube &#43; Helm 搭建本地 k8s 环境" />
-<meta property="og:description" content="1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-" />
+<meta property="og:description" content="1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/minikube-helm-101/" />
 <meta property="article:published_time" content="2019-06-02T00:00:00+08:00" />
 <meta property="article:modified_time" content="2019-06-09T16:35:20+08:00" />
 <meta itemprop="name" content="Minikube &#43; Helm 搭建本地 k8s 环境">
-<meta itemprop="description" content="1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-">
+<meta itemprop="description" content="1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-">
 <meta itemprop="datePublished" content="2019-06-02T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-06-09T16:35:20&#43;08:00" />
-<meta itemprop="wordCount" content="724">
+<meta itemprop="wordCount" content="712">
 
 
 
 <meta itemprop="keywords" content="Minikube,helm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Minikube &#43; Helm 搭建本地 k8s 环境"/>
-<meta name="twitter:description" content="1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-"/>
+<meta name="twitter:description" content="1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/kubernetes/"> kubernetes </a>
             </div>
-          <span class="more-meta"> 约 724 字 </span>
+          <span class="more-meta"> 约 712 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -165,14 +166,14 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+      <h2 id="摘要"><span class="section-num">1</span> 摘要</h2>
 <p>根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括：</p>
 <ul>
 <li>安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-mirror。</li>
 <li>安装和配置 Helm - 主要是 Tiller 镜像的下载以及配置 Helm charts 仓库镜像。</li>
 </ul>
-<h2 id="安装和配置-minikube"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 安装和配置 Minikube</h2>
-<h3 id="安装-minikube"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 安装 Minikube</h3>
+<h2 id="安装和配置-minikube"><span class="section-num">2</span> 安装和配置 Minikube</h2>
+<h3 id="安装-minikube"><span class="section-num">2.1</span> 安装 Minikube</h3>
 <p>在终端上运行如下命令安装 Minikube (v1.1.0).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -182,7 +183,7 @@
 <pre class="chroma"><code class="language-shell" data-lang="shell">brew cask install minikube
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="启动-minikube"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 启动 Minikube</h3>
+</div><h3 id="启动-minikube"><span class="section-num">2.2</span> 启动 Minikube</h3>
 <p>运行如下命令启动 Minikube 并打印详细的日志至控制台以便于对启动过程进行详细的了解。一旦成功启动后，再次启动，只需要运行 <code>minikube start</code> 命令即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -198,27 +199,27 @@
 <li>使用 <code>--registry-mirror https://dockerhub.azk8s.cn</code> 参数以指定 docker image 镜像 - 便于国内下载。</li>
 </ul>
 <p>注意：可通过运行 <code>minikube ssh | docker info</code> 命令检查是否正确的传递了 <code>registry-mirror</code> 参数。</p>
-<h3 id="配置-docker-环境"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> 配置 Docker 环境</h3>
+<h3 id="配置-docker-环境"><span class="section-num">2.3</span> 配置 Docker 环境</h3>
 <p>使用 <code>docker-env command</code> 配置本地 docker 环境以重用 Minikube Docker Daemon:</p>
 <pre><code class="language-nil" data-lang="nil">eval $(minikube docker-env)
 </code></pre><p>通过以上配置后，就可以在本地运行 <code>docker</code> 命令。</p>
-<h2 id="安装和配置-helm"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 安装和配置 Helm</h2>
+<h2 id="安装和配置-helm"><span class="section-num">3</span> 安装和配置 Helm</h2>
 <p><a href="https://github.com/helm/helm">Helm</a> 是优秀的 Kubernetes 包管理工具，是发现、共享和使用软件（构建于 Kubernetes 平台之上）的最佳方法。</p>
-<h3 id="安装-helm-client"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 安装 Helm Client</h3>
+<h3 id="安装-helm-client"><span class="section-num">3.1</span> 安装 Helm Client</h3>
 <p>运行如下命令安装 Helm Client：</p>
 <pre><code class="language-nil" data-lang="nil">brew install kubernetes-helm
-</code></pre><h3 id="安装-tiller"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 安装 Tiller</h3>
+</code></pre><h3 id="安装-tiller"><span class="section-num">3.2</span> 安装 Tiller</h3>
 <p>命令 <code>helm init</code> 用于在 Minikube 环境下安装并初始化 Tiller，但由于 Tiller 位于 <code>gcr.io</code> 仓库而导致在国内拉取镜像失败。在 Tiller 安装和初始化的时候，要通过合适的配置使用 Tiller Mirror 以顺利的下载 Tiller：</p>
 <ul>
 <li>运行 <code>docker search tiller</code> 寻找 tiller，我使用 <code>sapcc/tiller</code> - mirror <code>grc.io</code> 。</li>
 <li>运行 <code>helm init -i sapcc/tiller:v2.13.0 --stable-repo-url https://mirror.azure.cn/kubernetes/charts/</code> 安装 Tiller - 注意 Tiller 版本要和 Helm Client 版本兼容。其中参数 <code>--stable-repo-url</code> 用于指定 Charts 仓库，我们这里使用 <a href="https://mirror.azure.cn/kubernetes/charts/">azure.cn</a> 仓库。</li>
 </ul>
-<h3 id="配置-charts-repo-镜像"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 配置 Charts Repo 镜像</h3>
+<h3 id="配置-charts-repo-镜像"><span class="section-num">3.3</span> 配置 Charts Repo 镜像</h3>
 <p>也可以通过 <code>helm repo add</code> 命令添加 Charts 仓库：</p>
 <ul>
 <li>运行 <code>helm repo add stable https://mirror.azure.cn/kubernetes/charts/</code> 添加 Azure charts 仓库。</li>
 </ul>
-<h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">4</span> 参考文献</h2>
 <ol>
 <li>Kubernetes Home, <a href="https://kubernetes.io">https://kubernetes.io</a>.</li>
 <li>Kubernetes 中文指南, <a href="https://jimmysong.io/kubernetes-handbook/">https://jimmysong.io/kubernetes-handbook/</a>, By Jimmy Song</li>
@@ -321,7 +322,10 @@
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

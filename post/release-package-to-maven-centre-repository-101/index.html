@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2 基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="如何发布项目包至 Maven 中心仓库" />
-<meta property="og:description" content="1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本" />
+<meta property="og:description" content="1 摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2 基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/release-package-to-maven-centre-repository-101/" />
 <meta property="article:published_time" content="2018-06-10T00:00:00+08:00" />
 <meta property="article:modified_time" content="2018-08-02T08:44:05+08:00" />
 <meta itemprop="name" content="如何发布项目包至 Maven 中心仓库">
-<meta itemprop="description" content="1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本">
+<meta itemprop="description" content="1 摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2 基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本">
 <meta itemprop="datePublished" content="2018-06-10T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-02T08:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="3214">
+<meta itemprop="wordCount" content="3196">
 
 
 
 <meta itemprop="keywords" content="Maven,Java,GPG,S101," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何发布项目包至 Maven 中心仓库"/>
-<meta name="twitter:description" content="1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本"/>
+<meta name="twitter:description" content="1 摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2 基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -130,7 +131,7 @@
             <a href="/categories/tools/"> Tools </a>
             <a href="/categories/s101/"> S101 </a>
             </div>
-          <span class="more-meta"> 约 3214 字 </span>
+          <span class="more-meta"> 约 3196 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -177,9 +178,9 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+      <h2 id="摘要"><span class="section-num">1</span> 摘要</h2>
 <p>本文简单说明如何部署 (Deploy) Maven 项目至 <a href="https://oss.sonatype.org">OSSRH</a> 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。</p>
-<h2 id="基本要求"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 基本要求</h2>
+<h2 id="基本要求"><span class="section-num">2</span> 基本要求</h2>
 <p>要发布项目到 Maven 中心仓库，需要遵循一些<a href="https://central.sonatype.org/pages/requirements.html">基本要求</a> ：</p>
 <ul>
 <li>随 Jar 包一起提供 Javadoc 和 Sources 包。</li>
@@ -194,8 +195,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="准备-gpg-签名环境"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 准备 GPG 签名环境</h2>
-<h3 id="安装-gpg"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 安装 GPG</h3>
+<h2 id="准备-gpg-签名环境"><span class="section-num">3</span> 准备 GPG 签名环境</h2>
+<h3 id="安装-gpg"><span class="section-num">3.1</span> 安装 GPG</h3>
 <p>这里以 Mac 为例，安装 GPG 软件包</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -237,7 +238,7 @@ Home: /Users/junahan/.gnupg
 压缩：不压缩, ZIP, ZLIB, BZIP2
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="创建秘钥对"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 创建秘钥对</h3>
+</div><h3 id="创建秘钥对"><span class="section-num">3.2</span> 创建秘钥对</h3>
 <p>秘钥对包含一个私钥和一个公钥，私钥用于对发布包进行签名。相应的公钥可以通过 Key Server 分享给用户，用户可以使用该公钥对你的发布包进行验证。使用如下命令产生秘钥对：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -248,7 +249,7 @@ Home: /Users/junahan/.gnupg
 </code></pre></td></tr></table>
 </div>
 </div><p>在创建秘钥对过程中，系统会询问加密算法类型和秘钥长度，建议使用 RSA 算法并使用 2048 bit 秘钥长度。另外需要输入的信息包括名字、Email地址等，另外需要输入安全密码。私钥和安全密码在签名你的发布包的时候需要使用。</p>
-<h3 id="列出秘钥对"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 列出秘钥对</h3>
+<h3 id="列出秘钥对"><span class="section-num">3.3</span> 列出秘钥对</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -272,7 +273,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 </div><ul>
 <li>其中 pub rsa2048… 一节就是你的公钥信息，388AB68B99E8E6069E9BB3FEFE50DC1E94282315 就是公钥 ID。</li>
 </ul>
-<h3 id="分发你的公钥"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 分发你的公钥</h3>
+<h3 id="分发你的公钥"><span class="section-num">3.4</span> 分发你的公钥</h3>
 <p>通过分发你的公钥到公钥服务器，用户可以通过公钥服务器下载你的公钥以验证你的发布包。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -282,7 +283,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <pre class="chroma"><code class="language-sh" data-lang="sh">gpg --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys 388AB68B99E8E6069E9BB3FEFE50DC1E94282315
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="使用-gpg-keychain"><!-- raw HTML omitted -->3.5<!-- raw HTML omitted --> 使用 GPG Keychain</h3>
+</div><h3 id="使用-gpg-keychain"><span class="section-num">3.5</span> 使用 GPG Keychain</h3>
 <p>GPG Keychain 是 <a href="https://gpgtools.org">GPG Suite</a> 的一部分，它提供一个 GUI 界面，方便用户管理 GPG 秘钥。
 以 Mac 为例，运行如下命令安装 GPG Suite：</p>
 <div class="highlight"><div class="chroma">
@@ -293,7 +294,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <pre class="chroma"><code class="language-sh" data-lang="sh">brew cask install gpg-suite
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="登录-ossrh-并创建项目信息"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 登录 OSSRH 并创建项目信息</h2>
+</div><h2 id="登录-ossrh-并创建项目信息"><span class="section-num">4</span> 登录 OSSRH 并创建项目信息</h2>
 <p>访问 <a href="https://issues.sonatype.org">OSSRH</a> 注册账户并登录，该账号会在随后发布项目包时用作认证需要。使用 OSSRH 发布项目包之前，需要在 OSSRH 创建一个有关该项目的 Issue Ticket 并提供相关项目相关信息，包括项目名称、GroupId、项目代码地址等基本信息。创建 Issue Ticket 的界面如下图所示：</p>
 <figure>
     <img src="https://ws2.sinaimg.cn/large/006tKfTcgy1ftu3ef52boj319a10i0wy.jpg"
@@ -307,9 +308,9 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <li>由于 GroupId 通常包含域名信息，如果你使用自己的域名，需要提供你是该域名拥有者的一些证据；</li>
 <li>如果你在 Github 上托管代码，建议使用 com.github.${你的 GitHub 账户名} 作为 GroupId；</li>
 </ul>
-<h2 id="准备项目-pom"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 准备项目 POM</h2>
+<h2 id="准备项目-pom"><span class="section-num">5</span> 准备项目 POM</h2>
 <p>这里以项目 <a href="https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo">struts2-protobuf-plugin</a> 为例。</p>
-<h3 id="配置项目基本信息"><!-- raw HTML omitted -->5.1<!-- raw HTML omitted --> 配置项目基本信息</h3>
+<h3 id="配置项目基本信息"><span class="section-num">5.1</span> 配置项目基本信息</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -376,7 +377,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <span class="nt">&lt;/scm&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="配置-distribution-management"><!-- raw HTML omitted -->5.2<!-- raw HTML omitted --> 配置 Distribution Management</h3>
+</div><h3 id="配置-distribution-management"><span class="section-num">5.2</span> 配置 Distribution Management</h3>
 <p>添加 Distribution Management 定义如下以指定 <code>ossrh</code> 仓库，这是我们部署发布包的中转仓库，并最终会发布至 Maven 中心仓库。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -404,7 +405,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <span class="nt">&lt;/distributionManagement&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="配置-maven-plugins"><!-- raw HTML omitted -->5.3<!-- raw HTML omitted --> 配置 Maven Plugins</h3>
+</div><h3 id="配置-maven-plugins"><span class="section-num">5.3</span> 配置 Maven Plugins</h3>
 <p>发布过程需要使用到三个 Maven 插件:</p>
 <ul>
 <li>Maven Deploy 插件 - 用于执行 Snapshot 部署；</li>
@@ -491,7 +492,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <span class="nt">&lt;/build&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="配置发布-profile"><!-- raw HTML omitted -->5.4<!-- raw HTML omitted --> 配置发布 Profile</h3>
+</div><h3 id="配置发布-profile"><span class="section-num">5.4</span> 配置发布 Profile</h3>
 <p>发布 Profile 执行 Maven Source, Maven Javddoc, 和 Maven GPG 插件以准备好最终签名发布包。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -621,7 +622,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <span class="nt">&lt;/profiles&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="配置-maven-setting"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 配置 Maven Setting</h2>
+</div><h2 id="配置-maven-setting"><span class="section-num">6</span> 配置 Maven Setting</h2>
 <p>为了方便随后发布软件包，建议修改 Maven 配置以提供 GPG 签名和执行部署时所需要的认证信息。Maven 配置文件（settings.xml）位于 {HOME}/.m2/settings.xml，相关配置片段如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -674,7 +675,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <li>Profile 片段的配置则为部署期间执行 GPG 对发布包进行签名提供必要信息，特别是创建秘钥对时提供的 GPG passphrase 信息；</li>
 </ul>
 <p>注意：这里 server.id 和 profile.id 配置要和 POM 中 distributionManagement.id 配置以及 nexus-staging-maven-plugin.serverId 的配置保持一致。</p>
-<h2 id="执行-snapshot-部署"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 执行 Snapshot 部署</h2>
+<h2 id="执行-snapshot-部署"><span class="section-num">7</span> 执行 Snapshot 部署</h2>
 <p>Snapshot 部署简单容易，不需要满足发布 (Release) 部署的要求，只要项目版本号以 &ldquo;-SNAPSHOT&rdquo; 结尾即可，运行如下命令执行 Snapshot 部署：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -685,7 +686,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 </code></pre></td></tr></table>
 </div>
 </div><p>注意：按照配置，Snapshot 部署会将你的 Snapshot 版本包上传至 <a href="https://oss.sonatype.org/content/repositories/snapshots">OSSRH SNAPSHOT 仓库</a>。</p>
-<h2 id="使用-nexus-staging-插件执行部署和发布"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 使用 Nexus Staging 插件执行部署和发布</h2>
+<h2 id="使用-nexus-staging-插件执行部署和发布"><span class="section-num">8</span> 使用 Nexus Staging 插件执行部署和发布</h2>
 <p>推荐使用 Nexus Staging Maven 插件部署发布包至 OSSRH 并发布至 Maven 中心仓库。在<a href="#%E5%87%86%E5%A4%87%E9%A1%B9%E7%9B%AE-pom">准备项目 POM</a> 章节，我们已经介绍了如何配置 <code>nexus-staging-maven-plugin</code> 。
 使用 Nexus Staging 插件部署发布版本之前，请修改你的项目版本号，确保版本号是发布版本（不以 -SNAPSHOT 为结尾），可以通过如下命令修改项目版本号为发布版本：</p>
 <div class="highlight"><div class="chroma">
@@ -736,7 +737,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 <li>进行下个版本的开发并重复以上流程</li>
 </ul>
 <p>可以通过脚本或者 CI 系统或者使用 Maven Release 插件来自动化以上工作流，下面介绍使用 Maven Release 插件来实现自动化。</p>
-<h2 id="使用-maven-release-插件执行部署和发布"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 使用 Maven Release 插件执行部署和发布</h2>
+<h2 id="使用-maven-release-插件执行部署和发布"><span class="section-num">9</span> 使用 Maven Release 插件执行部署和发布</h2>
 <p>使用 <a href="http://maven.apache.org/maven-release/maven-release-plugin">Maven Release 插件</a> 可以自动化部署工作流，包括更新 Mavan POM 文件，执行 SCM 操作以及执行发布部署。使用 Maven Release 插件，需要确保：</p>
 <ul>
 <li>正确在 POM 中配置 SCM 信息以执行 SCM 相关的操作；</li>
@@ -800,7 +801,7 @@ sub   rsa2048 2018-06-15 <span class="o">[</span>E<span class="o">]</span> <span
 </ul>
 <p>注意：如果 Nexus Staging 插件属性 autoReleaseAfterClose 的值是 <code>false</code>, 仍然需要通过 <a href="https://oss.sonatype.org/#welcome">Nexus 仓库管理员</a>界面关闭临时工作仓库并执行发布以便发布至 Maven 中心仓库。
 注意：完成发布后，大约 10 分钟既可以同步至 Maven 中心仓库，大约 2 小时候，就可以通过 <a href="https://search.maven.org">https://search.maven.org</a> 搜索到相应的发布包。</p>
-<h2 id="gpg-plugin-issue"><!-- raw HTML omitted -->10<!-- raw HTML omitted --> GPG Plugin Issue</h2>
+<h2 id="gpg-plugin-issue"><span class="section-num">10</span> GPG Plugin Issue</h2>
 <p>新版本的 GPG 在签名的时候会弹出一个交互 UI 以要求用户输入密码，maven-gpg-plugin 不能处理这种情形，从而导致报告错误 <a href="https://issues.apache.org/jira/browse/MGPG-59">gpg: signing failed: Inappropriate ioctl for device</a>。解决方法是配置 GPG 支持 –pinentry-mode loopback 模式。具体配置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -826,7 +827,7 @@ touch gpg-agent.conf
 <span class="nb">echo</span> <span class="s2">&#34;allow-loopback-pinentry&#34;</span> &gt;&gt; gpg-agent.conf
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="参考文献"><!-- raw HTML omitted -->11<!-- raw HTML omitted --> 参考文献</h2>
+</div><h2 id="参考文献"><span class="section-num">11</span> 参考文献</h2>
 <ol>
 <li>Guide to upload artifacts to the Central Repository, <a href="https://maven.apache.org/repository/guide-central-repository-upload.html">https://maven.apache.org/repository/guide-central-repository-upload.html</a>.</li>
 <li>Requirement, <a href="https://central.sonatype.org/pages/requirements.html">https://central.sonatype.org/pages/requirements.html</a>.</li>
@@ -938,7 +939,10 @@ touch gpg-agent.conf
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS - Junahan - Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Yang Tiedang" /><meta name="description" content="本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有" /><meta name="keywords" content="blockchain, fabric" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.60.0 with theme even" />
+
+
+<link rel="canonical" href="/post/fast-fabric-scaling-fabric-to-20000-tps/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS" />
+<meta property="og:description" content="本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/fast-fabric-scaling-fabric-to-20000-tps/" />
+<meta property="article:published_time" content="2020-04-01T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-04-22T09:22:45+08:00" />
+<meta itemprop="name" content="FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS">
+<meta itemprop="description" content="本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有">
+<meta itemprop="datePublished" content="2020-04-01T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-22T09:22:45&#43;08:00" />
+<meta itemprop="wordCount" content="12083">
+
+
+
+<meta itemprop="keywords" content="blockchain,fabric," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS"/>
+<meta name="twitter:description" content="本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Junahan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Junahan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-01 </span>
+        <div class="post-category">
+            <a href="/categories/blockchain/"> blockchain </a>
+            <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"> 区块链 </a>
+            </div>
+          <span class="more-meta"> 约 12083 字 </span>
+          <span class="more-meta"> 预计阅读 25 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#ii-dot-fabric-架构简介">II. Fabric 架构简介</a>
+      <ul>
+        <li><a href="#a-dot-节点类型">A. 节点类型</a></li>
+        <li><a href="#b-dot-交易流程">B. 交易流程</a></li>
+        <li><a href="#c-dot-实现细节">C. 实现细节</a></li>
+      </ul>
+    </li>
+    <li><a href="#iii-dot-设计">III. 设计</a>
+      <ul>
+        <li><a href="#a-dot-准备工作">A. 准备工作</a></li>
+        <li><a href="#b-dot-排序节点改进方案-i-从交易有效负载中分离头部">B. 排序节点改进方案 I: 从交易有效负载中分离头部</a></li>
+        <li><a href="#c-dot-排序节点改进方案-ii-消息管道化">C. 排序节点改进方案 II: 消息管道化</a></li>
+        <li><a href="#d-dot-对等节点任务">D. 对等节点任务</a></li>
+        <li><a href="#e-dot-对等节点改进方案-i-使用哈希表代替现有世界状态数据库">E. 对等节点改进方案 I: 使用哈希表代替现有世界状态数据库</a></li>
+        <li><a href="#f-dot-对等节点改进方案-ii-使用对等节点集群存储区块">F. 对等节点改进方案 II: 使用对等节点集群存储区块</a></li>
+        <li><a href="#g-dot-对等节点改进方案-iii-分离提交和背书节点角色">G. 对等节点改进方案 III: 分离提交和背书节点角色</a></li>
+        <li><a href="#h-dot-对等节点改进方案-iv-并行验证">H. 对等节点改进方案 IV: 并行验证</a></li>
+        <li><a href="#i-dot-对等节点改进方案-v-缓存解组区块">I. 对等节点改进方案 V: 缓存解组区块</a></li>
+      </ul>
+    </li>
+    <li><a href="#iv-dot-结果">IV. 结果</a>
+      <ul>
+        <li><a href="#a-dot-区块通过-grpc-传输">A. 区块通过 gRPC 传输</a></li>
+        <li><a href="#b-dot-排序节点吞吐量是消息大小的函数">B. 排序节点吞吐量是消息大小的函数</a></li>
+        <li><a href="#c-dot-对等节点实验">C. 对等节点实验</a></li>
+        <li><a href="#d-dot-端到端吞吐量">D. 端到端吞吐量</a></li>
+      </ul>
+    </li>
+    <li><a href="#v-dot-相关工作">V. 相关工作</a></li>
+    <li><a href="#vi-dot-结论">VI. 结论</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>本文是论文 <a href="https://arxiv.org/pdf/1901.00910.pdf">FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second</a> by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。</p>
+</blockquote>
+<div class="abstract">
+  <div></div>
+<p>区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有限，尤其是和业已存在的分布式数据库相比。在这篇论文中，我们重新架构一个现代化的许可型区块链系统（Hyperledger Fabric) 以将其性能从 3,000 TPS 提升至 20,000 TPS。我们专注于除共识机制之外的性能瓶颈，并对架构进行改进以减少交易排序和验证的计算量及 I/O 开销，显著提升吞吐量。特别是我们的优化方案完全支持即插即用而无需改变 Fabric 任何接口。</p>
+</div>
+<h2 id="简介">简介</h2>
+<p>分布式账本技术如区块链提供了一种无需第三可信方参与的，以安全和可验证的方式达成交易的方法。正因为如此，人们广泛相信区块链将极大的影响从金融、不动产到公共管理、能源及交通等行业 [<a href="#espinel:2015-newyork-bimpact">1</a>] 。为了在实践上可行，区块链必须支持和现有数据库管理系统相当的交易速度，并能够提供同样的交易保证。</p>
+<p>和非许可型区块链不限制网络成员不同，我们专注于所有参与方身份已知的许可型区块链。许可型区块链适用于包含金融在内的众多领域。例如，Ripple<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 区块链的目标是为货币交换和跨银行支付提供一个类似于现有 SWIFT 系统的支付网络。</p>
+<p>从技术的角度，我们观察到这两种区块链一个重要的不同，即非许可型区块链的去信任属性需要工作量证明 (Proof of work) 、权益证明 (Proof of stake) 或者是昂贵的全球范围内的拜占庭容错 (Byzantine-fault-tolerant) 共识算法 [<a href="#vukolic:2015-iw-sbf">2</a>] 。很多最近的工作都聚焦于让这些算法更加高效。另一方面，许可型区块链通常把共识和交易验证委托给一组选择的节点以较少共识算法的负担。即便这些共识算法依然有性能上的瓶颈，也在最近的工作 [<a href="#sousa:2018-ieee-bftos">3</a>], [<a href="#DBLP:journals/corr/abs-1803-05069">4</a>] 中得以解决，也激励这我们去寻找除共识机制以外的方法以进一步提升性能。</p>
+<p>由于 Hyperledger Fabric 被认为是最快的可用开源许可型区块链系统 [<a href="#dinh:2017-acmic-fapbs">5</a>] ，我们对其设计进行了极为严苛的调查。尽管有一些工作致力于优化 Fabric 性能，如使用积极缓存 [<a href="#DBLP:journals/corr/abs-1805-11390">6</a>] ，我们仍没有发现任何对系统整体进行架构重构的工作<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。因此，我们基于通用的系统设计技术设计和实现一些架构上的优化，这些优化一起为端到端交易吞吐量带来多达 7 倍的提升，从以往的 3,000 TPS 提升至 20,000 TPS，同时减少了块延迟。我们独家贡献如下：</p>
+<ol>
+<li><em>从数据中分离出元数据：</em> Fabric 共识层接收整个交易数据作为输入，但是仅有交易 ID 被用于确定交易顺序。我们重新设计 Fabric 交易排序服务以只需要传输交易 ID，这带来了极大的吞吐量提升。</li>
+<li><em>并行和缓存：</em> 交易验证的一些处理可以并行，另外一些处理也受益于交易数据缓存。我们重新设计 Fabric 交易验证服务以支持在提交节点上积极缓存解封区块并对尽可能多的验证步骤进行并行处理，包括背书策略验证及语法校验。</li>
+<li><em>利用内存分级以加速关键路径上的数据快速访问：</em> Fabric 用于状态数据库的键值存储可以使用轻量级内存数据结构代替。由此带来的持久化保证的不足可以由区块链自身的机制弥补。我们重新设计了 Fabric 数据管理层，以一个轻量级的哈希表为中心，在关键的交易验证路径上提供更快的数据访问速度并延迟存储不可更改的区块至一个经过写优化的存储集群。</li>
+<li><em>资源分离：</em> 背书节点和提交节点所需要的资源不同，我们引入一个架构设计以将不同角色的节点运行在不同的硬件资源上。</li>
+</ol>
+<p>关键是我们的优化不侵入和改变任何 Fabric APIs 及模块边界，因此可以整合至 Fabric 2.0 [<a href="#fabric-fab-12221">7</a>] 计划发布版本中。我们也罗列了一些未来的工作方向，结合我们已提供的优化，有潜力达到 50,000 TPS，可以满足类似 Visa [<a href="#vukolic:2015-iw-sbf">2</a>] 这样的信用卡公司对性能的要求。</p>
+<p>论文的其余部分，小节 II 对 Hyperledger Fabric 做简单的介绍、小节 III 展示我们的优化设计、小节 IV 讨论了实验结果、小节 V 介绍了相关工作、小节 VI 以讨论未来的工作方向做结束。</p>
+<h2 id="ii-dot-fabric-架构简介">II. Fabric 架构简介</h2>
+<p>Fabric 是由 Linux 基金会主持的开源 Hyperledger 项目组件之一，也是发展最为活跃的一个许可型区块链系统 [<a href="#cachin-2016-wdccl-ahbf">8</a>] 。由于 Androulaki 等人 [<a href="#androulaki-2018-eurosys-hf">9</a>] 详述了交易流程的细节，我们这里仅做简要介绍，并专注于系统中和我们将在小节 III 提出的性能提升方案相关的部分。</p>
+<p>为了避免智能合约确定性陷阱及允许以即插即用的方式替换系统组件，Fabric 架构和其他公共区块链系统有所不同。交易流程采用 <em>execute-order-commit</em> 模式而非常见的 <em>order-execute-commit</em> 模式。客户端提交的交易首先在一个沙箱里面执行以确定这些交易的读写集合 <em>(read-write set)</em> ，即被这些交易读和写的键的集合。然后，交易通过一个排序服务进行排序，并最终验证和提交至区块链。这个工作流由不同角色的节点实现。有关讨论如下：</p>
+<h3 id="a-dot-节点类型">A. <em>节点类型</em></h3>
+<p>客户端提交的原始交易数据，如读写集合，被发送给 Fabric 节点<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>。节点要么是对等节点 <em>(peers)</em> ，要么是排序节点 <em>(orderers)</em> ；一些对等节点也是背书节点 <em>(endorsers)</em> 。所有节点均提交区块到区块链本地副本并将所有的变化更新到本地状态数据库中，状态数据库维护一个当前世界状态 <em>(world state)</em> 的快照。背书节点则根据智能合约版本号及其定义的规则来验证交易的合法性。排序节点仅负责决定交易的顺序而不关心其正确性和合法性。</p>
+<h3 id="b-dot-交易流程">B. <em>交易流程</em></h3>
+<p>客户端发送交易给一定数量的背书节点。每个背书节点分别在沙箱中执行交易脚本并连同这些交易所访问的键的版本号一起计算相应的读写集合。背书节点也使用商业规则（定义在智能合约中）来验证交易的正确性。客户端等待足够数量的背书，然后发送这些相应至排序节点，排序节点实现和提供排序服务。排序节点首先就收到的交易顺序达成共识，然后合并这些交易到区块中。区块被递送到所有对等节点并由这些节点执行验证和提交。</p>
+<h3 id="c-dot-实现细节">C. <em>实现细节</em></h3>
+<p>为章节 III 讨论性能提升方案做准备，我们现在近距离看看排序节点和对等节点的架构。</p>
+<p>1). <em>排序节点:</em> 在收到背书节点的响应后，客户端创建一个包含有请求头和有效负载的交易提案 <em>(Transaction Proposal)</em> 。请求头包含交易 ID 和通道 ID<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>。有效负载包含读写集合、相应的版本号以及背书节点的签名。客户端使用证书对交易提案签名并发送至排序节点。</p>
+<p>排序服务的两个目的是 (a) 就交易的顺序达成共识并且 (b) 将包含已经排序交易的区块传递给所有对等节点。Fabric 现阶段使用基于 ZooKeeper 的 Apache Kafka [<a href="#apache-kafka">10</a>] 来实现容错共识。当排序节点接收到客户端的交易提案，它会检查客户端是否被授权提交交易。如果是，排序节点会将交易提案发布到 Kafka 集群，在 Kafka 集群，每个 Fabric 通道被映射到一个 Kafka 主题上以创建一个与之对应的不可变已排序交易序列。然后每个排序节点将从 Kafka 收到的已排序交易打包进入区块。打包区块行为要么基于每区块允许的最大交易数，要么基于区块超时配置。区块由排序节点的证书进行签名并使用 gRPC 协议 [<a href="#grpc-io">11</a>] 传送给所有对等节点。</p>
+<p>2). <em>对等节点:</em> 当接收到来自排序服务的消息时，对等节点首先解组区块头及元数据并检查其语法结构，然后验证排序节点的签名是否符合创建区块所指定的策略要求。没通过这些测试的区块被立即丢弃。</p>
+<p>经过初始验证后的区块被推送至一个队列以保证它们被添加到区块链中。在最终加入区块链之前，区块要依次通过两个验证阶段和一个提交阶段。</p>
+<p>在第一个验证阶段，区块内所有交易均被拆包以检查其语法和验证背书。没有通过该测试的交易被打上非法的标签，但被保留在区块中。由此可见，只有那些通过该测试的交易仍然是合法的。</p>
+<p>在第二个验证阶段中，对等节点要确保那些相互影响的合法交易不会导致非法的世界状态。回想一下此前提到的每个交易携带一个其需要从世界状态数据库读取的键集合 (也就是 read 集合) 和一个其将写入世界状态数据库的键-值对集合（也就是 write 集合），并附加由背书节点记录的版本号。在第二个验证阶段期间，包含在交易读写集合中的每个键必须具有相同的版本号。任何之前交易包含的对该键的写会更新版本号并导致本次交易无效。这可以阻止双花 <em>(double-spending)</em> 。</p>
+<p>在最后一步中，对等节点写入区块数据，连同那些被打上非法标记的交易数据一起被写入文件系统中。根据应用的配置，所有键和值，也就是世界状态，被持久化进入 LevelDB 或者 CouchDB 中。此外，每个区块和其包含的所有交易的索引被存储至 LevelDB 中以加速数据访问速度。</p>
+<h2 id="iii-dot-设计">III. 设计</h2>
+<p>本章节描述我们对 Fabric 1.2 版本架构和实现上的改变。Fabric 1.2 版本发布于 2018 年 7 月，后续 1.3 版本发布于 2018 年 9 月、1.4 版本发布于 2019 年 1 月。最近的这些版本的变化和我们基于 1.2 版本的提议并不冲突，因此我们预期我们的工作可以毫不费劲地和新版本进行整合。重要的是，我们对性能的改进对每个模块的接口和职责保持原封不动，这意味着我们的改进兼容业已实现的对等节点和 排序节点服务。更进一步，我们的改进方案相互独立，因此可以单独实现。至于对排序节点和对等节点的改进，我们分别按照其对性能影响从小到大的顺序对方案进行阐述。</p>
+<h3 id="a-dot-准备工作">A. <em>准备工作</em></h3>
+<p>在  HyperLerger 中使用 BFT (拜占庭容错共识算法) 是一个关键的性能瓶颈 [<a href="#vukolic:2015-iw-sbf">2</a>] 。这是因为 BFT 共识算法不能随着参与者数量而很好的扩展。在我们的工作中，基于三个原因选择考虑这个明显性能瓶颈以外的方案：</p>
+<ul>
+<li>由于联盟链中（许可参与）所有参与者已知且激励他们保持系统以可信任方式运行，可以说，和非许可型区块链系统相比，使用 BFT 协议在联盟链中并不是那么重要。</li>
+<li>BFT 共识被广泛的研究 [<a href="#DBLP:journals/corr/abs-1711-03936">12</a>] 并且我们期待高吞吐量的解决方案在未来一两年内出现。</li>
+<li>实践中，Fabric 1.2 并不使用 BFT 共识协议，而正如此前所讨论，其依赖 Kafka 实现交易排序。</li>
+</ul>
+<p>因此，我们的目标不是采用更好的 BFT 共识算法来实现排序节点性能改进，而是假设当共识算法不再是瓶颈的情况下缓解新出现的性能问题。</p>
+<h3 id="b-dot-排序节点改进方案-i-从交易有效负载中分离头部">B. <em>排序节点改进方案 I: 从交易有效负载中分离头部</em></h3>
+<p>在 Fabric 1.2 中，排序节点使用 Apache Kafka 并发送整个交易到 Kafka 以对其进行排序。交易的长度可达数千字节，从而导致很高的通讯开销，这会影响整个系统的性能。而获得交易顺序的共识仅需要交易 IDs。因此，我们可以通过仅发送交易 IDs 至 Kafka 集群而获得对排序服务吞吐量的重大性能改进。</p>
+<figure>
+    <img src="/ox-hugo/new-order-architecture.jpg"
+         alt="Figure 1: 新的排序节点架构。对所有进入的交易做并发处理。交易 IDs 被送给 Kafka 集群进行排序。当收到返回的已排序交易 IDs, 排序节点重新装配相应的负载并将这些交易打包进入区块。"/> <figcaption>
+            <p>Figure 1: 新的排序节点架构。对所有进入的交易做并发处理。交易 IDs 被送给 Kafka 集群进行排序。当收到返回的已排序交易 IDs, 排序节点重新装配相应的负载并将这些交易打包进入区块。</p>
+        </figcaption>
+</figure>
+
+<p>明确的说，当从客户端收到一个交易的时候，我们的排序服务实现从交易头提取交易 ID 并将其发布至 Kafka 集群。和这些交易 IDs 相对应的有效负载被分别存储到一个排序节点本地数据结构中，当排序节点从 Kafka 收到返回的已排序交易 IDs 时，重新装配交易。随后，和现有 Fabric 实现一样，排序节点分割交易集合、将它们打包进区块并递送给所有对等节点。毫无疑问，我们的方法能够和任意共识实现协同工作并且不需要对现存的排序接口做任何更改。这允许我们重用业已存在的 Fabric 客户端和对等节点代码。</p>
+<h3 id="c-dot-排序节点改进方案-ii-消息管道化">C. <em>排序节点改进方案 II: 消息管道化</em></h3>
+<p>在 Fabric 1.2 中，排序服务按顺序一个一个处理来自任意客户端的交易。当一个交易到达时，排序节点识别其相应的通道、基于一组规则对交易进行验证并最终转发交易至共识系统，如 Kafka；然后，才会处理下一个交易。我们则使用管道机制，就算是请求来自相同 gRPC 连接的同一个客户端，也能够被并发处理。为了实现这一点，我们维护一个线程池，以每个请求一个线程的方式对所有进入请求进行并行处理。一个线程负责调用 Kafka API 以发布交易 ID 并返回成功的响应给客户端。剩余的处理流程和 Fabric 1.2 相同。图 1 总结了新的排序节点设计，包含从交易负载中分离交易 IDs 以及由于并行消息处理而带来的横向扩展。</p>
+<h3 id="d-dot-对等节点任务">D. <em>对等节点任务</em></h3>
+<p>回想章节 II-C2，当 Fabric 对等节点从背书节点收到一个块的时候，它按顺序执行如下任务：</p>
+<ul>
+<li>验证接受到的消息的合法性</li>
+<li>验证区块头及区块内每笔交易的每个背书签名</li>
+<li>验证交易的读写集合</li>
+<li>更新存储于 LevelDB 或者 CouchDB 的世界状态</li>
+<li>存储区块链日志进入文件系统，一并存储相应的索引进入 LevelDB</li>
+</ul>
+<p>我们的目标是在交易流程的关键路径上最大化交易吞吐量。为了这个目的，我们执行称之为图分析的扩展以辨识性能瓶颈。</p>
+<figure>
+    <img src="/ox-hugo/new-peer-architecture.jpg"
+         alt="Figure 2: 新的对等节点架构。快速对等节点使用一个内存哈希表来存储世界状态。验证管道实现完全并发以并行验证多个区块及包含的交易。分离背书角色及其持久化存储为可扩展的集群，将区块验证交由快速对等节点处理。管道所有部分使用解组区块缓存。"/> <figcaption>
+            <p>Figure 2: 新的对等节点架构。快速对等节点使用一个内存哈希表来存储世界状态。验证管道实现完全并发以并行验证多个区块及包含的交易。分离背书角色及其持久化存储为可扩展的集群，将区块验证交由快速对等节点处理。管道所有部分使用解组区块缓存。</p>
+        </figcaption>
+</figure>
+
+<p>我们做如下实验观察。首先，对交易的读写集合进行验证需要快速访问世界状态。为此，我们可以通过使用一个内存哈希表替代数据库 (章节 III-E) 以加速访问速度。其次，交易流程并不需要区块链日志，因此，我们能够延缓存储，在交易流程结束后，将其存入一个专用的存储和数据分析服务器（章节 III-F）。再三，如果一个对等节点也是一个背书节点，它就需要处理新的交易提案。然而，提交和背书角色有所区分，这使得为每个任务使用专用不同物理硬件成为可能（章节 III-G) 。再四，所有进入的区块和交易必须在对等节点上被验证和表决。最为关键的是，对由于交易写集合导致的状态变化的验证必须按顺序进行并阻塞所有其他任务。因此，尽可能加速这个任务至关重要（章节 III-H）。</p>
+<p>最后，通过缓存区块 <em>Protocol Buffers</em> [<a href="#google-developers">13</a>] 解组结果可以获得显著的性能改进（章节 III-I）。在图 2 中，我们给出有关这个重设计架构的细节，包括另外对对等节点做的性能改进。</p>
+<h3 id="e-dot-对等节点改进方案-i-使用哈希表代替现有世界状态数据库">E. <em>对等节点改进方案 I: 使用哈希表代替现有世界状态数据库</em></h3>
+<p>世界状态数据库必须按顺序检索和更新每笔交易以保证数据在所有节点上的一致性。这样一来，当可能发生峰值交易流量的情况下如何更新和存储这些数据成为性能的关键影响因素。</p>
+<p>我们认为在通常的情况下，例如追踪在账本上的钱包和资产，世界状态数据库很可能相对较小。就算是有数亿计的键需要存储，多数服务器能够非常容易的将它们存储在内存中。因此，我们提议使用一个内存哈希表来替代 LevelDB/CouchDB 以存储世界状态。这避免了在更新世界状态数据的时候去访问硬盘。它也消除了数据库系统担保成本（如 ACID 属性），由于区块链自身的冗余保证使得数据库系统担保变得不再必要，这进一步的提升性能。当然，这种替换方案由于采用易失内存而容易受到节点失败的影响。因此，内存哈希表方案需要通过稳定的存储方案来加强。我们在章节 III-F 着手解决这个问题。</p>
+<h3 id="f-dot-对等节点改进方案-ii-使用对等节点集群存储区块">F. <em>对等节点改进方案 II: 使用对等节点集群存储区块</em></h3>
+<p>按照定义，区块是不可更改的。这个特性使得区块很适合使用一个仅追加的数据存储系统。通过将数据存储从对等节点其他任务中分离，我们预期有很多数据存储方法可以用于区块和世界状态备份，包括使用一个单独的服务器以存储区块和世界状态数据备份至文件系统中，也可以像 Fabric 当前所使用的方法，使用数据库或类似 LevelDB/CouchDB 的键-值存储系统。为了最大化可扩展性，我们建议使用分布式存储集群。采用这种方案需要注意的是每个存储服务器仅包含链的一部分，鼓励使用诸如 Hadoop MapReduce 或者 Spark<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> 这样的分布式数据处理工具。</p>
+<h3 id="g-dot-对等节点改进方案-iii-分离提交和背书节点角色">G. <em>对等节点改进方案 III: 分离提交和背书节点角色</em></h3>
+<p>在 Fabric 1.2 中，背书节点也负责提交区块。背书和提交一样是一个昂贵的操作。尽管使用一个背书节点集群来并发交易处理有潜力提升应用性能，但额外的在所有新节点上复制提交的工作负担实际上抵消了这种好处。因此，我们提议分开这些角色。</p>
+<p>特别地，在我们的设计中，提交节点执行验证管道，然后发送合法的区块到一个背书节点集群，背书节点则只需要更新状态数据库而无需额外的验证。这个步骤允许我们释放对等节点资源。值得注意的是，这样一个背书节点集群能够根据需要进行横向扩展，仅需将背书节点分离并部署在专用硬件上。这个集群中的服务器和 Fabric 1.2 中具有完备功能的背书节点有所不同。</p>
+<h3 id="h-dot-对等节点改进方案-iv-并行验证">H. <em>对等节点改进方案 IV: 并行验证</em></h3>
+<p>区块和交易头的验证，包括检查发送方的权限、强制执行背书策略以及语法校验均可以高度并行化处理。我们通过引入一个完备的验证管道来扩展 Fabric 1.2 的并行处理。</p>
+<p>特别地，对于每一个进入的区块，分配一个贯穿区块验证阶段的 go 协程进行处理。随后，每个协程利用 Fabric 1.2 已经支持的协程池来处理交易验证。因此，在任意指定时刻，系统并行验证多个区块和其交易。最后，一个单独的 go 协程以正确的顺序对所有的读写集合依次进行验证。这使得我们能够充分利用服务器多核 CPU 的计算能力。</p>
+<h3 id="i-dot-对等节点改进方案-v-缓存解组区块">I. <em>对等节点改进方案 V: 缓存解组区块</em></h3>
+<p>Fabric 使用 gRPC 协议在网络节点间进行通讯。采用 <em>Protocol Buffers</em> 序列化打包传输的数据。为了能够支持应用和软件随时升级，Fabric 区块结构分很多层，每层分别进行编组和解组。这导致系统大量分配内存以转换字节数组为数据结构。此外，Fabric 1.2 不缓存之前已经解组数据，因此任何需要数据的时候，解组操作就会重复执行。</p>
+<p>为了缓解这个问题，我们提议一个临时解组数据缓存方案。区块在验证管道中被缓存并在任何需要的时候通过区块号获取。一旦区块的任何一部分被解组，解组结果会连同区块一起被缓存以重复使用。我们采用一个和验证通道大小匹配的循环缓冲区来实现它。任意时刻，当一个区块被提交的时候，一个新的区块被允许进入管道并自动覆盖前一区块的缓存位置。在区块被提交后，其缓存就不再需要，这保证了只有一个老的区块离开管道的时候，一个新区块才会被接收，这是一个安全的操作。请注意，解组操作仅仅缓存数据而不改变数据。因此，验证管道内的所有 go 协程无需加锁。在最差情形下，多个协程尝试并行访问相同（尚未被解组）的数据并且都执行了解组操作。那么最后写入缓存取胜，而无论发生那种情形，结果都一样，因此这不是个问题。</p>
+<p>调用图分析表明，即便做了这些优化，由于解组而导致的内存分配和销毁仍然占有整个执行时间的最大份额。这可以通过 gRPC 调用管理和加密计算做后续分析和优化。但最后两个部分均超出本次研究的范围。</p>
+<h2 id="iv-dot-结果">IV. 结果</h2>
+<p>本节展示针对我们的架构优化做的试验性性能评估。我们使用 15 个本地服务器，这些服务器通过 1Gbit/s 的交换机连接在一起。每个服务群均装备两颗 Intel Xeon CPU E5-2620 v2 (2.10 GHz) 处理器，总共 24 硬线程核心和 64 GB RAM。我们以 Fabric 1.2 为基础并逐步添加我们的优化以便于对比。Fabric 默认配置为使用 LevelDB 作为对等节点状态数据库并且排序节点完全使用内存存储区块数据而非硬盘。另外，整个系统不使用 docker 容器运行以避免额外的开销。</p>
+<p>尽管我们确信我们的实现不改变 Fabric 验证行为，我们仍然使用没有冲突且合法的交易进行所有测试。这是因为合法的交易必须通过每个合法验证并且会在提交阶段将其写集合写入状态数据库。于此相反，非法交易会被移除。也就是说，我们的性能测试结果是最坏情况下的性能表现。</p>
+<p>我们的实验集中于排序和提交环节并分别处理。对于排序实验，我们通过客户端发送预先准备好的已背书交易到排序节点并使用一个模拟提交者，该模拟提交者简单地抛弃接收到的区块。类似地，在实验提交环节基准中，我们发送预先准备好的区块到提交者并创建模拟背书节点和丢弃合法区块的模拟区块存储进程。</p>
+<p>然后，对于端到端 (end-to-end) 实验，我们实现了整个系统：背书节点 (基于来自提交者的合法区块所形成的世界状态库副本) 背书从客户端收到的交易提案；排序节点创建包含已背书交易的区块并将他们发送给提交节点；提交节点验证和提交对内存世界状态库的更改并发送合法区块至背书节点和区块存储系统；区块存储系统使用 Fabric 1.2 数据管理功能存储区块至文件系统及其状态至 LevelDB。然而，我们并没有实现一个可进一步扩展分析的分布式存储；这个不在我们这次工作的范围之内。</p>
+<p>为了公平的对比，我们所有的实验均使用相同的交易链码：每个交易模拟一笔从一个账户到另一个账户的转账交易，交易读写状态数据库两个键值。这些交易的负载大小为典型的 2.9 KB [<a href="#sousa:2018-ieee-bftos">3</a>] 。此外，我们使用接受单一背书签名的默认背书策略。</p>
+<h3 id="a-dot-区块通过-grpc-传输"><em>A. 区块通过 gRPC 传输</em></h3>
+<p>我们从 gRPC 性能基准开始。我们预先创建包含不同数量交易的合法区块，通过 Fabric gRPC 接口从排序节点发送区块至对等节点，然后立即丢弃他们。这个实验的结果详见下图。</p>
+<figure>
+    <img src="/ox-hugo/grpc-tps-with-block-size.jpg"
+         alt="Figure 3: 不同区块大小下的吞吐量 (gRPC)"/> <figcaption>
+            <p>Figure 3: 不同区块大小下的吞吐量 (gRPC)</p>
+        </figcaption>
+</figure>
+
+<p>我们发现区块大小在包含 10 到 250 个交易区间具有最好的性能，交易吞吐量稳定的超过 40,000 交易/秒。通过和 IV-D 小节所示端到端测试结果对比，很清楚的表明，在我们的测试环境中，网络带宽及 1 Gbit/s 服务器机架交换机不是性能瓶颈。</p>
+<h3 id="b-dot-排序节点吞吐量是消息大小的函数"><em>B. 排序节点吞吐量是消息大小的函数</em></h3>
+<p>在对排序节点吞吐量的实验中，我们配置多个客户端以发送交易到排序节点并监控 1000,000 次交易所消耗的时间。我们评估了 Fabric 1.2 排序节点的性能并和我们的改进做了比较：</p>
+<ul>
+<li>优化 O-I: 仅将交易 ID 发送给 Kafka (小节 III-B)</li>
+<li>优化 O-II: 并行处理来自于客户端的交易提案 (小节 III-C)</li>
+</ul>
+<figure>
+    <img src="/ox-hugo/orderer-tps-with-payload-size.jpg"
+         alt="Figure 4: 消息负载大小对排序服务吞吐量的影响"/> <figcaption>
+            <p>Figure 4: 消息负载大小对排序服务吞吐量的影响</p>
+        </figcaption>
+</figure>
+
+<p>上图展示了不同交易负载大小对排序服务吞吐量的影响。Fabric 1.2 实现的排序服务交易吞吐量随着交易负载大小的增加而下降，这是由于其发送全部交易消息到 Kafka 集群导致的额外开销。当我们仅仅发送交易 ID 到 Kafka 集群 (优化 O-I)，对于 4096 KB 大小的负载，可以获得几乎三倍 (2.8x) 的平均吞吐量提升。叠加优化 O-II 可以带来平均四倍（4x）吞吐量提升。特别是，对于 2 KB 负载大小，我们将排序节点性能从 6,215 交易/秒提升至 21,719 交易/秒，提升比例接近 3.5 倍。</p>
+<h3 id="c-dot-对等节点实验"><em>C. 对等节点实验</em></h3>
+<p>在本节，我们讲述对单一对等节点的实验（我们将在 IV-D 一节展示端到端评估结果）。就像在 IV-A 一节针对 gRPC 的实验一样，我们预先准备好测试区块并将他们发送给一个对等节点。然后，该对等节点完成验证和提交区块。</p>
+<p>如图所示的三个配置展示了 Fabric 1.2 和逐个叠加我们的三个优化（如，优化 P-II 包含优化 P-I，优化 P-III 包含优化 P-II 和 优化 P-I）的对比:</p>
+<ul>
+<li><strong>优化 P-I</strong> 使用内存哈希表代替 LevelDB</li>
+<li><strong>优化 P-II</strong> 完全并行处理验证和提交；区块存储和背书通过一个远程 gRPC 调用转移到外部存储服务器和集群上</li>
+<li><strong>优化 P-III</strong> 缓存所有解组数据并使其在整个验证和提交管道中可以被访问</li>
+</ul>
+<figure>
+    <img src="/ox-hugo/peer-block-latency.jpg"
+         alt="Figure 5: 优化对对等节点区块处理延迟的影响"/> <figcaption>
+            <p>Figure 5: 优化对对等节点区块处理延迟的影响</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="/ox-hugo/peer-tps.jpg"
+         alt="Figure 6: 优化对对等节点吞吐量的影响"/> <figcaption>
+            <p>Figure 6: 优化对对等节点吞吐量的影响</p>
+        </figcaption>
+</figure>
+
+<p><em>1) /固定区块大小实验</em>: 图 5 和 6 展示单次验证和提交 1,000,000 笔交易，重复 1,000 次的结果。每个区块包含 100 笔交易<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>。我们先讨论延迟，后讨论吞吐量。</p>
+<p>考虑到区块的批量处理因素，我们按区块而非按交易展示延迟。结论和我们自己定义的在增加吞吐量的同时不增加额外延迟的目标一致；实际上我们的性能优化将对等节点延迟降低到原来的三分之一的水平（注意这些实验不考虑网络延迟）。尽管优化 P-II 管道化处理引入了一些额外的延迟，其他优化措施抵消了它。</p>
+<p>通过使用哈希表代替状态存储（优化 P-I），我们能够将 Fabric 1.2 对等节点性能提升两倍多，从 3,200 到超过 7,500 交易/秒。并行化验证（优化 P-II）进一步增加了大约 2,000 交易/秒。这是因为，正如图 2 所示，只有最初的两个验证步骤能够被并行处理和扩展。也就是说，整个管道的性能取决于读写集合验证和提交的吞吐量。尽管当使用优化 P-I 的时候，提交处理近乎免费，但性能直到引入优化 P-III 缓存解组区块时才取得大幅度上升。缓存极大的减少了 CPU 的工作负担，释放计算资源以并行验证更多的区块。将所有对对等节点的优化叠加，我们将对等节点提交的性能提升 7 倍，从 3,200 交易/秒到超过 21,000 交易/秒。</p>
+<p><em>2) 参数敏感度</em>: 正如在小节 IV-C 中的讨论，区块和交易验证并行化处理是对等节点性能的关键。但并没有明确说明究竟多大程度上并行化处理可以达到最大性能。因此，我们通过调整两个参数来探索其对对等节点性能的影响程度：</p>
+<ul>
+<li>用于归集区块进入验证管道的并发 go 协程数</li>
+<li>用于验证交易的并发 go 协程</li>
+</ul>
+<p>我们使用信号量来控制系统中活跃的 go 协程数量以允许多个区块可以同时进入验证管道。这允许我们通过两个分开的 go 协程池来控制区块头验证和交易验证的并发水平。</p>
+<figure>
+    <img src="/ox-hugo/parameter-sensitivity.jpg"
+         alt="Figure 7: 每区块 100 笔交易和 24 核 CPU 情形下的参数敏感度研究。我们分别独立缩放区块验证并发数和交易验证并发数。"/> <figcaption>
+            <p>Figure 7: 每区块 100 笔交易和 24 核 CPU 情形下的参数敏感度研究。我们分别独立缩放区块验证并发数和交易验证并发数。</p>
+        </figcaption>
+</figure>
+
+<p>对于 100 个交易的区块大小，图 7 展现了 go 协程数量和吞吐量的关系。验证管道内总的线程数是两个独立的坐标轴对应值的和。例如，在管道中，当有 25 个交易验证 go 协程和 31 个并发区块，总共 56 个 go 协程的情况下，获得最大吞吐量。于此同时，当有太多线程的时候，我们观察到由于线程管理的额外开销导致的性能小幅度下降，由于太少并行执行而导致的 CPU 饥饿显著不利于性能。因此，我们建议默认配置 go 协程数量至少两倍于机器支持的 CPU 物理线程。</p>
+<p>现在，我们单独研究区块大小对对等节点吞吐量的影响。每个区块大小实验均采用最佳 go 协程参数配置。所有配置使用大约 24 ± 2 交易验证 go 协程和 30 ± 3 区块。再次说明，我们在单次基准实验中按照相应的区块大小将 100,000 笔交易分割进区块并重复执行 1,000 次。我们选择按指数方式缩放区块大小空间以获得宽泛的概览。</p>
+<figure>
+    <img src="/ox-hugo/tps-block-size.jpg"
+         alt="Figure 8: 优化调整配置后吞吐量和区块大小的关系"/> <figcaption>
+            <p>Figure 8: 优化调整配置后吞吐量和区块大小的关系</p>
+        </figcaption>
+</figure>
+
+<p>图 8 展示了结果。我们发现区块大小为 100 笔/区块时可获得刚好超过 21,000 交易/秒的最佳性能。我们也研究了区块大小微小偏差的影响。发现区块大小为 50 到 500 间的性能差距非常小，因此我们选择将区块大小固定为 100 笔交易。</p>
+<h3 id="d-dot-端到端吞吐量"><em>D. 端到端吞吐量</em></h3>
+<p>现在，我们讨论应用所有优化措施后，如优化 O-II 和优化 P-III 组合，端到端吞吐量相较于 Fabric 1.2 的提升效果。</p>
+<p>我们配置单一排序节点使用三个 ZooKeeper 和三个 Kafka 服务器构成的集群，Kafka 采用默认三份主题副本配置，并将其和一个对等节点连接。来自该对等节点的区块被发送到一个单一数据存储服务器以存储世界状态至 LevelDB 并存储区块到文件系统。为了可水平扩展，采用五个背书节点以复制对等节点状态并提供足够的吞吐量以处理来自客户端的背书负载。最后，一个客户端单独安装在一台服务器上；这个客户端从五个背书节点服务器收集背书响应并发送已背书交易给排序服务。在本地数据中心总共部署使用了十五台通过一个 1 Gbit/s 交换机相互连接的服务器。</p>
+<p>每轮测试，我们从客户端发送总共 100,000 已背书交易到排序节点，排序节点按 100 交易每区块批量打包交易并将区块发送给对等节点。为了评估吞吐量，我们在对等节点上计量已提交区块间的时间消耗并计算每轮测试的平均值。重复测试 100 轮次。表 I 显示我们的优化相对于 Fabric 1.2 基准有 6-7 倍的显著性能提升。</p>
+<div class="table-caption">
+  <span class="table-number">Table 1</span>:
+  端到端吞吐量
+</div>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Fabric 1.2</th>
+<th>FastFabric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交易/秒</td>
+<td>3185 ± 62</td>
+<td>19112 ± 811</td>
+</tr>
+</tbody>
+</table>
+<h2 id="v-dot-相关工作">V. 相关工作</h2>
+<p>Hyperledger Fabric 是一个仍然在快速发展的新系统，并且其架构也在不断更新。因此，有关系统性能分析或者架构提升建议的工作仍不多。这里，我们调查了最近有关提升 Fabric 性能的工作。</p>
+<p>和我们的工作最接近的是由 Thakkar 等人 [<a href="#DBLP:journals/corr/abs-1805-11390">6</a>] 的工作，他们研究了多个不同配置参数对 Fabric 性能的影响。发现主要性能瓶颈是背书策略验证期间重复校验 X.509 证书、串行化一个区块内的交易验证、以及提交阶段的状态验证。他们提出了背书证书校验积极缓存（ 被合并进入 Fabric v1.1, 因此也是我们方案的一部分）、并行处理背书策略验证、以及批量状态验证和提交等优化措施。这些方案带来总共 16 倍的性能提升。我们也对提交节点的验证做并行化处理并进一步使用一个更高效的哈希表数据结构来代替世界状态数据库。</p>
+<p>最近，Sharma 等人 [<a href="#DBLP:journals/corr/abs-1810-13177">14</a>] 研究使用数据库技术，如事务重排序（transaction reorder）和及早终止 (early abort) 来提升 Fabric 性能。他们有关及早辨识冲突交易的想法和我们的方案相互正交并可以整合到我们的方案中。然而，一些诸如让排序节点删除冲突交易的想法和我们的方案不兼容。首先，我们故意仅发送交易 IDs 而不发送整个交易读写集合给排序节点。再者，我们选择和 Fabric 分配不同任务给不同类型节点的设计目标保持一致，因此我们的排序节点不检查读写集合的内容。一个很有趣的未来工作方向是在不同的交易负载情形下对比这两种方法以理解何时值得为及早修剪冲突交易而付出发送整个交易细节给排序节点的开销。</p>
+<p>众所周知，在采用拜占庭共识协议（BFT consensus protocols）情形下，由于该协议的消息通信开销，Fabric 排序组件会成为系统的性能瓶颈。因此，排序节点使用高效的拜占庭共识协议实现非常重要。Sousa 等人 [<a href="#sousa:2018-ieee-bftos">3</a>] 研究了在 Fabric 使用著名的 BFT-SMART [<a href="#dsn:bessani-smr">15</a>] 实现并表明，在单一数据中心中使用该算法实现可以获得高达 30,000 交易/秒的吞吐量。但是，和我们的工作不一样，他们没有提供提交组件的性能基准而且并没有解决端到端性能问题。</p>
+<p>Androulaki 等人 [<a href="#esrcs:androulaki-hscpb">16</a>] 研究了使用通道来扩展 Fabric。但是，他们没有提供该方法的性能定量评估证明。</p>
+<p>Raman 等人 [<a href="#DBLP:journals/corr/abs-1809-08438">17</a>] 研究了当区块链用于存储来自大数据分析的中间结果时，采用有损压缩的方法以减少 Fabric 背书节点和验证节点之间共享状态的通讯开销。然而，他们的方法仅适用于对有损压缩不敏感的场景而不是区块链应用的常规情景。</p>
+<p>一些研究调研 Fabric 性能而没有提出底层系统架构上的修改建议。例如，Dinh 等人使用 BlockBench [<a href="#dinh:2017-acmic-fapbs">5</a>] ，一个用于私有区块链性能研究的工具，研究 Fabric 性能并和 Ethereum 及 Parity 进行对比。他们发现他们所研究的 Fabric 版本由于通道消息拥塞而不能扩展超过 16 个节点。Nasir 等人 [<a href="#scn:nasir-pahfp">18</a>] 对比 Fabric 0.6 和 1.0 版本，并毫无意外的发现 1.0 性能优于 0.6 版本。Baliga 等人 [<a href="#CVCBT:baliga-pcohf">19</a>] 的研究表明诸如交易读写集合的大小、链码和事件负载大小等应用级别的参数显著影响交易延迟。类似的，Pongnumkul 等人 [<a href="#ICCCN:pongnumkul-paopbp">20</a>] 对比 Fabric 和 Ethereum 用于加密货币工作负载的性能，发现 Fabric 在所有指标上均优于 Ethereum。Bergman 等人 [<a href="#LinkopingUniversity:bergman-pbadd">21</a>] 在相似环境下对比了 Fabric 和 Apache Cassandra 的性能，发现对于少量对等节点，在大量读取工作负载情形下，Fabric 比 Cassandra 对序列化的交易具有更低的延迟。换句话说，对于大量节点或者大量写工作负载情形下，Cassandra 具有更好的性能。</p>
+<h2 id="vi-dot-结论">VI. 结论</h2>
+<p>我们的主要贡献是展现了如何重新工程化 Hyperledger Fabric 以支持近 20,000 交易/秒 吞吐量，较此前的工作有几乎 7 倍的性能提升。我们通过实现一系列独立的优化措施，专注于 I/O、缓存、并行化和高效数据访问等措施。我们也采用积极缓存和利用轻量级数据结构以加快关键路径上的数据访问。未来，我们希望通过如下方法进一步提升 Hyperledger Fabric 性能：</p>
+<ul>
+<li>整合一个高效的拜占庭共识算法，如 RCanopus [<a href="#DBLP:journals/corr/abs-1810-09300">22</a>]</li>
+<li>加速抽取用于排序的交易 IDs 而无需解压整个交易头</li>
+<li>使用一个更高效的库来代替现有的密码学库</li>
+<li>通过为每个通道分配单独的排序和快速对等节点服务而进一步提供并行化处理</li>
+<li>使用一个分布式框架如 Apache Spark [<a href="#apache-spark">23</a>] 实现一个高效的数据分析层</li>
+</ul>
+<div id="bibliography">
+<h2>References</h2>
+<table>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="espinel:2015-newyork-bimpact">1</a>]
+</td>
+<td class="bibtexitem">
+V.&nbsp;Espinel E&nbsp;B, D.&nbsp;O'Halloran, O'Sullivan D.
+ Deep shift, technology tipping points and societal impact[J].
+ in New York: World Economic Forum--Global Agenda Council on the
+  Future of Software & Society (REF 310815), 2015.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="vukolic:2015-iw-sbf">2</a>]
+</td>
+<td class="bibtexitem">
+Vukolic M.
+ The quest for scalable blockchain fabric: Proof-of-work Â´ vs. bft
+  replication[J].
+ International Workshop on Open Problems in Network Security,
+  2015:112--125.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="sousa:2018-ieee-bftos">3</a>]
+</td>
+<td class="bibtexitem">
+J.&nbsp;Sousa A&nbsp;B, Vukolic M.
+ A Byzantine fault-tolerant ordering service for the hyperledger
+  fabric blockchain platform[J].
+ 2018 48th Annual IEEE/IFIP International Conference on Dependable
+  Systems and Networks (DSN)., IEEE, 2018:pp. 51--58.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1803-05069">4</a>]
+</td>
+<td class="bibtexitem">
+Abraham I, Gueta G, Malkhi D.
+ Hot-Stuff the Linear, Optimal-Resilience, One-Message BFT Devil[J].
+ CoRR, 2018, abs/1803.05069.
+ <a href="http://arxiv.org/abs/1803.05069">http://arxiv.org/abs/1803.05069</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="dinh:2017-acmic-fapbs">5</a>]
+</td>
+<td class="bibtexitem">
+T.&nbsp;T. A.&nbsp;Dinh G&nbsp;C&nbsp;R&nbsp;L&nbsp;B&nbsp;C&nbsp;O, J.&nbsp;Wang, Tan K&nbsp;L.
+ BLOCKBENCH: A Framework for Analyzing Private Blockchains[J].
+ Proceedings of the 2017 ACM International Conference on Management of
+  Data - SIGMOD '17, 2017:pp. 1085--1100.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1805-11390">6</a>]
+</td>
+<td class="bibtexitem">
+Thakkar P, Nathan S, Viswanathan B.
+ Performance Benchmarking and Optimizing Hyperledger Fabric Blockchain
+  Platform[J].
+ CoRR, 2018, abs/1805.11390.
+ <a href="http://arxiv.org/abs/1805.11390">http://arxiv.org/abs/1805.11390</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="fabric-fab-12221">7</a>]
+</td>
+<td class="bibtexitem">
+Fabric H.
+<p>[FAB-12221] Validator/Committer refactor - Hyperledger JIRA[J].
+<a href="https://jira.hyperledger.org/browse/FAB-12221?filter=12526"><a href="https://jira.hyperledger.org/browse/FAB-12221?filter=12526">https://jira.hyperledger.org/browse/FAB-12221?filter=12526</a></a>.</p>
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="cachin-2016-wdccl-ahbf">8</a>]
+</td>
+<td class="bibtexitem">
+Cachin C.
+ Architecture of the hyperledger blockchain fabric[J].
+ Workshop on Distributed Cryptocurrencies and Consensus Ledgers, 2016,
+  310.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="androulaki-2018-eurosys-hf">9</a>]
+</td>
+<td class="bibtexitem">
+E.&nbsp;Androulaki
+  V&nbsp;B&nbsp;C&nbsp;C&nbsp;K&nbsp;C&nbsp;A&nbsp;D&nbsp;C&nbsp;D&nbsp;E&nbsp;C&nbsp;F&nbsp;G&nbsp;L&nbsp;Y&nbsp;M&nbsp;S&nbsp;M&nbsp;C&nbsp;M&nbsp;B&nbsp;N&nbsp;M&nbsp;S&nbsp;G&nbsp;S&nbsp;K&nbsp;S&nbsp;A&nbsp;S&nbsp;C&nbsp;S&nbsp;M&nbsp;V&nbsp;S&nbsp;W&nbsp;C,
+  A.&nbsp;Barger, Yellick Â&nbsp;J.
+ Hyperledger Fabric: A Distributed Operating System for Permissioned
+  Blockchains[J].
+ Proceedings of the Thirteenth EuroSys Conference on - EuroSys,
+  2018:1--15.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="apache-kafka">10</a>]
+</td>
+<td class="bibtexitem">
+Apache Kafka, A Distributed Streaming Platform[J].
+ Apache Foundation, 2018.
+ <a href="https://kafka.apache.org/">https://kafka.apache.org/</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="grpc-io">11</a>]
+</td>
+<td class="bibtexitem">
+gRPC: A high performance, open-source universal RPC framework[J].
+ Cloud Native Computing Foundation, 2018.
+ <a href="https://grpc.io/">https://grpc.io/</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1711-03936">12</a>]
+</td>
+<td class="bibtexitem">
+Bano S, Sonnino A, Al-Bassam M, et al.
+ Consensus in the Age of Blockchains[J].
+ CoRR, 2017, abs/1711.03936.
+ <a href="http://arxiv.org/abs/1711.03936">http://arxiv.org/abs/1711.03936</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="google-developers">13</a>]
+</td>
+<td class="bibtexitem">
+Developers G.
+ Protocol Buffers --- Google Developers[J].
+ 2018.
+ <a href="https://developers.google.com/protocol-buffers/?hl=en">https://developers.google.com/protocol-buffers/?hl=en</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1810-13177">14</a>]
+</td>
+<td class="bibtexitem">
+Sharma A, Schuhknecht F&nbsp;M, Agrawal D, et al.
+ How to Databasify a Blockchain: the Case of Hyperledger Fabric[J].
+ CoRR, 2018, abs/1810.13177.
+ <a href="http://arxiv.org/abs/1810.13177">http://arxiv.org/abs/1810.13177</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="dsn:bessani-smr">15</a>]
+</td>
+<td class="bibtexitem">
+A.&nbsp;Bessani J&nbsp;S, Alchieri E.
+ State machine replication for the masses with BFT-SMART[J].
+ DSN, 2014:355--362.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="esrcs:androulaki-hscpb">16</a>]
+</td>
+<td class="bibtexitem">
+E.&nbsp;Androulaki A&nbsp;D&nbsp;C, C.&nbsp;Cachin, Kokoris-Kogias E.
+ Channels: Horizontal scaling and confidentiality on permissioned
+  blockchains[J].
+ European Symposium on Research in Computer Security, 2018,
+  Springer:111--131.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1809-08438">17</a>]
+</td>
+<td class="bibtexitem">
+Raman R&nbsp;K, Vacul&iacute;n R, Hind M, et al.
+ Trusted Multi-Party Computation and Verifiable Simulations: A
+  Scalable Blockchain Approach[J].
+ CoRR, 2018, abs/1809.08438.
+ <a href="http://arxiv.org/abs/1809.08438">http://arxiv.org/abs/1809.08438</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="scn:nasir-pahfp">18</a>]
+</td>
+<td class="bibtexitem">
+Q.&nbsp;Nasir M&nbsp;A&nbsp;T, I. A.&nbsp;Qasse, Nassif A&nbsp;B.
+ Performance analysis of hyperledger fabric platforms[J].
+ Security and Communication Networks, 2018, 2018.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="CVCBT:baliga-pcohf">19</a>]
+</td>
+<td class="bibtexitem">
+A.&nbsp;Baliga S&nbsp;V&nbsp;A&nbsp;P&nbsp;P&nbsp;K, N.&nbsp;Solanki, Chatterjee S.
+ Performance Characterization of Hyperledger Fabric[J].
+ Crypto Valley Conference on Blockchain Technology, 2018, 2018.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="ICCCN:pongnumkul-paopbp">20</a>]
+</td>
+<td class="bibtexitem">
+S.&nbsp;Pongnumkul C&nbsp;S, Thajchayapong S.
+ Performance analysis of private blockchain platforms in varying
+  workloads[J].
+ 2017 26th International Conference on Computer Communications and
+  Networks, 2017, ICCCN 2017. IEEE, 7 2017:1--6.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="LinkopingUniversity:bergman-pbadd">21</a>]
+</td>
+<td class="bibtexitem">
+Bergman S.
+ Permissioned blockchains and distributed databases: A performance
+  study[J].
+ Master's thesis, Linkoping University, 2018.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="DBLP:journals/corr/abs-1810-09300">22</a>]
+</td>
+<td class="bibtexitem">
+Keshav S, Golab W&nbsp;M, Wong B, et al.
+ RCanopus: Making Canopus Resilient to Failures and Byzantine
+  Faults[J].
+ CoRR, 2018, abs/1810.09300.
+ <a href="http://arxiv.org/abs/1810.09300">http://arxiv.org/abs/1810.09300</a>.
+</td>
+</tr>
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="apache-spark">23</a>]
+</td>
+<td class="bibtexitem">
+Apache Spark - Unified Analytics Engine for Big[J].
+ Apache Foundation.
+ <a href="https://spark.apache.org">https://spark.apache.org</a>.
+</td>
+</tr>
+</table>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://ripple.com/">https://ripple.com/</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>有关对相关工作的调查，请参阅小节 V</p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>由于需要许可参与的性质，所有节点必须是已知且注册至成员管理服务 (MSP) 中，否则将不被其他节点认可</p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Fabric 支持多个虚拟通道，通道由其 ID 标示</p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>然而，我们现有的实现不包含这样的存储系统</p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>我们的实验表明对等节点吞吐量在这个区块大小配置下达到最大值</p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Yang Tiedang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/blockchain/">blockchain</a>
+          <a href="/tags/fabric/">fabric</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/fabric-v2-whats-new/">
+            <span class="next-text nav-default">Fabric 2.0 新特性介绍</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:junahan@outlook.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://www.linkedin.com/in/tiedang-yang-7a20b923/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/junahan" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Junahan</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?8c09186f09029d8bdbfa3282f58e4886";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

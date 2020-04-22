@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS</title>
+      <link>/post/fast-fabric-scaling-fabric-to-20000-tps/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fast-fabric-scaling-fabric-to-20000-tps/</guid>
+      <description>本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有</description>
+    </item>
     
     <item>
       <title>Fabric 2.0 新特性介绍</title>
@@ -44,7 +53,7 @@
       <pubDate>Fri, 10 Jan 2020 00:00:00 +0800</pubDate>
       
       <guid>/post/emacs-yasnippet/</guid>
-      <description>本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M+x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &amp;#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &amp;#39;prog-mode-hook #&amp;#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模</description>
+      <description>本文是简单记述 yasnippet 配置和基本使用的备忘录。 1 Snippet 基本配置 执行 M+x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &amp;#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &amp;#39;prog-mode-hook #&amp;#39;yas-minor-mode) 2 安装 yasnippet-snippets 系列</description>
     </item>
     
     <item>
@@ -62,7 +71,7 @@
       <pubDate>Tue, 12 Nov 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/emacs-hugo-blog/</guid>
-      <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew</description>
+      <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo</description>
     </item>
     
     <item>
@@ -71,7 +80,7 @@
       <pubDate>Sun, 10 Nov 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/emacs-mu4e/</guid>
-      <description>1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em</description>
+      <description>1 Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 E</description>
     </item>
     
     <item>
@@ -89,7 +98,7 @@
       <pubDate>Sat, 26 Oct 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/emacs-sql/</guid>
-      <description>1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给</description>
+      <description>1 摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给</description>
     </item>
     
     <item>
@@ -98,7 +107,7 @@
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/how-the-economic-machine-works/</guid>
-      <description>1前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图</description>
+      <description>1 前言 本文是我观看 How the Economic Machine Works (国内 YOUKU 链接) - (by Ray Dalio, 2019) 视频教程时记录的笔记大纲，大纲按照自己的理解组织，并配以相应的插图 (插图均来自视频的截图</description>
     </item>
     
     <item>
@@ -107,7 +116,7 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/kong-k8s-ingress-controller-101/</guid>
-      <description>1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2</description>
+      <description>1 摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2 部署 Kong 2.1</description>
     </item>
     
     <item>
@@ -116,7 +125,7 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/minikube-helm-101/</guid>
-      <description>1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
+      <description>1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
     </item>
     
     <item>
@@ -125,7 +134,7 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/reading-list/</guid>
-      <description>这里是我个人的阅读清单，自 2018 年开始逐年更新。 12019 阅读清单 (未完待续) 《高效能人士的七个习惯》(The Seven Habits of Highly Effective People) - [美]史蒂芬·柯维（Step</description>
+      <description>这里是我个人的阅读清单，自 2018 年开始逐年更新。 1 2019 阅读清单 (未完待续) 《高效能人士的七个习惯》(The Seven Habits of Highly Effective People) - [美]史蒂芬·柯维（Ste</description>
     </item>
     
     <item>
@@ -134,7 +143,7 @@
       <pubDate>Fri, 01 Mar 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/okr/</guid>
-      <description>1摘要 本文是一篇读书笔记，综合阅读《这就是 OKR》一书以及 OKR 初学者指南后的一些总结。 2什么是 OKR OKR (目标和关键结果) 是一个由公司、团队和个人协</description>
+      <description>1 摘要 本文是一篇读书笔记，综合阅读《这就是 OKR》一书以及 OKR 初学者指南后的一些总结。 2 什么是 OKR OKR (目标和关键结果) 是一个由公司、团队和个人协</description>
     </item>
     
     <item>
@@ -143,7 +152,7 @@
       <pubDate>Wed, 19 Sep 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/streaming-server-101/</guid>
-      <description>1摘要 针对流媒体播放服务器和客户端做的一个调查汇总。 2H5 player vedio.js - Video.js is a web video player built from the ground up for an HTML5 world. It supports HTML5 and Flash video, as well as YouTube and Vimeo (through plugins). It supports video playback on desktops and mobile devices. This project</description>
+      <description>1 摘要 针对流媒体播放服务器和客户端做的一个调查汇总。 2 H5 player vedio.js - Video.js is a web video player built from the ground up for an HTML5 world. It supports HTML5 and Flash video, as well as YouTube and Vimeo (through plugins). It supports video playback on desktops and mobile devices. This</description>
     </item>
     
     <item>
@@ -152,7 +161,7 @@
       <pubDate>Sun, 12 Aug 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/web-ar-s101/</guid>
-      <description>1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推</description>
+      <description>1 摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推</description>
     </item>
     
     <item>
@@ -161,7 +170,7 @@
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/fabric-ca-user-guide-cn/</guid>
-      <description>1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
+      <description>1 摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
     </item>
     
     <item>
@@ -170,7 +179,7 @@
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/fabric-geting-start/</guid>
-      <description>1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具</description>
+      <description>1 摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2 前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具</description>
     </item>
     
     <item>
@@ -188,7 +197,7 @@
       <pubDate>Sun, 10 Jun 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/release-package-to-maven-centre-repository-101/</guid>
-      <description>1摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本</description>
+      <description>1 摘要 本文简单说明如何部署 (Deploy) Maven 项目至 OSSRH 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。 2 基本要求 要发布项目到 Maven 中心仓库，需要遵循一些基本</description>
     </item>
     
     <item>
@@ -197,7 +206,7 @@
       <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/solidity-dev-env/</guid>
-      <description>1摘要 本文根据作者搭建 Solidity 开发环境的经验，做了一些基本梳理，并推荐了逐步进阶的工具套件组合。 提醒：本文提到的相关环境仅在 Mac OS - Darwin Kernel Version 17.5.0 上搭建和</description>
+      <description>1 摘要 本文根据作者搭建 Solidity 开发环境的经验，做了一些基本梳理，并推荐了逐步进阶的工具套件组合。 提醒：本文提到的相关环境仅在 Mac OS - Darwin Kernel Version 17.5.0 上搭建和</description>
     </item>
     
     <item>
@@ -206,7 +215,7 @@
       <pubDate>Tue, 01 May 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/ai-reading-list/</guid>
-      <description>1简介 本文根据作者学习 AI (特别是深度神经网络) 的一些经验，介绍 AI 学习的阅读列表，主要包括书籍、有关机器学习和深度学习的课程、论文、工具和框架</description>
+      <description>1 简介 本文根据作者学习 AI (特别是深度神经网络) 的一些经验，介绍 AI 学习的阅读列表，主要包括书籍、有关机器学习和深度学习的课程、论文、工具和框架</description>
     </item>
     
     <item>
@@ -215,7 +224,7 @@
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/bitcoin-lightning-network-introduction/</guid>
-      <description>1摘要 比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用</description>
+      <description>1 摘要 比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用</description>
     </item>
     
     <item>

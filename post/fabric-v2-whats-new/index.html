@@ -34,7 +34,8 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -48,7 +49,7 @@
 <meta itemprop="description" content="Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用">
 <meta itemprop="datePublished" content="2020-02-21T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-26T10:59:36&#43;08:00" />
-<meta itemprop="wordCount" content="3702">
+<meta itemprop="wordCount" content="3699">
 
 
 
@@ -129,7 +130,7 @@
             <a href="/categories/blockchain/"> blockchain </a>
             <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/"> 区块链 </a>
             </div>
-          <span class="more-meta"> 约 3702 字 </span>
+          <span class="more-meta"> 约 3699 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
         
       </div>
@@ -158,6 +159,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-02-26T10:59:36" title="February 26, 2020">February 26, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <p>Fabric 第一个重要发布版本是 Fabric 1.0。Fabric 2.0 则是最新发布版本，该版本 为用户和管理员交付了一些重要的新特性和变化。这些新特性包括支持新的应用和隐私方案、增强智能合约治理、营运节点的新选项等。保持不变的是根据你自己的需要升级网络组件的能力、支持从 v1.4.x 版本滚动升级以及只有组织成员准备好的情况下激活新功能的能力。</p>
 <p>让我们来快速浏览下 Fabric 2.0 发布版的亮点吧！</p>
@@ -169,7 +175,7 @@
 <li><strong>新的 Raft 共识类型:</strong> 在 v1.4.1 版本引入的排序服务 Raft 共识现在是推荐使用共识服务。其消除了对外部 Kafka 集群的依赖。这个特性支持由多个组织提供排序服务的去中心化治理模式。额外的，排序节点现在能够选择为哪通道提供排序服务代替传统的必须为所有通道提供服务的模式。这带来了一个重要的可扩展性提升以更好的支持大量通道和交易，更不用说很明显的隐私保护的提升。</li>
 <li><strong>性能提升:</strong> 加入几个贯穿 v1.x 和 v2.0 的性能提升。加入新的缓存以提升使用 CouchDB 状态数据库的对等节点的性能。另外，交易验证也在提交阶段并发执行。优化排序节点消息处理流以去掉冗余检查、并且写锁处理现在是异步的。链码查询支持分页以提升大结果集性能。现在是时候说系统可以达到数千 TPS 吞吐量。</li>
 </ul>
-<h2 id="智能合约去中心化治理"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 智能合约去中心化治理</h2>
+<h2 id="智能合约去中心化治理"><span class="section-num">1</span> 智能合约去中心化治理</h2>
 <p>Fabric v2.0 为智能合约引入了去中心化治理，提供安装链码至对等节点和在通道上激活链码新处理流程。新链码生命周期管理允许多个组织一道对链码的参数达成一致，如，链码背书策略。相对于此前的链码生命周期管理，新模型提供了一些提升。</p>
 <ul>
 <li><strong>多组织必须就链码的参数达成一致:</strong> 在 Fabric v1.0 版本中，一个组织有能力为通道中所有组织设置链码参数（通过实例化背书策略），其他组织成员仅仅有拒绝安装链码并不参与交易的权利。而新的链码生命周期管理更加灵活，既支持中心化模式（和老版本的一样），也支持去中心化模式，新模式要求链码在通道中激活之前，有足够多的组织就链码的背书策略和其他细节达成一致。</li>
@@ -179,15 +185,15 @@
 <li><strong>使用一个安装包在通道中启动多个链码:</strong> 在之前版本中，当链码包被安装的时候，通过指定名字和版本号来标示通道中的每个链码。现在则可以使用单一的链码包在相同或者多个通道中使用不同的名字部署多次。例如，可以使用同一份链码的不同副本来追踪不通类型的资产。</li>
 <li><strong>不同成员的链码包不必保持一摸一样:</strong> 组织可以根据自己的使用场景扩展链码，例如，组织可以实施不同的验证规则。链码交易只要有必要数量的组织背书通过就可以被验证并提交到账本中。这也允许单个组织根据自己的计划执行下版本修复而不要求锁定整个网络。</li>
 </ul>
-<h3 id="使用新的链码生命周期"><!-- raw HTML omitted -->1.1<!-- raw HTML omitted --> 使用新的链码生命周期</h3>
+<h3 id="使用新的链码生命周期"><span class="section-num">1.1</span> 使用新的链码生命周期</h3>
 <p>对于现有的 Fabric 部署，Fabric 2.0 仍然可以继续沿用以前的链码生命周期。只有通道应用能力 (Channel Application Capability) 升级到 v2.0 版本的时候，新生命周期才会有效。可以查看 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/chaincode4noah.html">链码管理员文档 (Chaincode for Operators)</a>了解有关新链码生命周期的详细细节。</p>
-<h2 id="为协同和共识而生的新链码应用模式"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 为协同和共识而生的新链码应用模式</h2>
+<h2 id="为协同和共识而生的新链码应用模式"><span class="section-num">2</span> 为协同和共识而生的新链码应用模式</h2>
 <p>用于增强链码生命周期管理的去中心化方法同样适用于链码应用程序以确保组织能够在交易数据被提交到账本之前对其达成一致。</p>
 <ul>
 <li><strong>自动化检查:</strong> 如前所述，组织可以扩展链码以在为交易背书之前增加自动检查功能。</li>
 <li><strong>去中心化协议 (Decentralized agreement):</strong> 人类的判断可以被建模到跨越多个交易的链码处理流程中。链码可能要求一些组织行动人表明对一个账本交易的条款达成一致。然后，一个最终的链码提议能够验证所有单个交易都符合交易条款并最终在通道成员间执行结算。有关私有条款说明的现实例子，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data/private-data.html">Private data</a> 文档里的资产交易场景示例。</li>
 </ul>
-<h2 id="私有数据增强"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 私有数据增强</h2>
+<h2 id="私有数据增强"><span class="section-num">3</span> 私有数据增强</h2>
 <p>Fabric 2.0 支持私有数据处理及共享的新模式而不必为通道內所有需共享的成员创建私有数据集组合。特别是你可能想跨越不同的数据集合而不是一个多成员集合间共享数据，每个集合都可能包含一个单一的组织，或者包含一个单一组织及监管或者审计机构。</p>
 <p>Fabric 2.0 提供好几个增强以使得新的私有数据新模式成为可能。</p>
 <ul>
@@ -196,7 +202,7 @@
 <li><strong>隐含的按组织 （per-organization） 内置私有数据集合:</strong> 在 Fabric v2.0 中部署链码的时候，如果想使利用按组织内置私有数据模式，甚至都无需定义私有数据集合。隐含的组织特定集合无需定义即可使用。</li>
 </ul>
 <p>要了解更多有关私有数据模式，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data/private-data.html">Private data</a> (概念文档)。有关更多私有数据集合配置和隐含数据集合的信息，请参阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/private-data-arch.html">Private data</a> (参考文档)。</p>
-<h2 id="外部链码启动器"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 外部链码启动器</h2>
+<h2 id="外部链码启动器"><span class="section-num">4</span> 外部链码启动器</h2>
 <p>外部链码启动器允许管理员使用他们选择的技术构建和启动链码。使用外部链码构建器和启动器不需要像此前版本一样使用 Docker 容器 API 启动和运行链码。</p>
 <ul>
 <li><strong>移除对 Docker 守护程序的依赖:</strong> Fabric v2.0 前序版本要求对等节点能够访问 Docker 守护进程以构建和启动链码 - 在一些情形下，生产环境可能不满足 Peer 进程所要求的权限。</li>
@@ -205,21 +211,21 @@
 <li><strong>链码可作为外部服务:</strong> 传统方式中，链码容器由 Peer 节点启动并随后连接回 Peer 节点。现在可以将链码作为服务来运行，例如，链码可以运行于 Kubernetes Pod 中，Peer 节点可以连接并执行链码。更多信息，请参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/cc%5Fservice.html">链码作为服务</a>。</li>
 </ul>
 <p>参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/cc%5Flauncher.html">外部构建器和启动器</a>一节以了解更多有关外部链码启动器特性。</p>
-<h2 id="提升-couchdb-性能的状态数据库缓存"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 提升 CouchDB 性能的状态数据库缓存</h2>
+<h2 id="提升-couchdb-性能的状态数据库缓存"><span class="section-num">5</span> 提升 CouchDB 性能的状态数据库缓存</h2>
 <ul>
 <li>但使用外部 CouchDB 状态库的情形下，由于背书和验证阶段导致的读延迟性能瓶颈已成成为历史。</li>
 <li>在 Fabric v2.0 中，一个新的 peer 缓存使用快速本地缓存读取模式代替这些昂贵的查找操作。缓存大小可以通过 <code>core.yaml</code> 属性 <code>cacheSize</code> 进行配置。</li>
 </ul>
-<h2 id="基于-alpine-linux-的容器镜像"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 基于 Alpine Linux 的容器镜像</h2>
+<h2 id="基于-alpine-linux-的容器镜像"><span class="section-num">6</span> 基于 Alpine Linux 的容器镜像</h2>
 <p>自 Fabric v2.0 开始，Fabric Docker 镜像将采用 Alpine Linux - 一个面向安全的轻量级 Linux 发行版。这意味着 Docker 镜像的尺寸更小巧、可更快速的下载、减少启动时间、也减少占用主机磁盘空间。Alpine Linux 被设计为自第而上考虑安全因素，其极简设计极大的减少了安全漏洞风险。</p>
-<h2 id="测试网络样例"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 测试网络样例</h2>
+<h2 id="测试网络样例"><span class="section-num">7</span> 测试网络样例</h2>
 <p>Fabric-simple 仓库现在包含了一个新的测试网络。新测试网络采用模块化构建并提供用户友好的测试网络样例使得测试应用程序和链码变得更加容易。新测试网络除了 <code>cryptogen</code> 以外，也支持使用 CA 来部署网络。</p>
 <p>有关新的测试网络的更多详情，请参阅<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/test%5Fnetwork.html">使用 Fabric 测试网络</a>一节。</p>
-<h2 id="升级到-fabric-2-dot-0"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 升级到 Fabric 2.0</h2>
+<h2 id="升级到-fabric-2-dot-0"><span class="section-num">8</span> 升级到 Fabric 2.0</h2>
 <p>一个新的主要发布版本总会带来一些额外的升级担忧。不过请放心，Fabric v2.0 支持从 v1.4.x 进行滚动升级，因此，网络组件能够被升级而无需停止服务。升级文档做了相当多的扩充和重写，现在有了一个单独的主页入口 - <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrade.html">升级到最新版本</a>。在这个主页中，可以找到诸如<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrading%5Fyour%5Fcomponents.html">升级组件</a>以及<a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/updating%5Fcapabilities.html">更新一个通道的能力等级</a>这样的文档，也可以查阅 <a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/upgrade%5Fto%5Fnewest%5Fversion.html">Fabric 2.0 升级须知</a>。</p>
-<h2 id="发布说明"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 发布说明</h2>
+<h2 id="发布说明"><span class="section-num">9</span> 发布说明</h2>
 <p>发布说明为用户提供了更多有关 Fabric 2.0 的信息。特别是要看看那些变更以及宣布不再支持的特性和事项。更多详情，请参阅 <a href="https://github.com/hyperledger/fabric/releases/tag/v2.0.0">Fabric 2.0 发布说明</a>。</p>
-<h2 id="参考文献"><!-- raw HTML omitted -->10<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">10</span> 参考文献</h2>
 <ol>
 <li><a href="https://hyperledger-fabric.readthedocs.io/en/release-2.0/whatsnew.html">What's new in Hyperledger Fabric v2.0</a> - 来自 Hyperledger 官网。</li>
 </ol>
@@ -247,7 +253,11 @@
           <a href="/tags/fabric/">fabric</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/fast-fabric-scaling-fabric-to-20000-tps/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/fabric-performance-benchmarks/">
             <span class="next-text nav-default">Fabric 性能基准测试</span>
             <span class="next-text nav-mobile">下一篇</span>
@@ -313,7 +323,10 @@
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

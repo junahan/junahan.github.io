@@ -17,7 +17,7 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/kong-k8s-ingress-controller-101/</guid>
-      <description>1摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2部署 Kong 2</description>
+      <description>1 摘要 本文主要介绍如何安装和配置 Kong k8s Ingress。重点介绍了如何部署 Kong 并结合 Hello World 应用的例子，介绍如何定义和应用 k8s Ingress。 2 部署 Kong 2.1</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Sun, 02 Jun 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/minikube-helm-101/</guid>
-      <description>1摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
+      <description>1 摘要 根据我在本地搭建 Minikube 和 Helm 的经验总结，主要包括： 安装和配置 Minikube - 使用合适的参数以能够顺利的下载相关镜像文件，特别是要配置 docker registry-</description>
     </item>
     
   </channel>

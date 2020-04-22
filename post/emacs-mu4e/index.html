@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 E" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="使用 Emacs Mu4e 作为邮件客户端" />
-<meta property="og:description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em" />
+<meta property="og:description" content="1 Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 E" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/emacs-mu4e/" />
 <meta property="article:published_time" content="2019-11-10T00:00:00+08:00" />
 <meta property="article:modified_time" content="2019-11-10T12:53:54+08:00" />
 <meta itemprop="name" content="使用 Emacs Mu4e 作为邮件客户端">
-<meta itemprop="description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em">
+<meta itemprop="description" content="1 Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 E">
 <meta itemprop="datePublished" content="2019-11-10T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-10T12:53:54&#43;08:00" />
-<meta itemprop="wordCount" content="2854">
+<meta itemprop="wordCount" content="2847">
 
 
 
 <meta itemprop="keywords" content="emacs,email,mu4e," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用 Emacs Mu4e 作为邮件客户端"/>
-<meta name="twitter:description" content="1Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Em"/>
+<meta name="twitter:description" content="1 Email 处理哲学 在使用 Emacs Mu/Mu4e 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 E"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/emacs/"> emacs </a>
             </div>
-          <span class="more-meta"> 约 2854 字 </span>
+          <span class="more-meta"> 约 2847 字 </span>
           <span class="more-meta"> 预计阅读 6 分钟 </span>
         
       </div>
@@ -169,7 +170,7 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="email-处理哲学"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> Email 处理哲学</h2>
+      <h2 id="email-处理哲学"><span class="section-num">1</span> Email 处理哲学</h2>
 <p>在使用 Emacs <a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">Mu/Mu4e</a> 作为邮件客户端之前，我通过定义邮件规则将邮件进行分类并移动到相应的目录中。在每天检查 Email 列表的时候，对于不能立即处理的 Email，我会打上标记 (Flag) 以便于随后处理。也就是是说，我将带有标记的 Email 作为一个另外一个待办事项处理 (我使用 Emacs Org-mode 管理待办事项)。我希望能够把将待处理的 Email 整合进我的待办事项列表。很幸运的是，别人已经这样做了，我找到了 <a href="http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/">MASTER YOUR INBOX WITH MU4E AND ORG-MODE</a> 这篇文章。这彻底改变了我处理 Email 的哲学。本文就是以该文章为基础，结合我日常处理 Email 的方法总结而成。</p>
 <p>促使我改变的要点是：</p>
 <blockquote>
@@ -189,12 +190,12 @@
 <li>有时间且能够在几分钟内快速处理的邮件，回复并标记为归档 (<code>R|mu4e-compose-reply</code>)</li>
 <li>如果需要时间处理和回复的邮件，添加到待办事项列表 (通过 <code>C-c c t</code> 命令)</li>
 </ul>
-<h2 id="安装--for-mac"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 安装 (for Mac)</h2>
+<h2 id="安装--for-mac"><span class="section-num">2</span> 安装 (for Mac)</h2>
 <ul>
 <li>运行 <code>brew install offlineimap</code> 安装 <a href="http://www.offlineimap.org/">offlineimap</a>。</li>
 <li>运行 <code>brew install mu</code> 安装  <a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">Mu/Mu4e</a>。</li>
 </ul>
-<h2 id="获取和索引-maildir"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 获取和索引 Maildir</h2>
+<h2 id="获取和索引-maildir"><span class="section-num">3</span> 获取和索引 Maildir</h2>
 <p>Offlineimap 使用 <code>.offlineimaprc</code> 配置。offlineimap 支持在配置中使用 python 脚本，为了避免在配置文件中直接配置密码，我使用如下 python 脚本 (.offlineimap.py) 以从 macOS keychain 获取密码。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -373,9 +374,9 @@ elapsed: <span class="m">53</span> second<span class="o">(</span>s<span class="o
 elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="o">)</span>, ~ <span class="m">230</span> msg/s
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="配置和运行-mu4e"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 配置和运行 Mu4e</h2>
+</div><h2 id="配置和运行-mu4e"><span class="section-num">4</span> 配置和运行 Mu4e</h2>
 <p>Mu4e 整合 offlineimap 和 mu，允许通过配置 <code>mu4e-update-interval</code> 以在后台定期检查和索引邮件。</p>
-<h3 id="简单-mu4e-配置"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 简单 mu4e 配置</h3>
+<h3 id="简单-mu4e-配置"><span class="section-num">4.1</span> 简单 mu4e 配置</h3>
 <p>mu4e 不能通过 ELPA 安装，但在安装 mu 的过程中， mu4e 模块已经安装在系统中了，在我的系统中，安装位置是 <code>/usr/local/share/emacs/site-lisp/mu/mu4e/</code> 。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -436,7 +437,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 </div><blockquote>
 <p>SMTP 服务需要认证，我采用 ~/.authinfo.gpg 的方式提供认证信息。有关 SMTP  认证的更多信息，请参阅 <a href="https://www.emacswiki.org/emacs/SmtpAuth">SmtpAuth</a>。</p>
 </blockquote>
-<h3 id="运行-mu4e"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 运行 mu4e</h3>
+<h3 id="运行-mu4e"><span class="section-num">4.2</span> 运行 mu4e</h3>
 <p>基于以上最简化配置，就可以在 Emacs 运行命令 <code>M-x mu4e</code> 启动并显示 <code>mu4e-main-view</code> 。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -500,7 +501,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 	* [q]uit
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="view-间的基本关系和快捷键"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> View 间的基本关系和快捷键</h2>
+</div><h2 id="view-间的基本关系和快捷键"><span class="section-num">5</span> View 间的基本关系和快捷键</h2>
 <p>对于日常使用，只要理解几个关键的 View 以及大约 10 个快捷键即可。几个关键的 View 之间的关系图如下：</p>
 <figure>
     <img src="/ox-hugo/view-diagram.png"/> 
@@ -568,8 +569,8 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 </tr>
 </tbody>
 </table>
-<h2 id="定制-mu4e-main-view"><!-- raw HTML omitted -->6<!-- raw HTML omitted --> 定制 mu4e-main-view</h2>
-<h3 id="配置-bookmarks"><!-- raw HTML omitted -->6.1<!-- raw HTML omitted --> 配置 bookmarks</h3>
+<h2 id="定制-mu4e-main-view"><span class="section-num">6</span> 定制 mu4e-main-view</h2>
+<h3 id="配置-bookmarks"><span class="section-num">6.1</span> 配置 bookmarks</h3>
 <p>Bookmarks 允许结合 <code>b</code> (先导快捷键) 自定义快捷键以快速搜索 Email。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -629,7 +630,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 <li><code>bt</code> 搜索今天的消息</li>
 <li><code>bw</code> 搜索近一周的消息</li>
 </ul>
-<h3 id="显示-maildirs-概览"><!-- raw HTML omitted -->6.2<!-- raw HTML omitted --> 显示 Maildirs 概览</h3>
+<h3 id="显示-maildirs-概览"><span class="section-num">6.2</span> 显示 Maildirs 概览</h3>
 <p>使用 <a href="https://github.com/agpchil/mu4e-maildirs-extension">mu4e-maildirs-extension</a> 在 <code>mu4e-main-view</code> 展示 Maildirs 概览。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -686,7 +687,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 | trash (0/0)
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="为邮件创建待办事项"><!-- raw HTML omitted -->7<!-- raw HTML omitted --> 为邮件创建待办事项</h2>
+</div><h2 id="为邮件创建待办事项"><span class="section-num">7</span> 为邮件创建待办事项</h2>
 <p>org-mu4e 整合了 Mu4e 和 org-mode，轻松支持为邮件创建待办事项。可以通过添加如下配置来启用 org-mu4e。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -717,7 +718,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 </div>
 </div><p>注意这个配置中 <code>%a</code> 配置的用途是添加一个链接到创建 capture 的来源。</p>
 <p>美妙的是，现在可以在浏览邮件的时候，随时通过 <code>C-c c t</code> 为当前正在浏览的邮件创建一个待办事项，现在，您可以放心的归档邮件，因为您知道可以随时通过代办事项列表的链接打开该邮件。</p>
-<h2 id="使用-mu4e-context"><!-- raw HTML omitted -->8<!-- raw HTML omitted --> 使用 mu4e context</h2>
+<h2 id="使用-mu4e-context"><span class="section-num">8</span> 使用 mu4e context</h2>
 <p>使用 mu4e context 可以分别为不同的邮件账户配置不同的参数。我使用它来配置多个 SMTP 邮件服务以根据上下文来正确的切换发送邮件服务器。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -848,7 +849,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
 </code></pre></td></tr></table>
 </div>
 </div><p>以上配置允许通过 <code>;(mu4e-context-switch)</code> 来切换上下文。能够在撰写 Email 或者回复 Email 的时候根据正确的根据上下文使用正确的 SMTP 服务器配置。</p>
-<h2 id="完整的配置"><!-- raw HTML omitted -->9<!-- raw HTML omitted --> 完整的配置</h2>
+<h2 id="完整的配置"><span class="section-num">9</span> 完整的配置</h2>
 <p>完整的配置，请参阅 <a href="https://github.com/junahan/junahan-emacs/blob/master/emacs.d/lisp/init-mu4e.el">我的 mu4e 配置</a>。</p>
 <figure>
     <img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ssupjefvj31ws0u01kx.jpg"
@@ -857,7 +858,7 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
         </figcaption>
 </figure>
 
-<h2 id="参考文献"><!-- raw HTML omitted -->10<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">10</span> 参考文献</h2>
 <ol>
 <li><a href="https://www.emacswiki.org/emacs/CategoryMail">Category Mail</a>, Emacs Wiki 有关 Mail 的方方面面。</li>
 <li><a href="http://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a> (mu-for-emacs) is an e-mail client for GNU Emacs.</li>
@@ -965,7 +966,10 @@ elapsed: <span class="m">204</span> second<span class="o">(</span>s<span class="
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

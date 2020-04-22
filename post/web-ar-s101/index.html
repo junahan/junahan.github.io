@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" /><meta name="keywords" content="web, ar" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" /><meta name="keywords" content="web, ar" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Web AR 101" />
-<meta property="og:description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" />
+<meta property="og:description" content="1 摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/web-ar-s101/" />
 <meta property="article:published_time" content="2018-08-12T00:00:00+08:00" />
 <meta property="article:modified_time" content="2018-08-26T12:30:04+08:00" />
 <meta itemprop="name" content="Web AR 101">
-<meta itemprop="description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推">
+<meta itemprop="description" content="1 摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推">
 <meta itemprop="datePublished" content="2018-08-12T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-08-26T12:30:04&#43;08:00" />
-<meta itemprop="wordCount" content="667">
+<meta itemprop="wordCount" content="670">
 
 
 
 <meta itemprop="keywords" content="WebAR," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Web AR 101"/>
-<meta name="twitter:description" content="1摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推"/>
+<meta name="twitter:description" content="1 摘要 通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/ar/"> AR </a>
             </div>
-          <span class="more-meta"> 约 667 字 </span>
+          <span class="more-meta"> 约 670 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -159,17 +160,17 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+      <h2 id="摘要"><span class="section-num">1</span> 摘要</h2>
 <p>通过 Web 浏览器实现 VR/AR (虚拟显示/增强现实) 具有如此强大的吸引力，Web 标准组织 W3C 和工业界（如 Google）分别在标准和框架实践两个方面推动项技术的发展。相关标准和 AR 框架的介绍，请参阅由 <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">GeekPlux</a> 撰写的文章 - <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">Web 前端中的增强现实 (AR) 开发技术</a>。</p>
-<h2 id="技术框架"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 技术框架</h2>
-<h3 id="webaronarkit-和-webaronarcore"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> WebARonARKit 和 WebARonARCore</h3>
+<h2 id="技术框架"><span class="section-num">2</span> 技术框架</h2>
+<h3 id="webaronarkit-和-webaronarcore"><span class="section-num">2.1</span> WebARonARKit 和 WebARonARCore</h3>
 <ul>
 <li><a href="https://github.com/google-ar/WebARonARKit">WebARonARKit</a> - 是一个实验性的 iOS 应用，用于开发者使用 web 技术创建 AR 应用实验。</li>
 <li><a href="https://github.com/google-ar/WebARonARCore">WebARonARCore</a> - 是一个实验性的 Android 应用, 用于开发者使用 web 技术创建 AR 应用实验。</li>
 </ul>
-<h3 id="three-dot-ar-dot-js"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> Three.ar.js</h3>
+<h3 id="three-dot-ar-dot-js"><span class="section-num">2.2</span> Three.ar.js</h3>
 <p><a href="https://github.com/google-ar/three.ar.js">Thee.ar.js</a> 是一个 <a href="https://threejs.org/">three.js</a> 库的辅助类库，其运行于 <a href="https://github.com/google-ar/WebARonARKit">WebARonARKit</a> 和 <a href="https://github.com/google-ar/WebARonARCore">WebARonARCore</a>，用于构建 Web AR 应用。</p>
-<h3 id="ar-dot-js"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> AR.js</h3>
+<h3 id="ar-dot-js"><span class="section-num">2.3</span> AR.js</h3>
 <p><a href="https://jeromeetienne.github.io/AR.js/">AR.js</a> 是一个 Web AR 框架，作者 <a href="https://twitter.com/jerome%5Fetienne">Jerome Etienne</a>。该框架特点：</p>
 <ul>
 <li>快速：可以高效的运行在智能手机上 (60 fps) ；</li>
@@ -177,13 +178,13 @@
 <li>开源：完全开源且免费；</li>
 <li>标准：工作于任何支持 <a href="http://caniuse.com/#feat=webgl">webgl</a> 和 <a href="http://caniuse.com/#feat=stream">webrtc</a> 的智能手机；</li>
 </ul>
-<h2 id="推荐阅读"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 推荐阅读</h2>
+<h2 id="推荐阅读"><span class="section-num">3</span> 推荐阅读</h2>
 <ol>
 <li><a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">Web 前端中的增强现实 (AR) 开发技术</a> by <a href="https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html">GeekpPlux</a> - 该文详细的介绍了 Web AR 相关标准 (W3C <a href="https://www.w3.org/community/webvr/">WebVR  Group</a>) 和两个重要框架 (<a href="https://github.com/google-ar/three.ar.js">three.ar.js</a> 和 <a href="https://github.com/jeromeetienne/AR.js">ar.js</a>) 的进展。</li>
 <li><a href="https://medium.com/arjs/webvr-for-augmented-reality-f1e69a505902">WebAR for Augmented Reality</a> by <a href="https://medium.com/@jerome%5Fetienne">Jerome Etienne</a> - 该文介绍了为什么 WebVR 相关标准和技术也适用于 WebAR 并倡导融合标准和框架。</li>
 <li><a href="http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml">Web 前端也能做的 AR 互动</a> by <a href="http://tgideas.qq.com/webplat/info/news%5Fversion3/804/7104/7106/m5723/201612/537832.shtml">Tgideas</a> - 该文结合一个实际的项目介绍了在浏览器上实现 AR 互动的经验和遇到的问题。</li>
 </ol>
-<h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">4</span> 参考文献</h2>
 <ol>
 <li>WebVR，<a href="https://webvr.info/">https://webvr.info/</a>.</li>
 <li>W3 WebVR 工作组, <a href="https://www.w3.org/community/immersive-web/">https://www.w3.org/community/immersive-web/</a>.</li>
@@ -289,7 +290,10 @@
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

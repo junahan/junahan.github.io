@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Emacs SQL Mode 介绍" />
-<meta property="og:description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" />
+<meta property="og:description" content="1 摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/emacs-sql/" />
 <meta property="article:published_time" content="2019-10-26T00:00:00+08:00" />
 <meta property="article:modified_time" content="2019-11-10T12:53:54+08:00" />
 <meta itemprop="name" content="Emacs SQL Mode 介绍">
-<meta itemprop="description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给">
+<meta itemprop="description" content="1 摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给">
 <meta itemprop="datePublished" content="2019-10-26T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-10T12:53:54&#43;08:00" />
-<meta itemprop="wordCount" content="830">
+<meta itemprop="wordCount" content="809">
 
 
 
 <meta itemprop="keywords" content="emacs,sql," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Emacs SQL Mode 介绍"/>
-<meta name="twitter:description" content="1摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给"/>
+<meta name="twitter:description" content="1 摘要 工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/emacs/"> Emacs </a>
             </div>
-          <span class="more-meta"> 约 830 字 </span>
+          <span class="more-meta"> 约 809 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -164,9 +165,9 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+      <h2 id="摘要"><span class="section-num">1</span> 摘要</h2>
 <p>工作中经常需要链接数据库，通过配置 Emacs SQL mode，既可以获得一个 SQL的编辑器，也可以把 Emacs 当作一个数据库客户端，灵活的将任意 SQL 语句发送给数据库服务器执行并得到结果。本文汇总 Emacs SQL 的相关配置和基本使用。</p>
-<h2 id="sqli-mode"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> SQLi Mode</h2>
+<h2 id="sqli-mode"><span class="section-num">2</span> SQLi Mode</h2>
 <p>SQLi mode 是一个交互式 SQL 模块 - 是对 SQL 数据库客户端的封装。该模块内置于 Emacs 发行版中，可以和很多 SQL 客户端一起工作。</p>
 <ul>
 <li>psql by PostgreSQL</li>
@@ -182,21 +183,21 @@
 <li>db2 by DB2 (IBM)</li>
 <li>inl by RELEX</li>
 </ul>
-<h3 id="配置"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 配置</h3>
+<h3 id="配置"><span class="section-num">2.1</span> 配置</h3>
 <p>建议使用大牛 <a href="https://github.com/purcell/emacs.d/blob/master/lisp/init-sql.el">purcell 的 SQL 配置</a> (我就是这么做的)。</p>
-<h3 id="基本使用"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 基本使用</h3>
-<h4 id="链接数据库"><!-- raw HTML omitted -->2.2.1<!-- raw HTML omitted --> 链接数据库</h4>
+<h3 id="基本使用"><span class="section-num">2.2</span> 基本使用</h3>
+<h4 id="链接数据库"><span class="section-num">2.2.1</span> 链接数据库</h4>
 <p>以 MySQL 为例。</p>
 <ul>
 <li>执行 <code>M-x sql-mysql</code> 命令进入交互式提示，根据提示输入相应的用户、密码、数据库等信息，以建立到数据库的链接。</li>
 <li>可以执行 <code>M-x sql-save-connection</code> 保存链接信息（默认保存至 custom.el)。</li>
 </ul>
-<h4 id="关联-sqli-buffer"><!-- raw HTML omitted -->2.2.2<!-- raw HTML omitted --> 关联 SQLi Buffer</h4>
+<h4 id="关联-sqli-buffer"><span class="section-num">2.2.2</span> 关联 SQLi Buffer</h4>
 <ul>
 <li>在当前 <code>.sql</code> 文件中（SQL mode)，通过 <code>M-x sql-set-product</code> 命令指定当前缓冲区使用何种 SQL 方言。默认使用 <code>SQL(ANSI)</code> 。</li>
 <li>通过运行 <code>M-x sql-set-sqli-buffer</code> 选择要关联的 SQLi buffer，随后可以将任意 SQL 脚本送至该 SQLi buffer 执行。</li>
 </ul>
-<h4 id="执行-sql"><!-- raw HTML omitted -->2.2.3<!-- raw HTML omitted --> 执行 SQL</h4>
+<h4 id="执行-sql"><span class="section-num">2.2.3</span> 执行 SQL</h4>
 <p>在 <code>.sql</code> 文件中，使用如下快捷键发送 SQL 至 SQLi buffer 以执行 SQL。</p>
 <table>
 <thead>
@@ -229,11 +230,11 @@
 </tr>
 </tbody>
 </table>
-<h4 id="调整-sqli-buffer-显示"><!-- raw HTML omitted -->2.2.4<!-- raw HTML omitted --> 调整 SQLi Buffer 显示</h4>
+<h4 id="调整-sqli-buffer-显示"><span class="section-num">2.2.4</span> 调整 SQLi Buffer 显示</h4>
 <p>SQLi buffer 默认显示会导致很多列的显示折行，可以运行 <code>M-x toggle-truncate-lines</code> 调整显示模式。</p>
-<h2 id="org-sql"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> Org SQL</h2>
+<h2 id="org-sql"><span class="section-num">3</span> Org SQL</h2>
 <p>Emacs org 支持 SQL 代码块。通过命令 <code>C-c C-c</code> 即可执行 SQL 代码块并显示相应的结果。</p>
-<h3 id="sql-代码块示例"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> SQL 代码块示例</h3>
+<h3 id="sql-代码块示例"><span class="section-num">3.1</span> SQL 代码块示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -256,7 +257,7 @@ SELECT 1;
 | 1 |
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="通过-header-参数提供链接信息"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 通过 Header 参数提供链接信息</h3>
+</div><h3 id="通过-header-参数提供链接信息"><span class="section-num">3.2</span> 通过 Header 参数提供链接信息</h3>
 <p>通过定义 header 参数提供数据库链接信息，该方法仅适用于特定的 SQL 代码块。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -278,7 +279,7 @@ SELECT 1;
 #+END_SRC
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="通过-properties-提供链接信息"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 通过 PROPERTIES 提供链接信息</h3>
+</div><h3 id="通过-properties-提供链接信息"><span class="section-num">3.3</span> 通过 PROPERTIES 提供链接信息</h3>
 <p>该方法可以在一个 Org 标题 <code>:PROPERTIES:</code> 内加入 header 参数提供链接信息，该方法可以在该 Org 标题下共享链接信息。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -302,7 +303,7 @@ SELECT 1;
 #+END_SRC
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+</div><h2 id="参考文献"><span class="section-num">4</span> 参考文献</h2>
 <ol>
 <li><a href="https://www.emacswiki.org/emacs/SqlMode">Sql Mode</a> - specialized comint.el for SQL interpreters。</li>
 <li>大牛 <a href="https://github.com/purcell/emacs.d/blob/master/lisp/init-sql.el">purcell 的 SQL 配置</a> 。</li>
@@ -405,7 +406,10 @@ SELECT 1;
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

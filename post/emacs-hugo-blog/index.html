@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew" /><meta name="keywords" content="Hugo, ox-hugo, org-mode" />
+<meta name="author" content="Junahan" /><meta name="description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo" /><meta name="keywords" content="Hugo, ox-hugo, org-mode" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="使用 Hugo &#43; Org 发布博文" />
-<meta property="og:description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew" />
+<meta property="og:description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/emacs-hugo-blog/" />
 <meta property="article:published_time" content="2019-11-12T00:00:00+08:00" />
 <meta property="article:modified_time" content="2019-11-30T14:14:39+08:00" />
 <meta itemprop="name" content="使用 Hugo &#43; Org 发布博文">
-<meta itemprop="description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew">
+<meta itemprop="description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo">
 <meta itemprop="datePublished" content="2019-11-12T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-30T14:14:39&#43;08:00" />
-<meta itemprop="wordCount" content="1163">
+<meta itemprop="wordCount" content="1140">
 
 
 
 <meta itemprop="keywords" content="hugo,ox-hugo,org-mode," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用 Hugo &#43; Org 发布博文"/>
-<meta name="twitter:description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew"/>
+<meta name="twitter:description" content="本文介绍如何使用 Emacs Org-mode &#43; ox-hugo 撰写博客，并通过 Hugo &#43; Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/emacs/"> emacs </a>
             </div>
-          <span class="more-meta"> 约 1163 字 </span>
+          <span class="more-meta"> 约 1140 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -179,12 +180,13 @@
     </div>
   </div>
     <div class="post-content">
-      <!-- raw HTML omitted -->
+      <div class="abstract">
+  <div></div>
 <p>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。</p>
-<!-- raw HTML omitted -->
-<h2 id="安装和配置"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 安装和配置</h2>
+</div>
+<h2 id="安装和配置"><span class="section-num">1</span> 安装和配置</h2>
 <p>以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。</p>
-<h3 id="安装-hugo"><!-- raw HTML omitted -->1.1<!-- raw HTML omitted --> 安装 Hugo</h3>
+<h3 id="安装-hugo"><span class="section-num">1.1</span> 安装 Hugo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -193,7 +195,7 @@
 <pre class="chroma"><code class="language-shell" data-lang="shell">brew install hugo
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="安装-netlify-命令行工具"><!-- raw HTML omitted -->1.2<!-- raw HTML omitted --> 安装 Netlify 命令行工具</h3>
+</div><h3 id="安装-netlify-命令行工具"><span class="section-num">1.2</span> 安装 Netlify 命令行工具</h3>
 <p>在 Mac OS 上执行 <code>brew install netlify</code> 命令可安装 <code>netlify-cli</code> 工具。或者通过 <code>npm</code> 安装：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -203,7 +205,7 @@
 <pre class="chroma"><code class="language-shell" data-lang="shell">npm install netlify-cli -g
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="认证和使用-netlify"><!-- raw HTML omitted -->1.3<!-- raw HTML omitted --> 认证和使用 Netlify</h3>
+</div><h3 id="认证和使用-netlify"><span class="section-num">1.3</span> 认证和使用 Netlify</h3>
 <p>Netlify 使用访问令牌进行认证，要获得一个访问令牌，使用如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -214,10 +216,10 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>跟着提示步骤，在 Netlify 上创建站点。认证完成后获得访问令牌，Netlify CLI 将该令牌存储在您的 <code>{Home}/.netlify/config.json</code> 文件里面。随后的 <code>netlify</code> 命令将自动使用该令牌。</p>
-<h2 id="创建本地-hugo-站点"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 创建本地 Hugo 站点</h2>
-<h3 id="选择和配置-hugo-theme"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> 选择和配置 Hugo Theme</h3>
+<h2 id="创建本地-hugo-站点"><span class="section-num">2</span> 创建本地 Hugo 站点</h2>
+<h3 id="选择和配置-hugo-theme"><span class="section-num">2.1</span> 选择和配置 Hugo Theme</h3>
 <p>我选择使用一款 <a href="https://github.com/olOwOlo/hugo-theme-even">Even</a> 主题。</p>
-<h3 id="安装主题"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> 安装主题</h3>
+<h3 id="安装主题"><span class="section-num">2.2</span> 安装主题</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -228,7 +230,7 @@
 git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="升级主题"><!-- raw HTML omitted -->2.3<!-- raw HTML omitted --> 升级主题</h3>
+</div><h3 id="升级主题"><span class="section-num">2.3</span> 升级主题</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -239,10 +241,10 @@ git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 git pull
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="配置主题"><!-- raw HTML omitted -->2.4<!-- raw HTML omitted --> 配置主题</h3>
+</div><h3 id="配置主题"><span class="section-num">2.4</span> 配置主题</h3>
 <p>在该主题的 exampleSite 目录下有一个 config.toml 文件，将这个 config.toml 文件复制到你的站点目录下，根据自己的需求更改即可。注意: 对于这个主题，你应该使用 post 而不是 posts，即 hugo new post/some-content.md。</p>
-<h2 id="使用-ox-hugo"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 使用 ox-hugo</h2>
-<h3 id="配置-ox-hugo"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 配置 ox-hugo</h3>
+<h2 id="使用-ox-hugo"><span class="section-num">3</span> 使用 ox-hugo</h2>
+<h3 id="配置-ox-hugo"><span class="section-num">3.1</span> 配置 ox-hugo</h3>
 <p>仅需要如下配置即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -258,14 +260,14 @@ git pull
   <span class="nb">:after</span> <span class="nv">ox</span><span class="p">)</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="发布模式"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 发布模式</h3>
+</div><h3 id="发布模式"><span class="section-num">3.2</span> 发布模式</h3>
 <p>ox-hugo 支持两种发布模式：</p>
 <ul>
 <li>One post per Org subtree (官方推荐模式) - 每个 Org 子节作为一个单独的 Markdown 文档发布。</li>
 <li>One post per Org file - 每个 Org 文件作为一个单独的 Markdown 文档发布。</li>
 </ul>
 <p>我习惯使用 One post per Org file 模式。</p>
-<h3 id="hugo-headers"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> Hugo Headers</h3>
+<h3 id="hugo-headers"><span class="section-num">3.3</span> Hugo Headers</h3>
 <table>
 <thead>
 <tr>
@@ -287,17 +289,17 @@ git pull
 </tr>
 </tbody>
 </table>
-<h3 id="发布快捷键"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 发布快捷键</h3>
+<h3 id="发布快捷键"><span class="section-num">3.4</span> 发布快捷键</h3>
 <p>我使用 <code>C-c C-e H h</code> (发布 Org file 为 Markdown post) 来发布我的文档。也可以使用 <code>C-c C-e H o</code> (发布并打开 Markdown post)。</p>
-<h2 id="发布"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 发布</h2>
-<h3 id="发布到-netlify"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> 发布到 Netlify</h3>
+<h2 id="发布"><span class="section-num">4</span> 发布</h2>
+<h3 id="发布到-netlify"><span class="section-num">4.1</span> 发布到 Netlify</h3>
 <ol>
 <li>编辑 <code>ORG</code> 文档 - 注意将文档元数据头属性 <code>#+hugo_draft: true</code> 修改为 <code>#+hugo_draft: false</code> 以发布文档。</li>
 <li>发布 <code>MD</code> 文档 - 在 Emacs ORG 模型下运行 <code>C-c C-e H h</code> 将 <code>.org</code> 发布为 <code>.md</code> 文档。</li>
 <li>使用 <code>Hugo</code> 构建 - 在命令行中运行 <code>hugo</code> 命令构建静态网站并使用 <code>hugo server</code> 运行本地服务器以验证网站内容。</li>
 <li>使用 <code>netlify</code> 发布 - 在命令行中运行 <code>netlify deploy --prod</code> 发布网站。</li>
 </ol>
-<h3 id="发布至-github-站点"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> 发布至 Github 站点</h3>
+<h3 id="发布至-github-站点"><span class="section-num">4.2</span> 发布至 Github 站点</h3>
 <p>Github Page 功能允许将 <code>{githubID}.github.io</code> 为域名创建站点。结合使用 Hugo 发布静态网站至 Github 站点的步骤如下。</p>
 <ul>
 <li>登陆 Github，创建名字为 <code>{githubID}.github.io</code> 的公共仓库，相关详情，请参阅<a href="https://help.github.com/cn/github/working-with-github-pages/creating-a-github-pages-site">创建 Github Pages 站点</a>。</li>
@@ -305,7 +307,7 @@ git pull
 <li>运行命令 <code>git submodule add -b master git@github.com:&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public</code> 以创建 git 子模块。</li>
 <li>创建 <code>deploy.sh</code> 脚本，并运行 <code>chmod +x deploy.sh</code> 命令将其设置为可以执行。</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -366,7 +368,7 @@ git push origin master
 <li>运行 hugo 测试并在本地测试站点。</li>
 <li>运行 <code>./deploy.sh</code> 发布站点至 Github。</li>
 </ul>
-<h2 id="参考文献"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">5</span> 参考文献</h2>
 <ol>
 <li>Hugo Home, <a href="https://gohugo.io">https://gohugo.io</a>.</li>
 <li>Netlify Command Line Tools, <a href="https://www.netlify.com/docs/cli/">https://www.netlify.com/docs/cli/</a>.</li>
@@ -472,7 +474,10 @@ git push origin master
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

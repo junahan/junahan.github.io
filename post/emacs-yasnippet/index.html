@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &amp;#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &amp;#39;prog-mode-hook #&amp;#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+<meta name="author" content="Junahan" /><meta name="description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1 Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &amp;#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &amp;#39;prog-mode-hook #&amp;#39;yas-minor-mode) 2 安装 yasnippet-snippets 系列" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
 
 
 
@@ -34,27 +34,28 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Emacs YASnippet 备忘录" />
-<meta property="og:description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模" />
+<meta property="og:description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1 Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2 安装 yasnippet-snippets 系列" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/emacs-yasnippet/" />
 <meta property="article:published_time" content="2020-01-10T00:00:00+08:00" />
 <meta property="article:modified_time" content="2020-01-11T16:07:24+08:00" />
 <meta itemprop="name" content="Emacs YASnippet 备忘录">
-<meta itemprop="description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模">
+<meta itemprop="description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1 Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2 安装 yasnippet-snippets 系列">
 <meta itemprop="datePublished" content="2020-01-10T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-11T16:07:24&#43;08:00" />
-<meta itemprop="wordCount" content="304">
+<meta itemprop="wordCount" content="305">
 
 
 
 <meta itemprop="keywords" content="emacs," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Emacs YASnippet 备忘录"/>
-<meta name="twitter:description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2安装 yasnippet-snippets 系列模"/>
+<meta name="twitter:description" content="本文是简单记述 yasnippet 配置和基本使用的备忘录。 1 Snippet 基本配置 执行 M&#43;x package-install 即可通过 MELPA 安装 YASnippet 开启全局配置: 1 2 (require &#39;yasnippet) (yas-global-mode 1) 开启 per buffer 模式: 1 2 (yas-reload-all) (add-hook &#39;prog-mode-hook #&#39;yas-minor-mode) 2 安装 yasnippet-snippets 系列"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/emacs/"> emacs </a>
             </div>
-          <span class="more-meta"> 约 304 字 </span>
+          <span class="more-meta"> 约 305 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -153,15 +154,16 @@
     </div>
   </div>
     <div class="post-content">
-      <!-- raw HTML omitted -->
+      <div class="abstract">
+  <div></div>
 <p>本文是简单记述 yasnippet 配置和基本使用的备忘录。</p>
-<!-- raw HTML omitted -->
-<h2 id="snippet-基本配置"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> Snippet 基本配置</h2>
+</div>
+<h2 id="snippet-基本配置"><span class="section-num">1</span> Snippet 基本配置</h2>
 <ul>
 <li>执行 <code>M+x package-install</code> 即可通过 MELPA 安装 YASnippet</li>
 <li>开启全局配置:</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -175,7 +177,7 @@
 </div><ul>
 <li>开启 per buffer 模式:</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -186,13 +188,13 @@
 <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;prog-mode-hook</span> <span class="nf">#&#39;</span><span class="nv">yas-minor-mode</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="安装-yasnippet-snippets-系列模版"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 安装 yasnippet-snippets 系列模版</h2>
+</div><h2 id="安装-yasnippet-snippets-系列模版"><span class="section-num">2</span> 安装 yasnippet-snippets 系列模版</h2>
 <p><a href="http://github.com/AndreaCrotti/yasnippet-snippets">yasnippet-snippets</a> 是由 <a href="https://github.com/AndreaCrotti">AndreaCrotti</a> 维护的一系列模版。可以通过执行 <code>M+x package-install</code> 命令安装它。该安装包会更新 <code>yas-snippet-dir</code> 以自动加载该系列模版。也可以安装其他系列模版并通过配置 <code>yas-snippet-dir</code> 来加载模版。</p>
 <blockquote>
 <p>默认加载模版目录配置 <code>yas-snippet-dir</code> 如下：</p>
 <p>(&ldquo;～/.emacs.d/snippets&rdquo; yasnippet-snippets-dir)</p>
 </blockquote>
-<h2 id="定制-snippet"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 定制 Snippet</h2>
+<h2 id="定制-snippet"><span class="section-num">3</span> 定制 Snippet</h2>
 <p>通过运行命令 <code>M+x yas-new-snippet</code> 命令创建一个新的模版。如下是我用于在文章中插入摘要标签的模版：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -217,7 +219,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>将如上文件保存至默认 snippet 目录 (<code>~/.eamcs.d/snippets</code>) 即可。</p>
-<h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">4</span> 参考文献</h2>
 <ol>
 <li><a href="https://github.com/joaotavora/yasnippet">yasnippet</a> - Emacsp snippet minor mode by <a href="https://github.com/joaotavora">joaotavora</a>.</li>
 <li><a href="http://github.com/AndreaCrotti/yasnippet-snippets">yasnippet-snippets</a> - 一系列有用的 snippet 模版，由 <a href="https://github.com/AndreaCrotti">AndreaCrotti</a> 维护.</li>
@@ -315,7 +317,10 @@
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

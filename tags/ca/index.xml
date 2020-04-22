@@ -17,7 +17,7 @@
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0800</pubDate>
       
       <guid>/post/fabric-ca-user-guide-cn/</guid>
-      <description>1摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
+      <description>1 摘要 Fabric CA 是 Fabric 的证书授权 (CA) 服务，它提供如下功能： 身份注册或者链接至 LDAP 作为用户注册中心 颁发注册证书 (ECerts) 证书的续期和吊销 Fabric CA 由服务器和客户端组件构</description>
     </item>
     
   </channel>

@@ -34,7 +34,8 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -48,7 +49,7 @@
 <meta itemprop="description" content="本文是学习使用 ORG 系列中的第一篇，该系列是在学习过程中逐步整理而成，仍然在不断更新之中。在本文中，我们将介绍 Emacs org 模块的一些基本功能，一些学习心">
 <meta itemprop="datePublished" content="2019-11-10T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-11-14T22:06:32&#43;08:00" />
-<meta itemprop="wordCount" content="2119">
+<meta itemprop="wordCount" content="2110">
 
 
 
@@ -128,7 +129,7 @@
         <div class="post-category">
             <a href="/categories/emacs/"> emacs </a>
             </div>
-          <span class="more-meta"> 约 2119 字 </span>
+          <span class="more-meta"> 约 2110 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -162,10 +163,11 @@
     </div>
   </div>
     <div class="post-content">
-      <!-- raw HTML omitted -->
+      <div class="abstract">
+  <div></div>
 <p>本文是学习使用 ORG 系列中的第一篇，该系列是在学习过程中逐步整理而成，仍然在不断更新之中。在本文中，我们将介绍 Emacs org 模块的一些基本功能，一些学习心得以及一个需要的必要工具和配置。</p>
-<!-- raw HTML omitted -->
-<h2 id="学习建议"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 学习建议</h2>
+</div>
+<h2 id="学习建议"><span class="section-num">1</span> 学习建议</h2>
 <p>通过使用 ORG 撰写文章及管理代办事项，并不断的折腾我的 ORG 配置，特别是学习过程中遇到的问题，总结一些学习经验。</p>
 <ul>
 <li>建议从将 ORG 作为标记语言，从撰写文章开始入手，ORG 的其他功能，如待办事项、日程表等功能和 ORG 文档的结构及基本特性相关。我个人也是这样干的。</li>
@@ -174,7 +176,7 @@
 <li>熟练使用 <code>M-x</code> 执行命令，绑定 <code>M-x</code> 快捷键至 <code>helm-M-x</code> 以帮助快速定位和执行命令，这个可以缓解记住快捷键的问题。</li>
 <li>结合上条，只需要记住<a href="#%E8%AE%B0%E4%BD%8F%E5%87%A0%E4%B8%AA%E5%BF%85%E8%A6%81%E5%BF%AB%E6%8D%B7%E9%94%AE">几个必要的快捷键</a>即可，使用多了，自然也就记住了。</li>
 </ul>
-<h2 id="org-功能概览"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> ORG 功能概览</h2>
+<h2 id="org-功能概览"><span class="section-num">2</span> ORG 功能概览</h2>
 <p><em>本节参照 ORG 官网 <a href="https://orgmode.org/features.html">List Features</a> 翻译。</em></p>
 <p>ORG 是一个快速高效的纯文本系统，可用于记日记、维护待办事项列表、计划项目以及撰写和发布文档。ORG 可以说是 Emacs 相当重要的组成部分。本文就是用 Emacs ORG 模块撰写。我也将 ORG 模块用于安排日程和跟踪 OKR。</p>
 <ul>
@@ -240,9 +242,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="工具安装和配置"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 工具安装和配置</h2>
+<h2 id="工具安装和配置"><span class="section-num">3</span> 工具安装和配置</h2>
 <p>Org 模块内置于 Emacs 安装包中，有关 ORG 的详细配置，请参阅 <a href="https://github.com/junahan/junahan-emacs">Junahan's Emacs</a> (为了节省时间，不建议折腾自己的 ORG 配置，等使用相当熟练了，再了解和定制自己的 ORG)。ORG 模块的一些功能依赖于应用工具，为了省心，先需要将这些依赖分别安装以确保 ORG 功能能够正常的工作。请参阅后续几个小节安装必要依赖软件包。这里以 MacOS 为例，使用 <code>brew</code> 安装相应的工具包，其他平台也有类似的工具，请自行学习处理。</p>
-<h3 id="拼写检查"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 拼写检查</h3>
+<h3 id="拼写检查"><span class="section-num">3.1</span> 拼写检查</h3>
 <p>建议使用 aspell + ispell-mode。运行如下命令安装 aspell</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -275,7 +277,7 @@
 <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;org-mode-hook</span> <span class="ss">&#39;flyspell-buffer</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="安装-mactex-及相关工具包"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 安装 MacTex 及相关工具包</h3>
+</div><h3 id="安装-mactex-及相关工具包"><span class="section-num">3.2</span> 安装 MacTex 及相关工具包</h3>
 <p>ORG Mode 使用 MacTex 发布 PDF 以及 Tex 格式文档，可直接运行如下命令安装 MacTex ：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -288,7 +290,7 @@
 </div><ul>
 <li>为了支持中文，还需要安装额外的包。可以参考 <a href="https://zhuanlan.zhihu.com/p/35094852">MacTeX 安装 xeCJK 和 CTEX 搭建中文环境</a>。</li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -312,7 +314,7 @@ sudo tlmgr install xecjk
 <li>执行 <code>sudo tlmgr update -all</code> 可以更新 MacTex。</li>
 <li>运行命令 <code>pdflatex texname.tex</code> 测试输出 PDF。</li>
 </ul>
-<h3 id="安装-pandoc"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 安装 pandoc</h3>
+<h3 id="安装-pandoc"><span class="section-num">3.3</span> 安装 pandoc</h3>
 <p>ORG <a href="https://github.com/kawabata/ox-pandoc">ox-pandoc</a> 模块使用 pandoc 发布 (exporting) <code>.org</code> 文档至众多 pandoc 支持的格式。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -322,7 +324,7 @@ sudo tlmgr install xecjk
 <pre class="chroma"><code class="language-shell" data-lang="shell">brew install pandoc
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="安装-graphviz-和-plantuml-包"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 安装 graphviz 和 PlantUML 包</h3>
+</div><h3 id="安装-graphviz-和-plantuml-包"><span class="section-num">3.4</span> 安装 graphviz 和 PlantUML 包</h3>
 <p>ORG 模块 <a href="http://ditaa.sourceforge.net/">ditaa</a> 使用 Graphviz 和 PlantUML 包支持纯文本作图，特别是 UML 各类图的制作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -332,10 +334,10 @@ sudo tlmgr install xecjk
 <pre class="chroma"><code class="language-shell" data-lang="shell">brew install ditaa graphviz plantuml
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="安装图床工具"><!-- raw HTML omitted -->3.5<!-- raw HTML omitted --> 安装图床工具</h3>
+</div><h3 id="安装图床工具"><span class="section-num">3.5</span> 安装图床工具</h3>
 <p>图床工具用于上传图片至图床平台 (如微博图床)，我使用 <a href="https://toolinbox.net/iPic/">iPic</a> 图床工具，将图片作为 URL 插入文档。这样可以让 ORG 文件只依赖纯文本内容，便于发布和移动。</p>
-<h2 id="记住几个必要快捷键"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 记住几个必要快捷键</h2>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h2 id="记住几个必要快捷键"><span class="section-num">4</span> 记住几个必要快捷键</h2>
+<p><a id="table--essential-kyes"></a></p>
 <table>
 <thead>
 <tr>
@@ -397,7 +399,7 @@ sudo tlmgr install xecjk
 </tr>
 </tbody>
 </table>
-<h2 id="参考文献"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">5</span> 参考文献</h2>
 <ol>
 <li><a href="https://orgmode.org/">Org mode for Emacs - Your Life in Plain Text</a>, 2019.</li>
 <li><a href="https://emacsist.github.io/emacsist/orgmode/orgmode%E6%89%8B%E5%86%8C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">Org mode 手册学习笔记</a>, 2017.</li>
@@ -515,7 +517,10 @@ sudo tlmgr install xecjk
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

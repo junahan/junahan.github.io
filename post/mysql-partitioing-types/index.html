@@ -34,7 +34,8 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -48,7 +49,7 @@
 <meta itemprop="description" content="在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区 (Partitioning)">
 <meta itemprop="datePublished" content="2020-01-09T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-01-12T16:54:01&#43;08:00" />
-<meta itemprop="wordCount" content="9285">
+<meta itemprop="wordCount" content="9275">
 
 
 
@@ -130,7 +131,7 @@
             <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
             <a href="/categories/database/"> database </a>
             </div>
-          <span class="more-meta"> 约 9285 字 </span>
+          <span class="more-meta"> 约 9275 字 </span>
           <span class="more-meta"> 预计阅读 19 分钟 </span>
         
       </div>
@@ -173,13 +174,14 @@
     </div>
   </div>
     <div class="post-content">
-      <!-- raw HTML omitted -->
+      <div class="abstract">
+  <div></div>
 <p>在实践中，MySQL 单表数据量超过千万级别的时候，性能会出现明显下降的情形。解决这个问题，通常要引入分区/分片方案。本文对 MySQL 自身支持的分区 (Partitioning) 做介绍。</p>
-<!-- raw HTML omitted -->
+</div>
 <blockquote>
 <p><em>注意：这里以 MySQL 5.7 版本为基础讨论分片。</em></p>
 </blockquote>
-<h2 id="概述"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 概述</h2>
+<h2 id="概述"><span class="section-num">1</span> 概述</h2>
 <p>SQL 标准并不提供有关数据物理存储方面的指引。SQL 语言本身也独立于数据库（库、表、行和列）底层的数据结构和存储实现。但是，很多高级数据库管理系统则发展出一些方法用于确定存储在文件系统和硬件存储设备上的特定数据的物理位置。如，MySQL InnoDB 引擎支持表空间的概念。分区则是表空间概念的进一步延伸，分区支持根据用户制定的规则跨文件系统将单一表分成不同部分存储。表的不同分区可以作为一个单独的表存储于不同的位置。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -200,15 +202,15 @@
 <li>分区作用于表格的所有数据以及索引，不能仅做数据分区而不做索引分区，反之亦不可行，也不能仅对表格的部分数据做分区。</li>
 <li>自 MySQL 5.7.17 开始，MySQL Server 不再推荐启用分区，分区支持由使用的存储引擎提供，如 InnoDB, NDB 存储引擎提供的分区支持。</li>
 </ul>
-<h2 id="分区的优势"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 分区的优势</h2>
+<h2 id="分区的优势"><span class="section-num">2</span> 分区的优势</h2>
 <ul>
 <li>可以让单表存储更多的数据，分区表的数据还可以分布在不同的物理设备上，从而高效利用多个硬件设备。</li>
 <li>分区表的数据更容易维护，可以通过清除整个分区批量删除大量数据，也可以增加新的分区来支持新插入的数据。可以备份和恢复单个分区。</li>
 <li>一些仅命中部分分区数据的查询（如 WHERE 语句筛选的数据进存储在部分分区）会得到性能优化提升。</li>
 <li>分区表支持修改，可以通过分区修剪的功能将经常查询的数据和不常使用的数据重新组织至不同的分区。</li>
 </ul>
-<h2 id="分区的限制"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 分区的限制</h2>
-<h3 id="主键和唯一健索引"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> 主键和唯一健索引</h3>
+<h2 id="分区的限制"><span class="section-num">3</span> 分区的限制</h2>
+<h3 id="主键和唯一健索引"><span class="section-num">3.1</span> 主键和唯一健索引</h3>
 <p>如果分区表中有主键或者唯一索引的列，那么所有用于分区表达式的列必须是每个唯一索引（包含主键）的一部分。换句话说，就是该表的每个唯一索引（包含主键索引）必须包含用于分区表达式的列。</p>
 <p>下面是两个非法的分区表创建语句：</p>
 <div class="highlight"><div class="chroma">
@@ -461,7 +463,7 @@ mysql&gt; ALTER TABLE np_pk
 ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)</span>: A PRIMARY KEY must include all columns in the table<span class="err">&#39;</span>s partitioning <span class="k">function</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="和存储引擎相关的分区限制"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 和存储引擎相关的分区限制</h3>
+</div><h3 id="和存储引擎相关的分区限制"><span class="section-num">3.2</span> 和存储引擎相关的分区限制</h3>
 <ul>
 <li>分区表不兼容或不支持 MERGE, FEDERATED, CSV 存储引擎</li>
 <li>InnoDB 存储引擎
@@ -479,14 +481,14 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 <li>升级分区表 - 当执行升级操作时，分区类型为 <code>KEY</code> 的分区表需要转储并重新加载，存储引擎为 NDB 的除外</li>
 <li>所有分区需使用相同的存储引擎</li>
 </ul>
-<h3 id="和函数有关的分区限制"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 和函数有关的分区限制</h3>
+<h3 id="和函数有关的分区限制"><span class="section-num">3.3</span> 和函数有关的分区限制</h3>
 <p>分区表达式仅支持有限的 MySQL 函数，如 <code>ABS(), CEILING(), DATEDIFF(), DAY(), DAYOFMONTH(), DAYOFWEEK(), DAYOFYEAR(), ...</code> 详情请参阅 <a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning-limitations-functions.html">Partitioning Limitations Relating to Functions</a>.</p>
-<h3 id="分区和锁"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> 分区和锁</h3>
+<h3 id="分区和锁"><span class="section-num">3.4</span> 分区和锁</h3>
 <ul>
 <li>对于存储引擎为 <code>InnoDB</code> 的分区表，得益于行级锁 (row-level locking)，无需针对分区修剪 (partition pruning) 优化锁优先级</li>
 <li>对于采用表级锁 (table-level locks)，如 <code>MyISAM</code> 存储引擎，MySQL 5.7 及以上版本，分区锁修剪 (partition lock pruning) 在多数情形下去除了不必要的锁，大多数读和写分区的操作只锁定相应受影响的分区。例如，一个 <code>SELECT</code> 操作仅锁定那些包含符合该语句 <code>WEHRE</code> 筛选条件的记录的分区。有关分区和锁相关的限制更多信息，请参阅 <a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning-limitations-locking.html">Partitioning and Locking</a></li>
 </ul>
-<h2 id="分区类型"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 分区类型</h2>
+<h2 id="分区类型"><span class="section-num">4</span> 分区类型</h2>
 <p>MySQL 5.7 支持如下分区类型：</p>
 <ul>
 <li>基于值范围分区 (RANGE partitioning) - 根据分区表指定的列的值范围分配相应的数据行到不同的分区</li>
@@ -555,9 +557,9 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>无论采用何种类型的分区，分区号码自动分配并从 0 开始。分区名字不区分大小写。</p>
-<h3 id="range-分区"><!-- raw HTML omitted -->4.1<!-- raw HTML omitted --> RANGE 分区</h3>
+<h3 id="range-分区"><span class="section-num">4.1</span> RANGE 分区</h3>
 <p><code>RANGE</code> 类型的分区支持通过一个指定的值范围将数据行分配到不同的分区中。Range 应当连续且不重叠。Range 使用 <code>VALUES LESS THAN</code> 操作定义。</p>
-<h4 id="基于-integer-类型列的分区"><!-- raw HTML omitted -->4.1.1<!-- raw HTML omitted --> 基于 <code>integer</code> 类型列的分区</h4>
+<h4 id="基于-integer-类型列的分区"><span class="section-num">4.1.1</span> 基于 <code>integer</code> 类型列的分区</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -598,7 +600,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 <li><code>MAXVALUE</code> 代表最大非负整数。使用以上分区模式，所有 store_id 值小于 6 （不包含 6）的行都被分配至 <code>p0</code> 分区存储，所有大约等于 16 的行都分配至 <code>p3</code> 分区。</li>
 <li>表 <code>employees</code> 没有主键 (primary key)，也没有唯一健 (unique key) 定义。但通常，表都有主键和唯一健索引定义。有关主键和唯一健的限制，请参阅<a href="#%E4%B8%BB%E9%94%AE%E5%92%8C%E5%94%AF%E4%B8%80%E5%81%A5%E7%B4%A2%E5%BC%95">主键和唯一健索引</a>。</li>
 </ul>
-<h4 id="基于-date-time-或者-datetime-类型列的分区"><!-- raw HTML omitted -->4.1.2<!-- raw HTML omitted --> 基于 <code>DATE, TIME</code> 或者 <code>DATETIME</code> 类型列的分区</h4>
+<h4 id="基于-date-time-或者-datetime-类型列的分区"><span class="section-num">4.1.2</span> 基于 <code>DATE, TIME</code> 或者 <code>DATETIME</code> 类型列的分区</h4>
 <p>可以使用一个作用于 <code>DATE, TIME</code> 或者 <code>DATETIME</code> 类型列的函数进行分区，该函数需返回一个正整数值:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -635,7 +637,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>这里 <code>YEAR()</code> 函数返回年份的正整数，可用于 <code>VALUES LESS THAN</code> 操作。</p>
-<h4 id="基于-timestamp-类型列的分区"><!-- raw HTML omitted -->4.1.3<!-- raw HTML omitted --> 基于 <code>TIMESTAMP</code> 类型列的分区</h4>
+<h4 id="基于-timestamp-类型列的分区"><span class="section-num">4.1.3</span> 基于 <code>TIMESTAMP</code> 类型列的分区</h4>
 <p>也可以使用 <code>UNIX_TIMESTAMP()</code> 函数基于 <code>DATESTAMP</code> 列对表进行分区。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -680,7 +682,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </div><blockquote>
 <p><em>NOTE：不支持其他作用于 <code>TIMESTAMP</code> 的函数。</em></p>
 </blockquote>
-<h3 id="list-分区"><!-- raw HTML omitted -->4.2<!-- raw HTML omitted --> LIST 分区</h3>
+<h3 id="list-分区"><span class="section-num">4.2</span> LIST 分区</h3>
 <p>LIST 分区类型在很多方面和 RANGE 分区类似。主要的不同之处在于 <code>RANGE</code> 分区要求根据分区列的值在一个连续的集合选择分区，而 <code>LIST</code> 通过匹配一个离散集合选择分区。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -795,14 +797,14 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p><em>LIST COLUMNS 类型分区是 LIST 分区类型的一个变种，它可以支持将非 <code>INT</code> 类型的列作为分区列使用。详情请参阅 <a href="#list-columns-%E5%88%86%E5%8C%BA">LIST COLUMNS 分区</a>。</em></p>
-<h3 id="columns-分区"><!-- raw HTML omitted -->4.3<!-- raw HTML omitted --> COLUMNS 分区</h3>
+<h3 id="columns-分区"><span class="section-num">4.3</span> COLUMNS 分区</h3>
 <p>COLUMNS 分区是 RANGE 和 LIST 分区的变种。COLUMNS 分区支持使用多个列作为分区健。额外的，COLUMNS 分区支持使用 <code>non-integer</code> 列定义值范围和列表成员。允许的数据类型如下：</p>
 <ul>
 <li>所有 <code>integer</code> 类型: <code>TINYINT, SMALLINT, MEDIUMINT, INT(INTEGER), and BIGINT</code> 。</li>
 <li><code>DATE</code> 和 <code>DATETIME</code></li>
 <li>字符串类型: <code>CHAR</code>, <code>VARCHAR</code>, <code>BINARY</code>, 和 <code>VARBINARY</code> 。(注意：不支持 <code>TEXT</code> 和 <code>BLOB</code> 类型)</li>
 </ul>
-<h4 id="range-columns-分区"><!-- raw HTML omitted -->4.3.1<!-- raw HTML omitted --> RANGE COLUMNS 分区</h4>
+<h4 id="range-columns-分区"><span class="section-num">4.3.1</span> RANGE COLUMNS 分区</h4>
 <p><code>RANGE COLUMNS</code> 分区类型和 RANGE 分区类似，其允许使用多个列的值进行分区，并支持使用 <code>integer</code> 类型以外的列类型 (如可直接使用 <code>DATE, DATETIME</code>) 类型的列。</p>
 <p>RANGE COLUMNS 分区和 RANGE 分区主要的不同在于：</p>
 <ul>
@@ -850,7 +852,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 <ul>
 <li>使用 RANGE 分区的表 <code>r1</code></li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -911,7 +913,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </div><ul>
 <li>类似表 <code>r1</code> ，使用 RANGE COLUMNS 分区的表 <code>rc1</code></li>
 </ul>
-<!-- raw HTML omitted -->
+<!--listend-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -992,7 +994,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </div>
 </div><p>由于元组 (5,10) 和 (5,11) 小于 (5,12)，因此，它们对应的数据被存储于分区 <code>p0</code> 。元组 (5,12) 不小于 (5,12)，因此对应的数据被存储在分区 <code>p1</code> 。</p>
 <p>对于仅使用一个列的 RANGE COLUMNS 分区表，和使用 RANGE 分区表结果一样。</p>
-<h4 id="list-columns-分区"><!-- raw HTML omitted -->4.3.2<!-- raw HTML omitted --> LIST COLUMNS 分区</h4>
+<h4 id="list-columns-分区"><span class="section-num">4.3.2</span> LIST COLUMNS 分区</h4>
 <p>LIST COLUMNS 分区是 LIST 分区的变种，允许使用多个列作为分区 Key，并且支持 Integer 以外类型的列，如类型为 String, DATE, DATETIME 的列。</p>
 <p>假设您和位于 12 个城市的客户有业务往来，出于市场销售的目的，您将这些城市每三个一组分为不同的大区，如下表所示：</p>
 <table>
@@ -1136,7 +1138,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>另外，和 RANGE COLUMNS 分区一样，LIST COLUMNS 分区也支持组合多个分区列。</p>
-<h3 id="hash-分区"><!-- raw HTML omitted -->4.4<!-- raw HTML omitted --> HASH 分区</h3>
+<h3 id="hash-分区"><span class="section-num">4.4</span> HASH 分区</h3>
 <p>HASH 分区主要用于确保数据被均衡的分配在预先确定的数量的分区。对于 RANGE 和 LIST 分区，必须精确指定分区列值规则，用于确定数据该存储在那个特定分区。使用 HASH 分区，MySQL 替用户考虑这个问题，用户只需要指定用于分区的列（或者表达式）以及要分区的数量即可。</p>
 <p>可以使用语句 <code>CREATE TABLE ... PARTITION BY HASH (expr) PARTITIONS num</code> 语句创建一个 HASH 分区表。这里， <code>expr</code> 是一个作用于指定列的值的表达式，该表达式返回一个整数值。如果用于分区列的数据类型本身就是 MySQL integer 类型，则可以直接使用列名。 <code>PARTITIONS num</code> 子句则用来指定分区的个数。</p>
 <blockquote>
@@ -1237,7 +1239,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </div><blockquote>
 <p>分区表达式会在每次插入和更新记录的时候被执行，在一些场景下，删除一条记录也会执行分区表达式。</p>
 </blockquote>
-<h4 id="linear-hash-分区"><!-- raw HTML omitted -->4.4.1<!-- raw HTML omitted --> LINEAR HASH 分区</h4>
+<h4 id="linear-hash-分区"><span class="section-num">4.4.1</span> LINEAR HASH 分区</h4>
 <p>MySQL 也支持线性哈希分区。前面提到的常规的哈希函数采用对分区列的值取模的方法计算。线性哈希则利用一个 linear powers-of-two 算法。语法上，线性哈希和常规哈希唯一的不同在于线性哈希需要在分区字句 (PARTITION BY) 前多添加 <code>LINEAR</code> 关键字，如下例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1345,7 +1347,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </span></code></pre></td></tr></table>
 </div>
 </div><p>线性哈希分区的优点是添加、删除、合并和分离分区速度更快，可用于对记录数量巨大的表进行分区。其缺点是不像常规哈希分区那样可以将数据均匀的分配在不通的分区。</p>
-<h3 id="key-分区"><!-- raw HTML omitted -->4.5<!-- raw HTML omitted --> KEY 分区</h3>
+<h3 id="key-分区"><span class="section-num">4.5</span> KEY 分区</h3>
 <p>KEY 分区和 HASH 分区类似，只不过和 HASH 分区使用用户制定的 HASH 分区表达式不同，KEY 分区哈希函数由 MySQL 服务器实现。如 NDB 集群使用 <code>MD5()</code> 哈希函数，对于其他存储引擎，则使用和 <code>PASSWORD()</code> 函数类似的算法。其语法规则 <code>CREATE TABLE ... PARTITION BY KEY</code> 也和 HASH 分区类似，主要不同的地方如下所示：</p>
 <ul>
 <li>关键字 KEY 用于替换关键字 HASH</li>
@@ -1433,7 +1435,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>其效果类似于 HASH 分区中的 LINEAR HASH。</p>
-<h3 id="子分区"><!-- raw HTML omitted -->4.6<!-- raw HTML omitted --> 子分区</h3>
+<h3 id="子分区"><span class="section-num">4.6</span> 子分区</h3>
 <p>子分区 (Subpartitioning) 也称之为组合分区，顾名思义，子分区是分区的分区，是在已有的分区中进一步创建分区。如下例所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1458,9 +1460,9 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>该语句创建了三个 RANGE 分区 (p0, p1, 和 p2)，并在每个分区中分别创建两个子分区 (HASH 分区类型)。实际效果是整个表被分成了六 (3*2) 个分区。</p>
-<h3 id="mysql-分区如何处理空值"><!-- raw HTML omitted -->4.7<!-- raw HTML omitted --> MySQL 分区如何处理空值</h3>
+<h3 id="mysql-分区如何处理空值"><span class="section-num">4.7</span> MySQL 分区如何处理空值</h3>
 <p>MySQL 分区允许空值 (NULL)。空值可能出现在分区列或者是用户定义的分区表达式中，即便是要求 <code>integer</code> 类型的分区列也允许出现空值。但需要谨记于心的是，NULL 不是一个数字。MySQL 分区实现视空值为小于任意非空值 (non-NULL)，这点和 <code>ORDER BY</code> 类似。这意味着，对于不同的分区类型，系统处理空值的行为也不一样，可能会产生和预期不一致的结果。本节讨论针对不同分区类型，MySQL 如何处理空值。</p>
-<h4 id="range-分区的空值处理"><!-- raw HTML omitted -->4.7.1<!-- raw HTML omitted --> RANGE 分区的空值处理</h4>
+<h4 id="range-分区的空值处理"><span class="section-num">4.7.1</span> RANGE 分区的空值处理</h4>
 <p>在 RANGE 分区表中插入一个分区列的值为空的记录，该记录会被分配到编号最小的分区中存储。如下是两个 RANGE 分区表的例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1661,7 +1663,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>因为 <code>YEAR(NULL)</code> 返回 NULL，具有空值的记录会被分配至 p0 分区。</p>
-<h4 id="list-分区的空值处理"><!-- raw HTML omitted -->4.7.2<!-- raw HTML omitted --> LIST 分区的空值处理</h4>
+<h4 id="list-分区的空值处理"><span class="section-num">4.7.2</span> LIST 分区的空值处理</h4>
 <p>LIST 分区只有在分区定义中明确包含了 NULL 值的情况下允许空值。换句话说，如果分区表里面没有任何分区明确接受 NULL 值，则会拒绝含有空值的记录。如下示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1801,7 +1803,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </span><span class="c1"></span><span class="mi">7</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span> <span class="n">sec</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="hash-和-key-分区的空值处理"><!-- raw HTML omitted -->4.7.3<!-- raw HTML omitted --> HASH 和 KEY 分区的空值处理</h4>
+</div><h4 id="hash-和-key-分区的空值处理"><span class="section-num">4.7.3</span> HASH 和 KEY 分区的空值处理</h4>
 <p>MySQL 以不同的方式处理 HASH 和 KEY 分区表。在此情形下，任何产生 NULL 值的表达式被当作返回零值处理。例如，我们创建如下 <code>th</code> 分区表：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1882,7 +1884,7 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
 </code></pre></td></tr></table>
 </div>
 </div><p>通过使用 <code>PARTITION BY KEY(c1)</code> 代替 <code>PARTITION BY HASH(c1)</code> ，可以检验该规则同样适用于 KEY 分区类型。</p>
-<h2 id="参考文献"><!-- raw HTML omitted -->5<!-- raw HTML omitted --> 参考文献</h2>
+<h2 id="参考文献"><span class="section-num">5</span> 参考文献</h2>
 <ol>
 <li><a href="https://dev.mysql.com/doc/refman/5.7/en/partitioning.html">Mysql 5.7 Reference Manual - Partitioning</a>, Oracle, 2019.</li>
 </ol>
@@ -1981,7 +1983,10 @@ ERROR <span class="m">1503</span> <span class="o">(</span>HY000<span class="o">)
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

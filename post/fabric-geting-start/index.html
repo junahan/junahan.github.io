@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Junahan" /><meta name="description" content="1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
+<meta name="author" content="Junahan" /><meta name="description" content="1 摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2 前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具" /><meta name="keywords" content="Service Mesh, Blockchain, AI, Hyperledger" />
 
 
 
@@ -34,18 +34,19 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+
+<link href="/sass/main.min.6eb09ed45a88bd339269c14515d2a11f2e0afdadbdd763d83f9b5c797166b081.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Fabric 入门" />
-<meta property="og:description" content="1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具" />
+<meta property="og:description" content="1 摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2 前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/fabric-geting-start/" />
 <meta property="article:published_time" content="2018-07-16T00:00:00+08:00" />
 <meta property="article:modified_time" content="2019-03-26T21:27:23+08:00" />
 <meta itemprop="name" content="Fabric 入门">
-<meta itemprop="description" content="1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具">
+<meta itemprop="description" content="1 摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2 前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具">
 <meta itemprop="datePublished" content="2018-07-16T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2019-03-26T21:27:23&#43;08:00" />
 <meta itemprop="wordCount" content="1174">
@@ -54,7 +55,7 @@
 
 <meta itemprop="keywords" content="Blockchain,Hyperledger,Fabric,超级账本,区块链," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Fabric 入门"/>
-<meta name="twitter:description" content="1摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具"/>
+<meta name="twitter:description" content="1 摘要 本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。 2 前提要求 开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -168,18 +169,18 @@
     </div>
   </div>
     <div class="post-content">
-      <h2 id="摘要"><!-- raw HTML omitted -->1<!-- raw HTML omitted --> 摘要</h2>
+      <h2 id="摘要"><span class="section-num">1</span> 摘要</h2>
 <p>本文介绍使用 Fabric Sample 快速在本地搭建一个基本的 Fabric 链码测试环境。</p>
-<h2 id="前提要求"><!-- raw HTML omitted -->2<!-- raw HTML omitted --> 前提要求</h2>
+<h2 id="前提要求"><span class="section-num">2</span> 前提要求</h2>
 <p>开始之前，请检查是否已经安装了 Fabric 区块链应用开发和运行所需要的相关工具和平台。</p>
-<h3 id="doker-和-docker-compose"><!-- raw HTML omitted -->2.1<!-- raw HTML omitted --> Doker 和 Docker Compose</h3>
+<h3 id="doker-和-docker-compose"><span class="section-num">2.1</span> Doker 和 Docker Compose</h3>
 <p>需要在你运行或者开发 Fabric 的平台上安装 Docker 以及 Docker Compose：</p>
 <ul>
 <li>MacOSX, *nix，或者 Windows 10: <a href="https://www.docker.com/get-docker">Docker</a> 17.06.2-ce 或者更高版本。</li>
 <li>老版本 Windows: <a href="https://docs.docker.com/toolbox/toolbox%5Finstall%5Fwindows/">Docker Toolbox</a>，Docker 17.06.2-ce 及更高版本。</li>
 </ul>
 <p>运行 <code>docker --version</code> 检查你安装的 Docker 版本。运行 <code>docker-compose --version</code> 检查 Docker Compose 版本。</p>
-<h3 id="go-编程语言"><!-- raw HTML omitted -->2.2<!-- raw HTML omitted --> Go 编程语言</h3>
+<h3 id="go-编程语言"><span class="section-num">2.2</span> Go 编程语言</h3>
 <p>Fabric 很多组件使用 Go 编程语言。需要 Go 1.10.x 版本以上。</p>
 <p>根据不同的安装方法，你可能需要设置两个环境变量：</p>
 <div class="highlight"><div class="chroma">
@@ -194,9 +195,9 @@
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$GOPATH</span>/bin
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="使用-fabric-sample"><!-- raw HTML omitted -->3<!-- raw HTML omitted --> 使用 Fabric Sample</h2>
+</div><h2 id="使用-fabric-sample"><span class="section-num">3</span> 使用 Fabric Sample</h2>
 <p>Fabric Sample 提供了有关 Fabric 网络的很多实例，可以根据需要启动需要的测试网络。</p>
-<h3 id="clone-fabric-sample"><!-- raw HTML omitted -->3.1<!-- raw HTML omitted --> Clone Fabric Sample</h3>
+<h3 id="clone-fabric-sample"><span class="section-num">3.1</span> Clone Fabric Sample</h3>
 <p>运行如下命令克隆 Fabric Sample 项目：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -206,7 +207,7 @@
 <pre class="chroma"><code class="language-sh" data-lang="sh">git clone https://github.com/hyperledger/fabric-samples.git
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="下载二进制工具和-docker-镜像"><!-- raw HTML omitted -->3.2<!-- raw HTML omitted --> 下载二进制工具和 Docker 镜像</h3>
+</div><h3 id="下载二进制工具和-docker-镜像"><span class="section-num">3.2</span> 下载二进制工具和 Docker 镜像</h3>
 <p>脚本 <code>scripts/boostrap.sh</code> 用于拉取所有运行 Fabric 需要的 Docker 镜像并标记为最新版本。可以指定 fabric, fabirc-ca, 以及第三方镜像版本号，默认为当前最新版本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -272,9 +273,9 @@ configtxgen		cryptogen		fabric-ca-client	idemixgen		peer
 configtxlator		discover		get-docker-images.sh	orderer
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="运行本地链码开发环境"><!-- raw HTML omitted -->3.3<!-- raw HTML omitted --> 运行本地链码开发环境</h3>
+</div><h3 id="运行本地链码开发环境"><span class="section-num">3.3</span> 运行本地链码开发环境</h3>
 <p>目录 <code>chaincode-docker-devmode</code> 预先配置好了一个用于开发的环境。你可以直接启动并测试链码，首先，运行 <code>cd chaincode-docker-devmode</code> 进入该目录。</p>
-<h3 id="terminal-1-启动开发网络"><!-- raw HTML omitted -->3.4<!-- raw HTML omitted --> Terminal 1 - 启动开发网络</h3>
+<h3 id="terminal-1-启动开发网络"><span class="section-num">3.4</span> Terminal 1 - 启动开发网络</h3>
 <p>运行如下命令启动开发开发网络：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -291,7 +292,7 @@ configtxlator		discover		get-docker-images.sh	orderer
 <li>hyperledger/fabric-ccenv - 包含开发环境的客户节点。</li>
 <li>hyperledger/fabric-tools - CLI 容器。</li>
 </ul>
-<h3 id="terminal-2-构建和启动链码"><!-- raw HTML omitted -->3.5<!-- raw HTML omitted --> Terminal 2 - 构建和启动链码</h3>
+<h3 id="terminal-2-构建和启动链码"><span class="section-num">3.5</span> Terminal 2 - 构建和启动链码</h3>
 <p>在另外一个终端运行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -331,7 +332,7 @@ go build -o chaincode_example02
 </code></pre></td></tr></table>
 </div>
 </div><p>现在，链码在对等节点启动，链码日志显示链码已经成功启动。注意，在这个阶段，链码并没有关联到任何通道，随后的步骤会使用 <code>instantiate</code> 命令完成这个任务。</p>
-<h3 id="terminal-3-使用链码"><!-- raw HTML omitted -->3.6<!-- raw HTML omitted --> Terminal 3 - 使用链码</h3>
+<h3 id="terminal-3-使用链码"><span class="section-num">3.6</span> Terminal 3 - 使用链码</h3>
 <p>尽管是在 <code>--peer-chaincodedev</code> 模式下，仍然需要安装链码以完成系统链码生命周期管理常规检查。这个要求可能会在随后版本去掉。</p>
 <p>我们可以使用 CLI 容器去完成链码安装和实例化操作：</p>
 <div class="highlight"><div class="chroma">
@@ -370,7 +371,7 @@ peer chaincode instantiate -n mycc -v <span class="m">0</span> -c <span class="s
 <pre class="chroma"><code class="language-sh" data-lang="sh">peer chaincode query -n mycc -c <span class="s1">&#39;{&#34;Args&#34;:[&#34;query&#34;,&#34;a&#34;]}&#39;</span> -C myc
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="测试自己的链码"><!-- raw HTML omitted -->3.7<!-- raw HTML omitted --> 测试自己的链码</h3>
+</div><h3 id="测试自己的链码"><span class="section-num">3.7</span> 测试自己的链码</h3>
 <p>默认情况下，我们仅挂载 <code>chaincode-example02</code> 目录。你可以容易的通过添加你自己的链码子目录或者修改 <code>docker-compose-simple.yaml</code> 挂载你自己的链码目录，并重新运行网络来测试自己的链码。</p>
 <p>如下是 <code>docker-compose-simple.yaml</code> 文件的一部分，通过修改 <code>chaincode</code> 容器定义片段标记为 <code>@1</code> 的那行，可以挂载你自己的链码目录。</p>
 <div class="highlight"><div class="chroma">
@@ -401,7 +402,7 @@ peer chaincode instantiate -n mycc -v <span class="m">0</span> -c <span class="s
 </span><span class="w">    </span>-<span class="w"> </span>peer<span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考文献"><!-- raw HTML omitted -->4<!-- raw HTML omitted --> 参考文献</h2>
+</div><h2 id="参考文献"><span class="section-num">4</span> 参考文献</h2>
 <ol>
 <li>Getting Started, <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.2/getting%5Fstarted.html">https://hyperledger-fabric.readthedocs.io/en/release-1.2/getting%5Fstarted.html</a>.</li>
 <li>Fabric Sample, <a href="https://github.com/hyperledger/fabric-samples">https://github.com/hyperledger/fabric-samples</a>.</li>
@@ -504,7 +505,10 @@ peer chaincode instantiate -n mycc -v <span class="m">0</span> -c <span class="s
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
-<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.cddea96674a99fd8cea50d36fb19d9c91f497feea4af5ce4596afd2dbaab9202.js"></script>
 
 <script id="baidu_analytics">
   var _hmt = _hmt || [];

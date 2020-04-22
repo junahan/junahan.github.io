@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>test on Junahan - Blog</title>
+    <link>/tags/test/</link>
+    <description>Recent content in test on Junahan - Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Mar 2020 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Example for latex cite</title>
+      <link>/post/example-latex-cite/</link>
+      <pubDate>Thu, 05 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/example-latex-cite/</guid>
+      <description>1 介绍 This is an example 2020arXiv200302291F. 这里是个例子 ICCCN:pongnumkul-paopbp. 定制 bib entry espinel:2015-newyork-bimpact. wang19:paxos-raft URL example grpc-io. URL 2 apache-spark. Bibliography [2020arXiv200302291F] Ford, Jovanovic &amp;amp; Syta, Que Sera Consensus: Simple Asynchronous Agreement with Private Coins and Threshold Logical Clocks, arXiv e-prints, arXiv:2003.02291 (2020). ↩ [ICCCN:pongnumkul-paopbp] Pongnumkul &amp;amp; Thajchayapong, Performance analysis of private blockchain platforms in varying workloads, 2017 26th International Conference on Computer</description>
+    </item>
+    
+  </channel>
+</rss>

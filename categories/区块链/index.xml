@@ -6,10 +6,19 @@
     <description>Recent content in 区块链 on Junahan - Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 21 Feb 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>FastFabric: 扩展 Hyperledger Fabric 性能至 20,000 TPS</title>
+      <link>/post/fast-fabric-scaling-fabric-to-20000-tps/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0800</pubDate>
+      
+      <guid>/post/fast-fabric-scaling-fabric-to-20000-tps/</guid>
+      <description>本文是论文 FastFabric: Scaling Hyperledger Fabric to 20,000 Transactions per Second by Christian Gorenflo, Stephen Lee, Lukasz Golab, S. Keshav, 2019 的中文翻译版。 区块链有望给各行各业带来深刻的影响。然而，一个让行业望而却步的问题是其吞吐量有</description>
+    </item>
     
     <item>
       <title>Fabric 2.0 新特性介绍</title>

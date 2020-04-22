@@ -17,7 +17,7 @@
       <pubDate>Tue, 12 Nov 2019 00:00:00 +0800</pubDate>
       
       <guid>/post/emacs-hugo-blog/</guid>
-      <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1安装 Hugo 1 brew</description>
+      <description>本文介绍如何使用 Emacs Org-mode + ox-hugo 撰写博客，并通过 Hugo + Netlify/Github Page 发布博客网站。 1 安装和配置 以下安装命令均为 Mac OS 命令，其他平台请参照相关工具。 1.1 安装 Hugo 1 brew install hugo</description>
     </item>
     
     <item>
